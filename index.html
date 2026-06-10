@@ -236,7 +236,7 @@ body {
 .info-item.owner .val { color: var(--leaf); font-size: 15px; }
 .info-item.full-width { grid-column: 1 / -1; }
 
-/* بطاقة وقت الأثر */
+/* وقت الأثر */
 .athar-time-card {
   background: var(--surface2);
   border-radius: 12px;
@@ -253,6 +253,38 @@ body {
 }
 .athar-time-card i { color: var(--sky); font-size: 13px; }
 .athar-time-sep { color: var(--text-muted); font-size: 13px; margin: 0 4px; }
+
+/* بطاقة السابق والقادم */
+.neighbor-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--border);
+  display: none;
+}
+.neighbor-card.visible { display: block; }
+.neighbor-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+.neighbor-row:last-child { margin-bottom: 0; }
+.neighbor-row.prev-row { background: var(--surface2); border: 1.5px solid var(--border); }
+.neighbor-row.next-row { background: linear-gradient(to left, #e8f8f0, #f0fdf4); border: 1.5px solid var(--leaf-light); }
+.neighbor-icon { width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+.prev-row .neighbor-icon { background: var(--border); color: var(--text-muted); }
+.next-row .neighbor-icon { background: var(--leaf-pale); color: var(--leaf); }
+.neighbor-info { flex:1; min-width:0; }
+.neighbor-label { font-size:10px; color:var(--text-muted); font-weight:700; margin-bottom:2px; }
+.neighbor-name { font-size:15px; font-weight:800; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.neighbor-name.no-owner { color:var(--text-muted); font-weight:600; font-size:13px; }
+.neighbor-time { font-size:11px; font-weight:700; color:var(--sky-dark); background:var(--water-pale); padding:3px 8px; border-radius:8px; white-space:nowrap; flex-shrink:0; }
+.next-row .neighbor-time { color:var(--leaf); background:var(--leaf-pale); }
 
 /* العداد */
 .timer-card {
@@ -634,98 +666,6 @@ body {
   .timer-num { font-size: 20px; }
   .dt-time { font-size: 24px; }
 }
-
-/* ===== شريط حالة Firebase ===== */
-.fb-status-bar {
-  position: fixed;
-  top: 64px; left: 0; right: 0;
-  z-index: 99;
-  display: flex; align-items: center; gap: 8px;
-  padding: 7px 16px;
-  font-size: 12px; font-weight: 700;
-  font-family: Cairo, sans-serif;
-  transition: all 0.3s ease;
-}
-.fb-status-bar.connecting { background: #fff9e6; color: #b45309; border-bottom: 1.5px solid #f4a261; }
-.fb-status-bar.ok         { background: var(--leaf-pale); color: var(--leaf); border-bottom: 1.5px solid var(--leaf-light); }
-.fb-status-bar.warn       { background: #fff9e6; color: #b45309; border-bottom: 1.5px solid #f4a261; }
-.fb-status-bar.error      { background: var(--danger-light); color: var(--danger); border-bottom: 1.5px solid var(--danger); }
-.fb-dot {
-  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-}
-.fb-dot.connecting { background: #f4a261; animation: pulse-dot 1s infinite; }
-.fb-dot.ok         { background: var(--leaf); }
-.fb-dot.warn       { background: #f4a261; }
-.fb-dot.error      { background: var(--danger); }
-@keyframes pulse-dot {
-  0%,100% { opacity:1; transform:scale(1); }
-  50%      { opacity:0.4; transform:scale(0.7); }
-}
-/* ===== بطاقة السابق والقادم ===== */
-.neighbor-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-bottom: 14px;
-  box-shadow: var(--shadow-sm);
-  border: 1.5px solid var(--border);
-  display: none;
-}
-.neighbor-card.visible { display: block; }
-.neighbor-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  margin-bottom: 8px;
-}
-.neighbor-row:last-child { margin-bottom: 0; }
-.neighbor-row.prev-row { background: var(--surface2); border: 1.5px solid var(--border); }
-.neighbor-row.next-row { background: linear-gradient(to left, #e8f8f0, #f0fdf4); border: 1.5px solid var(--leaf-light); }
-.neighbor-icon {
-  width: 34px; height: 34px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 15px; flex-shrink: 0;
-}
-.prev-row .neighbor-icon { background: var(--border); color: var(--text-muted); }
-.next-row .neighbor-icon { background: var(--leaf-pale); color: var(--leaf); }
-.neighbor-info { flex: 1; min-width: 0; }
-.neighbor-label { font-size: 10px; color: var(--text-muted); font-weight: 700; margin-bottom: 2px; }
-.neighbor-name { font-size: 15px; font-weight: 800; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.neighbor-name.no-owner { color: var(--text-muted); font-weight: 600; font-size: 13px; }
-.neighbor-time { font-size: 11px; font-weight: 700; color: var(--sky-dark); background: var(--water-pale); padding: 3px 8px; border-radius: 8px; white-space: nowrap; flex-shrink: 0; }
-.next-row .neighbor-time { color: var(--leaf); background: var(--leaf-pale); }
-
-/* ===== رسالة عدم تحميل البيانات في البحث ===== */
-.search-no-data {
-  display: none;
-  align-items: center;
-  gap: 10px;
-  background: var(--warning-light);
-  border: 1.5px solid var(--sand);
-  border-radius: 12px;
-  padding: 12px 14px;
-  margin-bottom: 12px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #92400e;
-}
-.search-no-data i { font-size: 18px; color: var(--sand); flex-shrink: 0; }
-.search-no-data .reload-btn {
-  margin-right: auto;
-  background: var(--sand);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 6px 12px;
-  font-family: Cairo, sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex; align-items: center; gap: 5px;
-}
-.search-no-data .reload-btn:active { opacity: 0.8; }
 </style>
 </head>
 <body>
@@ -738,12 +678,6 @@ body {
 </header>
 
 <!-- المحتوى الرئيسي -->
-
-<!-- شريط حالة Firebase -->
-<div id="fb-status-bar" class="fb-status-bar connecting">
-  <span id="fb-status-dot" class="fb-dot connecting"></span>
-  <span id="fb-status-txt">جارٍ التحقق من الاتصال...</span>
-</div>
 <main class="app-main">
 
   <!-- شاشة الحالة -->
@@ -779,7 +713,7 @@ body {
             <div class="lbl"><i class="fas fa-user" style="color:var(--leaf)"></i> المستفيد / المالك</div>
             <div class="val" id="ui-owner">—</div>
           </div>
-          <!-- وقت بداية ونهاية الأثر -->
+          <!-- وقت الأثر الحالي -->
           <div class="info-item full-width" id="athar-time-row" style="display:none">
             <div class="lbl"><i class="fas fa-clock" style="color:var(--sky)"></i> وقت الأثر الحالي</div>
             <div class="athar-time-card">
@@ -846,14 +780,6 @@ body {
     <div class="search-page">
       <div class="page-title"><i class="fas fa-search"></i> البحث عن موعد</div>
       <div class="search-card">
-        <!-- رسالة عدم تحميل البيانات -->
-        <div class="search-no-data" id="search-no-data-msg">
-          <i class="fas fa-exclamation-triangle"></i>
-          <span>لم تُحمَّل بيانات المستفيدين بعد</span>
-          <button class="reload-btn" onclick="reloadOwnersData()">
-            <i class="fas fa-sync-alt"></i> إعادة تحميل
-          </button>
-        </div>
         <div class="form-field">
           <label>👤 اختر المستفيد أو المالك</label>
           <select class="form-select" id="searchOwner">
@@ -1022,18 +948,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// ===== تشخيص الاتصال بـ Firebase =====
-function setFirebaseStatus(state, msg) {
-  const bar = document.getElementById("fb-status-bar");
-  const dot = document.getElementById("fb-status-dot");
-  const txt = document.getElementById("fb-status-txt");
-  if (!bar) return;
-  bar.className = "fb-status-bar " + state;
-  dot.className = "fb-dot " + state;
-  txt.textContent = msg;
-}
-
-
 // ===== البيانات الثابتة =====
 const BADAS = [
   { name: "سيف",    hours: 24, athars: 48 },
@@ -1119,70 +1033,53 @@ function getStatusAt(targetDate) {
   };
 }
 
-// ===== إيجاد المستفيد السابق والقادم =====
+// ===== تحديث شاشة الحالة =====
+// ===== المستفيد السابق والقادم =====
 function getNeighborOwners(now) {
   const atharDurMs = 30 * 60 * 1000;
   const fmtT = (ms) => new Date(ms).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit",hour12:true});
-
-  // --- المستفيد القادم ---
-  // نمشي للأمام بخطوات 30 دقيقة حتى نجد مستفيداً مختلفاً عن الحالي
   const currentState = getStatusAt(now);
   const currentOwner = (!currentState.isQaad && OWNERS[currentState.bada.name])
-    ? (OWNERS[currentState.bada.name][currentState.athar] || null)
-    : null;
+    ? (OWNERS[currentState.bada.name][currentState.athar] || null) : null;
 
-  let nextOwner = null, nextTime = null;
-  let cursor = new Date(now.getTime() + atharDurMs);
-  // نبدأ من نهاية الأثر الحالي
+  // بداية الأثر الحالي
   const remInBadaMs = currentState.isQaad ? 0 : currentState.remInBada * 3600000;
   const atharStartMs = now.getTime() - (remInBadaMs % atharDurMs);
-  cursor = new Date(atharStartMs + atharDurMs);
 
+  // القادم: نمشي للأمام حتى نجد اسماً مختلفاً
+  let nextOwner = null, nextTime = null;
+  let cursor = new Date(atharStartMs + atharDurMs);
   for (let i = 0; i < 200; i++) {
     const st = getStatusAt(cursor);
     if (!st.isQaad) {
       const ow = OWNERS[st.bada.name] ? (OWNERS[st.bada.name][st.athar] || null) : null;
-      if (ow !== currentOwner) {
-        nextOwner = ow;
-        nextTime = cursor.getTime();
-        break;
-      }
+      if (ow !== currentOwner) { nextOwner = ow; nextTime = cursor.getTime(); break; }
     }
     cursor = new Date(cursor.getTime() + atharDurMs);
   }
 
-  // --- المستفيد السابق ---
-  // نمشي للخلف بخطوات 30 دقيقة من بداية الأثر الحالي
+  // السابق: نمشي للخلف حتى نجد اسماً مختلفاً
   let prevOwner = null, prevEndTime = null;
-  let backCursor = new Date(atharStartMs - atharDurMs);
-
+  let back = new Date(atharStartMs - atharDurMs);
   for (let i = 0; i < 200; i++) {
-    const st = getStatusAt(backCursor);
+    const st = getStatusAt(back);
     if (!st.isQaad) {
       const ow = OWNERS[st.bada.name] ? (OWNERS[st.bada.name][st.athar] || null) : null;
-      if (ow !== currentOwner) {
-        prevOwner = ow;
-        // نجد نهاية حصته = آخر أثر متتالي له قبل الحالي
-        prevEndTime = backCursor.getTime() + atharDurMs;
-        break;
-      }
+      if (ow !== currentOwner) { prevOwner = ow; prevEndTime = back.getTime() + atharDurMs; break; }
     }
-    backCursor = new Date(backCursor.getTime() - atharDurMs);
+    back = new Date(back.getTime() - atharDurMs);
   }
 
   return { prevOwner, prevEndTime, nextOwner, nextTime };
 }
 
-// ===== تحديث الساعة فقط (كل ثانية) =====
+// ===== تحديث الساعة كل ثانية =====
 function updateClock() {
   const now = new Date();
-  // الوقت بصيغة 12 ساعة
   document.getElementById("ui-clock").textContent = now.toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});
-  // التاريخ الهجري
   document.getElementById("ui-hijri").textContent = now.toLocaleDateString("ar-SA-u-ca-islamic",{year:"numeric",month:"long",day:"numeric"});
 }
 
-// ===== تحديث شاشة الحالة =====
 function updateStatusCard() {
   const now = new Date();
   const days = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
@@ -1203,6 +1100,7 @@ function updateStatusCard() {
     document.getElementById("timer-m").textContent = "—";
     document.getElementById("progress-mini").style.display = "none";
     document.getElementById("athar-time-row").style.display = "none";
+    document.getElementById("neighbor-card").classList.remove("visible");
   } else {
     badge.className = "status-badge active-flow";
     badge.innerHTML = '<i class="fas fa-water"></i> <span>💧 الدوران جارٍ</span>';
@@ -1210,11 +1108,9 @@ function updateStatusCard() {
     document.getElementById("ui-athar").textContent = "الأثر " + s.athar + " / " + s.bada.athars;
     const ownerName = OWNERS[s.bada.name] && OWNERS[s.bada.name][s.athar] ? OWNERS[s.bada.name][s.athar] : "—";
     document.getElementById("ui-owner").textContent = ownerName;
-    
-    // حساب وقت بداية ونهاية الأثر الحالي
-    const atharDurMs = 30 * 60 * 1000; // 30 دقيقة بالميلي ثانية
-    const atharIndex = s.athar - 1; // صفري
-    // بداية الأثر = بداية البادة + (رقم الأثر - 1) * 30 دقيقة
+
+    // وقت بداية ونهاية الأثر الحالي
+    const atharDurMs = 30 * 60 * 1000;
     const remInBadaMs = s.remInBada * 3600000;
     const atharStartMs = now.getTime() - (remInBadaMs % atharDurMs);
     const atharEndMs = atharStartMs + atharDurMs;
@@ -1236,41 +1132,31 @@ function updateStatusCard() {
     document.getElementById("progress-pct").textContent = s.progressPct + "%";
     document.getElementById("progress-fill").style.width = s.progressPct + "%";
 
-    // ===== السابق والقادم =====
+    // السابق والقادم
     const nb = getNeighborOwners(now);
-    const fmtT2 = (ms) => new Date(ms).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit",hour12:true});
+    const fmtN = (ms) => new Date(ms).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit",hour12:true});
     const neighborCard = document.getElementById("neighbor-card");
     neighborCard.classList.add("visible");
-
-    // السابق
     const prevEl = document.getElementById("ui-prev-owner");
     if (nb.prevOwner) {
       prevEl.textContent = nb.prevOwner;
       prevEl.className = "neighbor-name";
-      document.getElementById("ui-prev-time").textContent = "انتهى " + fmtT2(nb.prevEndTime);
+      document.getElementById("ui-prev-time").textContent = "انتهى " + fmtN(nb.prevEndTime);
     } else {
       prevEl.textContent = "غير مسجل";
       prevEl.className = "neighbor-name no-owner";
       document.getElementById("ui-prev-time").textContent = "";
     }
-
-    // القادم
     const nextEl = document.getElementById("ui-next-owner");
     if (nb.nextOwner) {
       nextEl.textContent = nb.nextOwner;
       nextEl.className = "neighbor-name";
-      document.getElementById("ui-next-time").textContent = "يبدأ " + fmtT2(nb.nextTime);
+      document.getElementById("ui-next-time").textContent = "يبدأ " + fmtN(nb.nextTime);
     } else {
       nextEl.textContent = "غير مسجل";
       nextEl.className = "neighbor-name no-owner";
-      document.getElementById("ui-next-time").textContent = nb.nextTime ? "يبدأ " + fmtT2(nb.nextTime) : "";
+      document.getElementById("ui-next-time").textContent = "";
     }
-  }  // نهاية else (الدوران جارٍ)
-
-  // إخفاء بطاقة السابق/القادم عند القعد
-  if (s.isQaad) {
-    const neighborCard = document.getElementById("neighbor-card");
-    if (neighborCard) neighborCard.classList.remove("visible");
   }
 }
 
@@ -1281,16 +1167,17 @@ function searchOwnerSchedule(ownerName, days) {
   const limit = new Date();
   limit.setDate(limit.getDate() + days);
   limit.setHours(23, 59, 59);
-
-  // نبدأ من بداية الدقيقة الحالية
+  
+  // نبدأ من بداية نصف الساعة الحالي
   let cursor = new Date(now);
-  cursor.setSeconds(0, 0);
+  const startMin = now.getMinutes() < 30 ? 0 : 30;
+  cursor.setMinutes(startMin, 0, 0);
 
   while (cursor <= limit) {
     const state = getStatusAt(cursor);
     const cursorTime = cursor.getTime();
 
-    // تجاوز وقت القعد بسرعة (قفز 30 دقيقة)
+    // تجاوز وقت القعد
     if (state.isQaad) {
       cursor.setMinutes(cursor.getMinutes() + 30);
       continue;
@@ -1301,10 +1188,8 @@ function searchOwnerSchedule(ownerName, days) {
 
     if (owner === ownerName) {
       const last = results[results.length - 1];
-      // دمج الآثار المتتالية في نفس البادة
-      // نتجاهل فجوات القعد بين الآثار — نتحقق فقط من تسلسل رقم الأثر
-      if (last && last.bada === state.bada.name &&
-          last.endAthar === state.athar - 1) {
+      // دمج الآثار المتتالية — يعتمد على رقم الأثر فقط (يتجاهل فجوات القعد)
+      if (last && last.bada === state.bada.name && last.endAthar === state.athar - 1) {
         last.endAthar = state.athar;
         last.endTime = new Date(cursorTime + 1800000);
         last._lastCursor = cursorTime;
@@ -1352,13 +1237,8 @@ function renderSearchResults(results, ownerName) {
 
 function buildResultCard(r, isToday) {
   const fmtTime = (d) => d.toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit",hour12:true});
-  const fmtDate = (d) => d.toLocaleDateString("ar-EG",{weekday:"short",day:"numeric",month:"numeric"});
   const endDisplay = new Date(r.endTime.getTime() - 60000);
   const atharTxt = r.startAthar === r.endAthar ? `الأثر ${r.startAthar}` : `الآثار ${r.startAthar} – ${r.endAthar}`;
-  // هل يقع الموعد في يوم مختلف عن بداية الموعد؟ (يعني يمتد عبر القعد)
-  const startDay = r.startTime.toDateString();
-  const endDay = endDisplay.toDateString();
-  const spansDays = startDay !== endDay;
   return `
     <div class="result-card ${isToday ? 'today' : ''}">
       <div class="rc-top">
@@ -1368,7 +1248,7 @@ function buildResultCard(r, isToday) {
         </div>
       </div>
       <div class="rc-date"><i class="fas fa-calendar" style="color:var(--sky)"></i> ${r.dateStr}</div>
-      <div class="rc-time"><i class="fas fa-clock" style="color:var(--sky)"></i> ${fmtTime(r.startTime)} ← ${spansDays ? fmtDate(endDisplay)+' ' : ''}${fmtTime(endDisplay)}</div>
+      <div class="rc-time"><i class="fas fa-clock" style="color:var(--sky)"></i> ${fmtTime(r.startTime)} ← ${fmtTime(endDisplay)}</div>
       <div class="rc-athar"><i class="fas fa-hashtag" style="color:#9b2335"></i> ${atharTxt}</div>
     </div>`;
 }
@@ -1405,7 +1285,7 @@ function renderCalendar() {
       
       const label = isCurrentQaad ? "⚠️ قعد الفلج" : "💧 بادة " + currentBadaName;
       const isCurrent = now >= startRange && now < endRange;
-      const fmtOpts = {day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit',hour12:true};
+      const fmtOpts = {day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'};
       const startStr = startRange.toLocaleString("ar-EG", fmtOpts);
       const endStr = new Date(endRange.getTime() - 60000).toLocaleString("ar-EG", fmtOpts);
       
@@ -1473,25 +1353,6 @@ function updateCurrentOwnerDisplay() {
   }
 }
 
-// ===== إعادة تحميل بيانات المستفيدين يدوياً =====
-function reloadOwnersData() {
-  const btn = document.querySelector(".reload-btn");
-  if (btn) { btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جارٍ...'; btn.disabled = true; }
-
-  db.collection("owners").get()
-    .then(snap => {
-      OWNERS = {};
-      snap.forEach(doc => { OWNERS[doc.id] = doc.data(); });
-      buildSearchOwners();
-      updateStatusCard();
-      showToast("✅ تم تحميل البيانات");
-    })
-    .catch(err => {
-      showToast("❌ فشل التحميل: " + err.code, true);
-      if (btn) { btn.innerHTML = '<i class="fas fa-sync-alt"></i> إعادة تحميل'; btn.disabled = false; }
-    });
-}
-
 // ===== Toast =====
 function showToast(msg, isError = false) {
   const container = document.getElementById("toast-container");
@@ -1516,27 +1377,23 @@ function buildSearchOwners() {
 // ===== الحدث الرئيسي =====
 window.onload = () => {
   // Firebase Listeners
-  db.collection("settings").doc("auth").onSnapshot(
-    doc => { if (doc.exists) currentCloudPass = doc.data().pass; },
-    err => setFirebaseStatus("error", "❌ خطأ في قراءة الإعدادات: " + err.code)
-  );
+  db.collection("settings").doc("auth").onSnapshot(doc => {
+    if (doc.exists) currentCloudPass = doc.data().pass;
+  });
   
-  db.collection("owners").onSnapshot(
-    snap => {
-      OWNERS = {};
-      snap.forEach(doc => { OWNERS[doc.id] = doc.data(); });
-      updateStatusCard();
-      buildSearchOwners();
-      if (selectedAdminBada) selectAdminBada(selectedAdminBada);
-    },
-    err => setFirebaseStatus("error", "❌ خطأ في قراءة البيانات: " + err.code)
-  );
+  db.collection("owners").onSnapshot(snap => {
+    OWNERS = {};
+    snap.forEach(doc => { OWNERS[doc.id] = doc.data(); });
+    updateStatusCard();
+    buildSearchOwners();
+    // تحديث شبكة الآثار إن كانت بادة مختارة
+    if (selectedAdminBada) selectAdminBada(selectedAdminBada);
+  });
   
-  // تحديث الساعة كل ثانية
+  // التحديث الدوري للحالة
+  updateStatusCard();
   updateClock();
   setInterval(updateClock, 1000);
-  
-  // التحديث الدوري للحالة (الأثر، المالك، العداد) كل 30 ثانية
   setInterval(updateStatusCard, 30000);
   
   // تهيئة الإدارة
