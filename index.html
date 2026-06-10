@@ -149,9 +149,9 @@ body {
 .datetime-card {
   background: linear-gradient(135deg, var(--sky-dark), var(--sky), var(--water));
   border-radius: var(--radius-lg);
-  padding: 18px 20px;
+  padding: 10px 16px;
   color: white;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   box-shadow: var(--shadow-lg);
   position: relative;
   overflow: hidden;
@@ -160,7 +160,7 @@ body {
   content: "";
   position: absolute;
   top: -30px; right: -30px;
-  width: 120px; height: 120px;
+  width: 80px; height: 80px;
   background: rgba(255,255,255,0.07);
   border-radius: 50%;
 }
@@ -168,18 +168,18 @@ body {
   content: "";
   position: absolute;
   bottom: -20px; left: -20px;
-  width: 80px; height: 80px;
+  width: 60px; height: 60px;
   background: rgba(255,255,255,0.05);
   border-radius: 50%;
 }
 .datetime-top {
   display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 2px;
 }
-.dt-day { font-size: 22px; font-weight: 800; }
-.dt-date { font-size: 13px; opacity: 0.85; font-weight: 600; }
-.dt-time { font-size: 28px; font-weight: 800; letter-spacing: 1px; text-align: center; margin-top: 4px; }
-.dt-hijri { font-size: 12px; opacity: 0.75; text-align: center; margin-top: 2px; }
+.dt-day { font-size: 15px; font-weight: 800; }
+.dt-date { font-size: 11px; opacity: 0.85; font-weight: 600; }
+.dt-time { font-size: 20px; font-weight: 800; letter-spacing: 1px; text-align: center; margin-top: 2px; }
+.dt-hijri { font-size: 10px; opacity: 0.75; text-align: center; margin-top: 1px; }
 
 /* بطاقة الحالة الرئيسية */
 .main-status-card {
@@ -664,7 +664,7 @@ body {
 @media (max-width: 360px) {
   .athar-grid { grid-template-columns: repeat(5, 1fr); }
   .timer-num { font-size: 20px; }
-  .dt-time { font-size: 24px; }
+  .dt-time { font-size: 18px; }
 }
 </style>
 </head>
@@ -873,6 +873,19 @@ body {
           <button class="btn-warning" id="updatePassBtn"><i class="fas fa-sync-alt"></i> تحديث رمز الدخول</button>
         </div>
 
+        <!-- بداية الدورة -->
+        <div class="admin-section-title"><i class="fas fa-calendar-plus"></i> تحديد بداية دورة جديدة</div>
+        <div class="admin-card">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
+            البداية الحالية للدورة: <strong id="current-ref-display">—</strong>
+          </div>
+          <div class="form-field">
+            <label>📅 تاريخ ووقت بداية الدورة الجديدة</label>
+            <input class="form-input" type="datetime-local" id="new-reference-input">
+          </div>
+          <button class="btn-success" id="saveReferenceBtn"><i class="fas fa-play-circle"></i> تفعيل بداية الدورة الجديدة</button>
+        </div>
+
         <!-- خروج -->
         <button class="btn-danger" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج من الإدارة</button>
         <div style="height:16px;"></div>
@@ -967,7 +980,8 @@ const BADAS = [
   { name: "الزايده",hours: 24, athars: 48 },
   { name: "القلبة", hours: 6,  athars: 12 }
 ];
-const REFERENCE_START = new Date("2026-04-22T18:00:00");
+const DEFAULT_REFERENCE = new Date("2026-04-22T18:00:00");
+let REFERENCE_START = new Date("2026-04-22T18:00:00");
 const TOTAL_CYCLE_HOURS = BADAS.reduce((s, b) => s + b.hours, 0);
 
 let currentCloudPass = "1234";
@@ -1353,6 +1367,16 @@ function updateCurrentOwnerDisplay() {
   }
 }
 
+// ===== بداية الدورة =====
+function updateRefDisplay() {
+  const el = document.getElementById("current-ref-display");
+  if (!el) return;
+  el.textContent = REFERENCE_START.toLocaleString("ar-EG", {
+    weekday:"long", year:"numeric", month:"long", day:"numeric",
+    hour:"2-digit", minute:"2-digit", hour12:true
+  });
+}
+
 // ===== Toast =====
 function showToast(msg, isError = false) {
   const container = document.getElementById("toast-container");
@@ -1378,7 +1402,17 @@ function buildSearchOwners() {
 window.onload = () => {
   // Firebase Listeners
   db.collection("settings").doc("auth").onSnapshot(doc => {
-    if (doc.exists) currentCloudPass = doc.data().pass;
+    if (doc.exists) {
+      currentCloudPass = doc.data().pass;
+      // قراءة بداية الدورة إن وُجدت
+      if (doc.data().referenceStart) {
+        REFERENCE_START = new Date(doc.data().referenceStart);
+      } else {
+        REFERENCE_START = new Date(DEFAULT_REFERENCE);
+      }
+      updateRefDisplay();
+      updateStatusCard();
+    }
   });
   
   db.collection("owners").onSnapshot(snap => {
@@ -1398,6 +1432,21 @@ window.onload = () => {
   
   // تهيئة الإدارة
   renderAdminBadas();
+
+  // زر حفظ بداية الدورة
+  document.getElementById("saveReferenceBtn").onclick = () => {
+    const val = document.getElementById("new-reference-input").value;
+    if (!val) { showToast("يرجى تحديد التاريخ والوقت", true); return; }
+    const newRef = new Date(val);
+    if (isNaN(newRef.getTime())) { showToast("تاريخ غير صحيح", true); return; }
+    db.collection("settings").doc("auth").set(
+      { referenceStart: newRef.toISOString() },
+      { merge: true }
+    ).then(() => {
+      showToast("✅ تم تفعيل بداية الدورة الجديدة");
+      document.getElementById("new-reference-input").value = "";
+    }).catch(err => showToast("❌ فشل الحفظ: " + err.message, true));
+  };
   
   // ===== أحداث التنقل =====
   document.querySelectorAll(".nav-btn").forEach(btn => {
