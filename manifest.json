@@ -1,21 +1,18 @@
 {
+  "id": "./",
   "name": "فلج بطين - دوران البود",
-  "short_name": "بود فلج بطين",
+  "short_name": "فلج بطين",
+  "description": "متابعة دوران البود والآثار لفلج بطين",
+  "lang": "ar",
+  "dir": "rtl",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#2E86AB",
-  "theme_color": "#2E86AB",
+  "background_color": "#1a5f7a",
+  "theme_color": "#1a5f7a",
   "orientation": "portrait",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
   ]
 }
