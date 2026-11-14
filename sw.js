@@ -1,5 +1,5 @@
 // عند نشر نسخة جديدة: غيّر رقم الإصدار هنا ليظهر للمستخدمين شريط "يوجد تحديث جديد"
-const VERSION = "2.1.0";
+const VERSION = "2.2.0";
 const CACHE = "falaj-batin-" + VERSION;
 const RUNTIME = "falaj-batin-runtime";
 
