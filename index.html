@@ -7,8 +7,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="فلج بطين">
-<title>فلج بطين - دوران البود</title>
+<meta name="apple-mobile-web-app-title" content="أفلاج بطين">
+<title>أفلاج بطين - دوران البود</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -260,7 +260,7 @@ textarea.input{min-height:140px;resize:vertical;line-height:1.8}
 <!-- ===== شاشة رمز الدخول ===== -->
 <div id="gate" class="gate">
   <img src="icon-512.png" class="gate-logo" alt="">
-  <h1>فلج بطين</h1>
+  <h1>أفلاج بطين</h1>
   <div class="sub">دوران البود</div>
   <div id="gateLoading" class="gate-spinner"></div>
   <div id="gateForm" class="gate-box hidden">
@@ -269,7 +269,7 @@ textarea.input{min-height:140px;resize:vertical;line-height:1.8}
     <button class="btn-gold" id="gateBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
     <div class="gate-msg" id="gateMsg"></div>
     <div class="gate-hint" style="margin-bottom:8px">لا تعرف الرمز؟</div>
-    <button class="btn-req" id="gateReq"><i class="fab fa-whatsapp"></i> اطلب الرمز من وكيل الفلج</button>
+    <button class="btn-req" id="gateReq"><i class="fab fa-whatsapp"></i> اطلب الرمز من وكيل الأفلاج</button>
   </div>
   <button class="link-btn hidden" id="gateAdmin">دخول المشرف</button>
 </div>
@@ -280,7 +280,7 @@ textarea.input{min-height:140px;resize:vertical;line-height:1.8}
     <button class="hdr-btn right" id="infoBtn" aria-label="عن التطبيق"><i class="fas fa-info"></i></button>
     <button class="hdr-btn left" id="adminBtn" aria-label="الإدارة"><i class="fas fa-cog"></i></button>
     <img src="icon-192.png" class="hdr-logo" alt="">
-    <div class="hdr-title">فلج بطين</div>
+    <div class="hdr-title">أفلاج بطين</div>
     <div class="hdr-sub">دوران البود</div>
     <div class="hdr-chip"><span id="hdrDate">—</span><span class="clock" id="hdrClock">—</span></div>
   </header>
@@ -366,7 +366,7 @@ textarea.input{min-height:140px;resize:vertical;line-height:1.8}
     <section id="sec-about" class="section">
       <div class="card" style="text-align:center">
         <img src="icon-192.png" alt="" style="width:84px;height:84px;border-radius:50%;box-shadow:var(--shadow)">
-        <div style="font-size:20px;font-weight:800;margin-top:6px">فلج بطين</div>
+        <div style="font-size:20px;font-weight:800;margin-top:6px">أفلاج بطين</div>
         <div class="card-sub" style="margin:0">دوران البود</div>
       </div>
       <div class="card">
@@ -384,7 +384,7 @@ textarea.input{min-height:140px;resize:vertical;line-height:1.8}
         <div class="info-line"><i class="fas fa-circle" style="font-size:7px"></i> من الخميس ٦ مساءً إلى الجمعة ٦ مساءً</div>
       </div>
       <div class="card">
-        <div class="card-title"><i class="fas fa-list-ol"></i> ترتيب البادات</div>
+        <div class="card-title"><i class="fas fa-list-ol"></i> ترتيب البود</div>
         <div class="card-sub" style="margin:4px 0 6px">مع بداية كل بادة في الدورة الحالية</div>
         <div id="aboutOrder"></div>
       </div>
@@ -404,10 +404,10 @@ textarea.input{min-height:140px;resize:vertical;line-height:1.8}
       <div class="card">
         <div class="card-title"><i class="far fa-bell"></i> متى تتواصل مع الوكيل؟</div>
         <ul class="bullets" style="margin-top:10px">
-          <li>عند تغيّر صاحب حصة، أو انتقالها بالبيع أو الإيجار أو الإرث.</li>
-          <li>عند ملاحظة خطأ في اسم أو وقت في الجدول.</li>
-          <li>إذا لم تحتج الماء في حصتك وأردت عرضها.</li>
-          <li>عند انقطاع الماء أو انخفاضه، أو حاجة الفلج للصيانة.</li>
+          <li>عند تغيّر المالك للآثار والربوع بالبيع أو الإرث أو الإيجار.</li>
+          <li>عند ملاحظة خطأ في الإسم أو الوقت أو الآثار في البود.</li>
+          <li>إذا لم تحتج الماء في حصتك وأردت عرضها للبيع أو الإيجار.</li>
+          <li>إذا كان لديك اي مقترحات يمكن إضافته لتحسين التطبيق.</li>
         </ul>
       </div>
       <div class="card">
@@ -430,7 +430,7 @@ textarea.input{min-height:140px;resize:vertical;line-height:1.8}
         <div class="admin-title"><i class="fas fa-users"></i> أسماء المستفيدين</div>
         <div class="note">اختر البادة، ثم اضغط على أثر أو أكثر لتحديدها، واكتب الاسم واحفظ. يمكنك تحديد مدى كامل مرة واحدة.</div>
         <div class="hscroll" id="admBadas"></div>
-        <div class="athar-grid" id="admGrid"><p class="note" style="grid-column:1/-1;margin:0">اختر بادة أولاً</p></div>
+        <div class="athar-grid" id="admGrid"><p class="note" style="grid-column:1/-1;margin:0">اختر البادة أولاً</p></div>
         <div class="range-row">
           <span>من أثر</span><input class="input" type="number" min="1" id="admFrom">
           <span>إلى</span><input class="input" type="number" min="1" id="admTo">
@@ -591,7 +591,7 @@ textarea.input{min-height:140px;resize:vertical;line-height:1.8}
     <div class="sheet-handle"></div>
     <div style="text-align:center;margin-bottom:12px">
       <img src="icon-192.png" alt="" style="width:72px;height:72px;border-radius:18px;box-shadow:var(--shadow)">
-      <div style="font-size:19px;font-weight:800;margin-top:6px">دوران بود فلج بطين</div>
+      <div style="font-size:19px;font-weight:800;margin-top:6px">دوران بود أفلاج بطين</div>
       <div style="font-size:12px;color:var(--muted);font-weight:600">الإصدار 2.2</div>
     </div>
     <div class="modal-text">تطبيق دوران البود لفلج بطين يسهّل متابعة توزيع مياه الفلج ومعرفة أوقات البود والآثار.</div>
@@ -917,7 +917,7 @@ function renderNextBadas(k) {
     tiles += `<div class="bada-tile"><i class="fas fa-${day ? "sun" : "moon"}"></i><b>${esc(b.name)}</b><span>${fDayShort.format(st)}</span><span>${fTime.format(st)}</span></div>`;
     ks = b.k2 + 1;
   }
-  $("nextBadasCard").innerHTML = `<div class="card-title" style="margin-bottom:10px"><i class="fas fa-forward"></i> البادات القادمة</div><div class="hscroll">${tiles}</div>`;
+  $("nextBadasCard").innerHTML = `<div class="card-title" style="margin-bottom:10px"><i class="fas fa-forward"></i> البود القادمة</div><div class="hscroll">${tiles}</div>`;
 }
 function renderHome() {
   const now = Date.now(), k = slotIndexAt(now);
@@ -978,8 +978,8 @@ $("schedChips").onclick = e => {
   document.querySelectorAll("#schedChips .chip").forEach(x => x.classList.toggle("on", x === c));
   renderSched();
 };
-$("schedWa").onclick = () => { const { name, turns } = schedTurns(); shareWa(turnsText(`💧 مواعيد ${name} — فلج بطين`, turns, false)); };
-$("schedCopy").onclick = () => { const { name, turns } = schedTurns(); copyText(turnsText(`💧 مواعيد ${name} — فلج بطين`, turns, false)); };
+$("schedWa").onclick = () => { const { name, turns } = schedTurns(); shareWa(turnsText(`💧 مواعيد ${name} — أفلاج بطين`, turns, false)); };
+$("schedCopy").onclick = () => { const { name, turns } = schedTurns(); copyText(turnsText(`💧 مواعيد ${name} — أفلاج بطين`, turns, false)); };
 
 // ================== الجدول ==================
 let tblRange = "today";
@@ -1046,7 +1046,7 @@ $("tblPdf").onclick = () => {
     if (key !== last) { last = key; rows += `<tr class="dayrow"><td colspan="4">${fDay.format(t.start)}</td></tr>`; }
     rows += `<tr><td>${fTime.format(t.start)} – ${endText(t)}</td><td>${esc(t.bada)}</td><td>${athText(t)}</td><td>${esc(t.owner || "غير مسجل")}${t.hasQaad ? " (يتخللها قعد)" : ""}</td></tr>`;
   });
-  $("print-area").innerHTML = `<h2>جدول البود — فلج بطين</h2><p>${esc(d.label)}${d.name ? " — " + esc(d.name) : ""}</p>
+  $("print-area").innerHTML = `<h2>جدول البود — أفلاج بطين</h2><p>${esc(d.label)}${d.name ? " — " + esc(d.name) : ""}</p>
     <table dir="rtl"><thead><tr><th>الوقت</th><th>البادة</th><th>الآثار</th><th>الاسم</th></tr></thead><tbody>${rows}</tbody></table>`;
   setTimeout(() => window.print(), 50);
 };
@@ -1199,7 +1199,7 @@ $("gateReq").onclick = async () => {
 $("reqSend").onclick = () => {
   const name = $("reqName").value.trim().replace(/\s+/g, " "), rel = $("reqRel").value.trim();
   if (!name) return toast("اكتب اسمك", true);
-  const msg = `السلام عليكم ورحمة الله\nأرجو تزويدي برمز الدخول لتطبيق دوران البود - فلج بطين.\nالاسم: ${name}` + (rel ? `\nصلتي بالفلج: ${rel}` : "") + `\n\nوشكراً لكم`;
+  const msg = `السلام عليكم ورحمة الله\nأرجو تزويدي برمز الدخول لتطبيق دوران البود - أفلاج بطين.\nالاسم: ${name}` + (rel ? `\nصلتي بالفلج: ${rel}` : "") + `\n\nوشكراً لكم`;
   window.open(`https://wa.me/${reqPhone}?text=${encodeURIComponent(msg)}`, "_blank");
   closeSheets();
 };
@@ -1388,7 +1388,7 @@ function renderAbout() {
   const flowHours = BADAS.reduce((s, b) => s + b.hours, 0);
   const cycleDays = Math.round(flowHours / (FLOW_WEEK / H) * 7);
   $("aboutStats").innerHTML = [
-    ["fa-water", num(BADAS.length), "عدد البادات"],
+    ["fa-water", num(BADAS.length), "عدد البود"],
     ["fa-hashtag", num(CYCLE), "عدد الآثار في الدورة"],
     ["fa-hourglass-half", num(30) + " دقيقة", "مدة الأثر"],
     ["fa-users", num(allNames().length), "عدد المستفيدين"]
