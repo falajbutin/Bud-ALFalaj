@@ -1,967 +1,607 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="theme-color" content="#2E86AB">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>فلج بطين</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a5f7a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="فلج بطين">
+<title>فلج بطين - دوران البود</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
-
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <style>
-/* ===== نظام الألوان والمتغيرات ===== */
-:root {
-  --sky: #2E86AB;
-  --sky-light: #54b4d3;
-  --sky-dark: #1a5f7a;
-  --water: #00b4d8;
-  --water-light: #90e0ef;
-  --water-pale: #caf0f8;
-  --sand: #f4a261;
-  --sand-light: #fde8d4;
-  --leaf: #2d6a4f;
-  --leaf-light: #52b788;
-  --leaf-pale: #d8f3dc;
-  --white: #ffffff;
-  --bg: #f0f7fa;
-  --surface: #ffffff;
-  --surface2: #f5fbfe;
-  --border: #e0eff5;
-  --text: #1a3a4a;
-  --text-muted: #6b8fa0;
-  --danger: #e63946;
-  --danger-light: #fde8ea;
-  --warning: #f4a261;
-  --warning-light: #fef3e8;
-  --success: #2d6a4f;
-  --success-light: #d8f3dc;
-  --shadow-sm: 0 2px 8px rgba(46,134,171,0.10);
-  --shadow-md: 0 4px 20px rgba(46,134,171,0.14);
-  --shadow-lg: 0 8px 32px rgba(46,134,171,0.18);
-  --radius: 18px;
-  --radius-sm: 10px;
-  --radius-lg: 24px;
+:root{
+  --sky:#2E86AB; --sky-light:#54b4d3; --sky-dark:#1a5f7a; --deep:#0f4c63; --water:#00b4d8; --water-pale:#caf0f8;
+  --sand:#f4a261; --sand-pale:#fdf0e3; --gold:#e9c46a; --leaf:#2d6a4f; --leaf-light:#52b788; --leaf-pale:#d8f3dc;
+  --bg:#eef6f9; --surface:#fff; --surface2:#f5fbfe; --border:#dcecf2; --text:#163847; --muted:#6b8fa0;
+  --danger:#e63946; --danger-pale:#fde8ea; --radius:18px;
+  --shadow:0 4px 18px rgba(26,95,122,.10); --shadow-lg:0 10px 30px rgba(26,95,122,.20);
 }
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg)}
+body{font-family:'Cairo',system-ui,sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden}
+button,input,select{font-family:inherit}
+.hidden{display:none!important}
 
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+/* ===== شاشة رمز الدخول ===== */
+.gate{position:fixed;inset:0;z-index:300;background:linear-gradient(160deg,var(--deep),var(--sky-dark) 45%,var(--sky) 80%,var(--water));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;color:#fff;text-align:center;overflow-y:auto}
+.gate-logo{width:112px;height:112px;border-radius:50%;border:4px solid rgba(255,255,255,.35);box-shadow:0 0 0 12px rgba(255,255,255,.07),0 0 0 26px rgba(255,255,255,.04);object-fit:cover;margin-bottom:24px;background:#fff}
+.gate h1{font-size:28px;font-weight:800;line-height:1.3}
+.gate .sub{opacity:.85;font-size:13px;font-weight:600;margin:2px 0 22px}
+.gate-box{width:100%;max-width:340px}
+.gate-box p{font-size:13px;opacity:.9;margin-bottom:12px;font-weight:600}
+.gate input{width:100%;padding:14px;border-radius:14px;border:2px solid rgba(255,255,255,.45);background:rgba(255,255,255,.12);color:#fff;font-size:18px;font-weight:700;text-align:center;letter-spacing:3px;outline:none}
+.gate input::placeholder{color:rgba(255,255,255,.65);letter-spacing:0;font-size:14px;font-weight:600}
+.gate input:focus{border-color:var(--gold);background:rgba(255,255,255,.18)}
+.btn-gold{width:100%;margin-top:12px;padding:13px;border:none;border-radius:14px;background:var(--gold);color:var(--deep);font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-gold:disabled{opacity:.6}
+.gate-msg{min-height:22px;margin-top:10px;font-size:13px;font-weight:700;color:#ffe0e3}
+.gate-hint{font-size:12px;opacity:.75;font-weight:600}
+.link-btn{background:none;border:none;color:#fff;opacity:.75;font-size:12px;font-weight:700;text-decoration:underline;margin-top:28px;cursor:pointer}
+.gate-spinner{width:34px;height:34px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-body {
-  font-family: 'Cairo', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+/* ===== الرأس ===== */
+.app-header{background:linear-gradient(160deg,var(--deep),var(--sky-dark) 55%,var(--sky));color:#fff;text-align:center;padding:calc(14px + env(safe-area-inset-top)) 16px 48px;position:relative}
+.hdr-btn{position:absolute;top:calc(14px + env(safe-area-inset-top));width:40px;height:40px;border-radius:12px;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.hdr-btn.right{right:16px}.hdr-btn.left{left:16px}
+.hdr-btn.admin-on{background:var(--gold);color:var(--deep);border-color:var(--gold)}
+.hdr-logo{width:60px;height:60px;border-radius:50%;border:3px solid rgba(255,255,255,.5);object-fit:cover;background:#fff}
+.hdr-title{font-size:21px;font-weight:800;margin-top:4px;line-height:1.3}
+.hdr-sub{font-size:12px;opacity:.8;font-weight:600}
+.hdr-chip{display:inline-flex;gap:10px;align-items:center;margin-top:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700}
+.hdr-chip .clock{color:var(--gold);font-weight:800}
+.app-main{margin-top:-34px;padding:0 14px calc(92px + env(safe-area-inset-bottom));position:relative;max-width:640px;margin-left:auto;margin-right:auto}
 
-/* ===== شريط العنوان ===== */
-.app-header {
-  background: linear-gradient(135deg, var(--sky-dark) 0%, var(--sky) 50%, var(--water) 100%);
-  padding: 0 16px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  box-shadow: 0 4px 20px rgba(46,134,171,0.35);
-}
-.header-logo {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  border: 2px solid rgba(255,255,255,0.4);
-  object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-.header-title {
-  flex: 1;
-  text-align: center;
-  font-size: 17px;
-  font-weight: 800;
-  color: white;
-  letter-spacing: 0.3px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-.header-info-btn {
-  width: 42px; height: 42px;
-  background: rgba(255,255,255,0.15);
-  border: 1.5px solid rgba(255,255,255,0.35);
-  border-radius: 12px;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(4px);
-}
-.header-info-btn:active { transform: scale(0.93); background: rgba(255,255,255,0.25); }
+/* ===== البطاقات ===== */
+.card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);padding:16px;margin-bottom:14px}
+.card-title{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;color:var(--sky-dark);margin-bottom:2px}
+.card-title i{color:var(--sky)}
+.card-sub{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:12px;line-height:1.7}
+.row-between{display:flex;align-items:center;justify-content:space-between;gap:8px}
 
-/* ===== المحتوى الرئيسي ===== */
-.app-main {
-  padding: 74px 0 80px;
-  min-height: 100vh;
-}
-.section { display: none; animation: fadeSlide 0.3s ease; }
-.section.active { display: block; }
-@keyframes fadeSlide {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* الماء الآن */
+.now-card{background:linear-gradient(150deg,var(--sky-dark),var(--sky) 60%,#1f9bbf);color:#fff;border:none;box-shadow:var(--shadow-lg)}
+.now-card.qaad{background:linear-gradient(150deg,#a24a28,#e76f51 55%,var(--sand))}
+.now-top{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);white-space:nowrap}
+.now-name{font-size:22px;font-weight:800;line-height:1.4;margin-bottom:10px}
+.now-name.muted{opacity:.75;font-size:18px}
+.now-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.now-remain{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:6px}
+.bar{height:8px;border-radius:8px;background:rgba(255,255,255,.25);overflow:hidden}
+.bar>div{height:100%;background:var(--gold);border-radius:8px;transition:width .5s}
+.next-label{font-size:11px;font-weight:700;opacity:.8;margin:14px 0 6px}
+.next-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.1);margin-bottom:6px;cursor:pointer}
+.next-row:last-child{margin-bottom:0}
+.avatar{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;background:rgba(255,255,255,.2)}
+.next-name{flex:1;font-size:13px;font-weight:700;min-width:0;line-height:1.5}
+.next-name small{display:block;font-size:10px;opacity:.75;font-weight:600}
+.next-time{font-size:12px;font-weight:800;color:var(--gold);white-space:nowrap}
 
-/* ===== شريط التنقل السفلي ===== */
-.bottom-nav {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: var(--white);
-  display: flex;
-  justify-content: space-around;
-  border-top: 1.5px solid var(--border);
-  padding: 6px 0 calc(6px + env(safe-area-inset-bottom));
-  box-shadow: 0 -4px 20px rgba(46,134,171,0.10);
-  z-index: 100;
-}
-.nav-btn {
-  background: none; border: none;
-  display: flex; flex-direction: column; align-items: center;
-  gap: 3px; padding: 4px 12px;
-  cursor: pointer; color: var(--text-muted);
-  font-family: 'Cairo', sans-serif;
-  transition: all 0.2s ease;
-  border-radius: 12px;
-  min-width: 64px;
-}
-.nav-btn i { font-size: 20px; transition: transform 0.2s ease; }
-.nav-btn span { font-size: 11px; font-weight: 600; }
-.nav-btn.active { color: var(--sky); }
-.nav-btn.active i { transform: scale(1.15); }
-.nav-btn:active { transform: scale(0.92); }
+/* موعدي */
+.countdown{display:flex;gap:8px;justify-content:center;margin:14px 0 10px}
+.cd-box{flex:1;max-width:96px;text-align:center;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;padding:8px 4px}
+.cd-num{font-size:24px;font-weight:800;color:var(--sky-dark);line-height:1.2}
+.cd-unit{font-size:11px;color:var(--muted);font-weight:700}
+.info-line{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;margin-top:6px;line-height:1.6}
+.info-line i{color:var(--sky);width:16px;text-align:center;flex-shrink:0}
+.flow-now{background:var(--leaf-pale);color:var(--leaf);border-radius:12px;padding:12px;text-align:center;font-weight:800;margin:12px 0 4px;line-height:1.7}
+.sep{height:1px;background:var(--border);margin:12px 0}
 
-/* ===== شاشة الحالة ===== */
-.status-page { padding: 16px; }
+/* النماذج */
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.input,.select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;font-weight:600;color:var(--text);background:var(--surface2);outline:none}
+.select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236b8fa0' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-position:14px center;background-repeat:no-repeat;padding-left:34px}
+.input:focus,.select:focus{border-color:var(--sky);background-color:#fff}
+.btn{width:100%;padding:12px;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;background:linear-gradient(135deg,var(--sky-dark),var(--sky));text-decoration:none}
+.btn.green{background:linear-gradient(135deg,var(--leaf),var(--leaf-light))}
+.btn.wa{background:#25a35a}
+.btn.gold{background:var(--gold);color:var(--deep)}
+.btn.light{background:var(--surface2);color:var(--sky-dark);border:1.5px solid var(--border)}
+.btn.danger{background:linear-gradient(135deg,var(--danger),#c1121f)}
+.btn:active,.small-btn:active,.chip:active,.turn:active,.next-row:active{transform:scale(.97)}
+.btn-row{display:flex;gap:8px;margin-top:10px}.btn-row .btn{flex:1}
+.small-btn{border:1.5px solid var(--border);background:var(--surface2);color:var(--sky-dark);border-radius:10px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{border:1.5px solid var(--border);background:var(--surface2);color:var(--muted);border-radius:20px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer}
+.chip.on{background:var(--sky);border-color:var(--sky);color:#fff}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 
-/* بطاقة التاريخ/الوقت */
-.datetime-card {
-  background: linear-gradient(135deg, var(--sky-dark), var(--sky), var(--water));
-  border-radius: var(--radius-lg);
-  padding: 10px 16px;
-  color: white;
-  margin-bottom: 10px;
-  box-shadow: var(--shadow-lg);
-  position: relative;
-  overflow: hidden;
-}
-.datetime-card::before {
-  content: "";
-  position: absolute;
-  top: -30px; right: -30px;
-  width: 80px; height: 80px;
-  background: rgba(255,255,255,0.07);
-  border-radius: 50%;
-}
-.datetime-card::after {
-  content: "";
-  position: absolute;
-  bottom: -20px; left: -20px;
-  width: 60px; height: 60px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 50%;
-}
-.datetime-top {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 2px;
-}
-.dt-day { font-size: 15px; font-weight: 800; }
-.dt-date { font-size: 11px; opacity: 0.85; font-weight: 600; }
-.dt-time { font-size: 20px; font-weight: 800; letter-spacing: 1px; text-align: center; margin-top: 2px; }
-.dt-hijri { font-size: 10px; opacity: 0.75; text-align: center; margin-top: 1px; }
+/* صفوف الحصص */
+.turn{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface2);margin-bottom:8px;cursor:pointer}
+.turn.current{border-color:var(--leaf-light);background:linear-gradient(to left,#e8f8f0,#f4fdf7)}
+.turn.past{opacity:.5}
+.turn.mine{border-color:var(--gold)}
+.turn.unreg .t-name b{color:var(--muted);font-weight:600}
+.t-badge{min-width:46px;text-align:center;border-radius:10px;padding:5px 6px;font-size:11px;font-weight:800;flex-shrink:0}
+.t-badge.day{background:var(--sand-pale);color:#b5651d}
+.t-badge.night{background:#e6ebf7;color:#3d4f8a}
+.t-name{flex:1;min-width:0;line-height:1.45}
+.t-name b{font-size:14px;font-weight:800;display:block}
+.t-name small{display:block;font-size:11px;color:var(--muted);font-weight:700}
+.t-time{text-align:left;font-size:12px;font-weight:800;color:var(--sky-dark);white-space:nowrap}
+.t-time small{display:block;font-size:10px;color:var(--muted);font-weight:700}
+.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--leaf-light);margin-inline-start:6px;vertical-align:middle;animation:pulse 1.4s infinite}
+@keyframes pulse{50%{opacity:.25}}
+.day-head{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:var(--sky-dark);margin:14px 2px 8px}
+.day-head:first-child{margin-top:0}
+.summary{font-size:12px;font-weight:700;color:var(--muted);margin:4px 2px 10px}
+.hscroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.hscroll::-webkit-scrollbar{display:none}
+.bada-tile{flex-shrink:0;min-width:112px;border-radius:14px;border:1.5px solid var(--border);background:var(--surface2);padding:10px 8px;text-align:center}
+.bada-tile i{color:var(--sand);font-size:14px}
+.bada-tile i.fa-moon{color:#5a6cb0}
+.bada-tile b{display:block;font-size:14px;color:var(--sky-dark);margin:2px 0}
+.bada-tile span{display:block;font-size:11px;color:var(--muted);font-weight:700}
+.empty{text-align:center;padding:24px 10px;color:var(--muted);font-size:13px;font-weight:600;line-height:1.8}
+.empty i{font-size:36px;opacity:.3;display:block;margin-bottom:8px}
 
-/* بطاقة الحالة الرئيسية */
-.main-status-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 18px;
-  margin-bottom: 14px;
-  box-shadow: var(--shadow-md);
-  border: 1.5px solid var(--border);
-}
+/* تواصل */
+.agent{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.agent .avatar{width:54px;height:54px;border-radius:16px;background:var(--water-pale);color:var(--sky-dark);font-size:22px}
+.agent-role{font-size:11px;color:var(--muted);font-weight:700}
+.agent-name{font-size:18px;font-weight:800}
+.phone-box{display:flex;align-items:center;justify-content:space-between;border:1.5px solid var(--border);border-radius:12px;padding:8px 12px;background:var(--surface2);font-size:19px;font-weight:800;letter-spacing:1px;direction:ltr}
+.icon-btn{border:none;background:none;color:var(--sky);font-size:16px;cursor:pointer;padding:6px}
+.bullets{list-style:none}
+.bullets li{position:relative;padding-right:16px;font-size:13px;font-weight:600;margin-bottom:6px;line-height:1.7}
+.bullets li::before{content:"";position:absolute;right:2px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--sky)}
 
-.status-badge {
-  display: flex; align-items: center; justify-content: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 800;
-  margin-bottom: 16px;
-  text-align: center;
-}
-.status-badge.active-flow { background: var(--sky) linear-gradient(135deg, #2E86AB, #00b4d8); color: white; box-shadow: 0 4px 14px rgba(46,134,171,0.3); }
-.status-badge.qaad { background: linear-gradient(135deg, #f4a261, #e76f51); color: white; box-shadow: 0 4px 14px rgba(231,111,81,0.3); }
+/* التنقل */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;border-top:1px solid var(--border);padding:6px 0 calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(26,95,122,.08);z-index:100}
+.nav-btn{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 4px;color:var(--muted);cursor:pointer;flex:1;max-width:90px}
+.nav-btn i{font-size:19px}.nav-btn span{font-size:11px;font-weight:700}
+.nav-btn.active{color:var(--sky)}
+.section{display:none;animation:fade .25s ease}
+.section.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-.info-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-.info-item {
-  background: var(--surface2);
-  border-radius: 12px;
-  padding: 12px;
-  text-align: center;
-  border: 1.5px solid var(--border);
-  transition: transform 0.15s ease;
-}
-.info-item:active { transform: scale(0.97); }
-.info-item .lbl {
-  font-size: 11px;
-  color: var(--text-muted);
-  font-weight: 600;
-  margin-bottom: 5px;
-  display: flex; align-items: center; justify-content: center; gap: 4px;
-}
-.info-item .val {
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--text);
-  line-height: 1.3;
-}
-.info-item.bada .val { color: var(--sky-dark); }
-.info-item.athar .val { color: #9b2335; }
-.info-item.owner .val { color: var(--leaf); font-size: 15px; }
-.info-item.full-width { grid-column: 1 / -1; }
+/* عن الفلج */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.stat{background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center}
+.stat i{color:var(--sky);font-size:15px}
+.stat b{display:block;font-size:19px;font-weight:800;color:var(--sky-dark);line-height:1.5}
+.stat span{display:block;font-size:11px;color:var(--muted);font-weight:700}
+.about-text{font-size:14px;font-weight:600;line-height:2;white-space:pre-line;margin-top:8px}
+.order-row{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700}
+.order-row:last-child{border-bottom:none}
+.order-row .n{width:26px;height:26px;border-radius:8px;background:var(--water-pale);color:var(--sky-dark);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.order-row .nm{flex:1}
+.order-row .tm{font-size:11px;color:var(--muted);text-align:left}
+.order-row.cur{background:var(--leaf-pale);border-radius:10px}
+textarea.input{min-height:140px;resize:vertical;line-height:1.8}
+/* بطاقات الإجراءات */
+.action-card{display:flex;align-items:center;gap:12px;cursor:pointer}
+.action-card .ic{width:42px;height:42px;border-radius:12px;background:var(--water-pale);color:var(--sky-dark);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.action-card .tx{flex:1;min-width:0}
+.action-card .tx b{display:block;font-size:14px;font-weight:800;color:var(--sky-dark)}
+.action-card .tx small{display:block;font-size:11px;color:var(--muted);font-weight:600;line-height:1.6}
+.action-card .chev{color:var(--muted)}
+.action-card.dashed{border-style:dashed;border-width:1.5px;border-color:var(--sky-light)}
+.install-card{border:1.5px solid var(--gold)}
+.install-card .ic{background:var(--sand-pale);color:#b5651d}
+.seg{display:flex;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;padding:3px;margin-bottom:12px}
+.seg button{flex:1;border:none;background:none;border-radius:9px;padding:8px;font-size:13px;font-weight:800;color:var(--muted);cursor:pointer}
+.seg button.on{background:#fff;color:var(--sky-dark);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.steps{list-style:none;counter-reset:st}
+.steps li{counter-increment:st;display:flex;gap:10px;align-items:flex-start;padding:10px;border:1.5px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:700;line-height:1.7}
+.steps li::before{content:counter(st);width:24px;height:24px;border-radius:50%;background:var(--sky-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.steps li small{display:block;font-size:11px;color:var(--muted);font-weight:600}
+.cal-row{display:flex;align-items:center;gap:10px;padding:10px;border:1.5px solid var(--border);border-radius:12px;margin-bottom:8px}
+.cal-row .tx{flex:1;font-size:13px;font-weight:800;line-height:1.6}
+.cal-row .tx small{display:block;font-size:11px;color:var(--muted);font-weight:600}
 
-/* وقت الأثر */
-.athar-time-card {
-  background: var(--surface2);
-  border-radius: 12px;
-  padding: 10px 14px;
-  margin-top: 10px;
-  border: 1.5px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--sky-dark);
-}
-.athar-time-card i { color: var(--sky); font-size: 13px; }
-.athar-time-sep { color: var(--text-muted); font-size: 13px; margin: 0 4px; }
+/* النوافذ السفلية */
+.sheet-bg{position:fixed;inset:0;z-index:350;background:rgba(15,40,52,.55);backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center}
+.sheet-bg.open{display:flex}
+.sheet{background:#fff;width:100%;max-width:520px;max-height:88vh;overflow-y:auto;border-radius:24px 24px 0 0;padding:14px 20px calc(22px + env(safe-area-inset-bottom));animation:up .28s cubic-bezier(.3,1.25,.6,1)}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+.sheet-handle{width:40px;height:4px;border-radius:2px;background:var(--border);margin:0 auto 14px}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.sheet-head h3{font-size:17px;font-weight:800;line-height:1.5}
+.x-btn{width:32px;height:32px;border-radius:50%;border:none;background:var(--surface2);color:var(--muted);cursor:pointer;flex-shrink:0}
+.modal-text{font-size:13px;font-weight:600;color:var(--muted);line-height:1.8;margin-bottom:12px}
 
-/* بطاقة السابق والقادم */
-.neighbor-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-bottom: 14px;
-  box-shadow: var(--shadow-sm);
-  border: 1.5px solid var(--border);
-  display: none;
-}
-.neighbor-card.visible { display: block; }
-.neighbor-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  margin-bottom: 8px;
-}
-.neighbor-row:last-child { margin-bottom: 0; }
-.neighbor-row.prev-row { background: var(--surface2); border: 1.5px solid var(--border); }
-.neighbor-row.next-row { background: linear-gradient(to left, #e8f8f0, #f0fdf4); border: 1.5px solid var(--leaf-light); }
-.neighbor-icon { width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
-.prev-row .neighbor-icon { background: var(--border); color: var(--text-muted); }
-.next-row .neighbor-icon { background: var(--leaf-pale); color: var(--leaf); }
-.neighbor-info { flex:1; min-width:0; }
-.neighbor-label { font-size:10px; color:var(--text-muted); font-weight:700; margin-bottom:2px; }
-.neighbor-name { font-size:15px; font-weight:800; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.neighbor-name.no-owner { color:var(--text-muted); font-weight:600; font-size:13px; }
-.neighbor-time { font-size:11px; font-weight:700; color:var(--sky-dark); background:var(--water-pale); padding:3px 8px; border-radius:8px; white-space:nowrap; flex-shrink:0; }
-.next-row .neighbor-time { color:var(--leaf); background:var(--leaf-pale); }
+.update-bar{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--gold);border-radius:14px;padding:10px 12px;margin-bottom:14px;box-shadow:var(--shadow)}
+.update-bar i{color:var(--gold);font-size:18px}
+.update-bar .txt{flex:1;font-size:13px;font-weight:800;line-height:1.5}
+.update-bar small{display:block;font-size:11px;color:var(--muted);font-weight:600}
+.toasts{position:fixed;top:calc(14px + env(safe-area-inset-top));left:14px;right:14px;z-index:400;pointer-events:none}
+.toast{padding:12px 16px;border-radius:14px;font-size:14px;font-weight:700;box-shadow:var(--shadow-lg);text-align:center;margin-bottom:8px;background:#fff;color:var(--leaf);border:2px solid var(--leaf-light);animation:up .3s}
+.toast.err{color:var(--danger);border-color:#f5a3aa}
 
-/* العداد */
-.timer-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 16px 18px;
-  box-shadow: var(--shadow-md);
-  border: 1.5px solid var(--border);
-  text-align: center;
-}
-.timer-label { font-size: 12px; color: var(--text-muted); font-weight: 700; margin-bottom: 10px; }
-.timer-boxes {
-  display: flex; justify-content: center; align-items: center; gap: 8px;
-}
-.timer-box {
-  background: linear-gradient(145deg, var(--sky-dark), var(--sky));
-  color: white;
-  border-radius: 12px;
-  padding: 10px 16px;
-  min-width: 70px;
-  box-shadow: 0 4px 12px rgba(46,134,171,0.3);
-}
-.timer-box.mins { background: linear-gradient(145deg, #f4a261, #e76f51); box-shadow: 0 4px 12px rgba(244,162,97,0.3); }
-.timer-num { font-size: 24px; font-weight: 800; }
-.timer-unit { font-size: 11px; opacity: 0.85; font-weight: 600; }
-.timer-sep { font-size: 22px; font-weight: 800; color: var(--sky); opacity: 0.6; }
+/* الإدارة */
+.admin-title{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;color:var(--sky-dark);margin-bottom:10px}
+.admin-title i{color:var(--sky)}
+.bada-chip{flex-shrink:0;border:1.5px solid var(--border);background:var(--surface2);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;white-space:nowrap}
+.bada-chip.on{background:var(--sky);border-color:var(--sky);color:#fff}
+.athar-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:12px 0}
+.athar-chip{border:1.5px solid var(--border);background:var(--surface2);border-radius:8px;padding:7px 2px;font-size:12px;font-weight:800;color:var(--muted);cursor:pointer}
+.athar-chip.has{background:var(--water-pale);border-color:var(--sky-light);color:var(--sky-dark)}
+.athar-chip.sel{background:var(--gold);border-color:#d4a94a;color:var(--deep)}
+.sel-info{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px;line-height:1.8}
+.sel-info b{color:var(--text)}
+.note{font-size:12px;color:var(--muted);font-weight:600;line-height:1.7;margin-bottom:10px}
+.warn{background:var(--sand-pale);color:#9a4a12;border-radius:10px;padding:10px 12px;font-size:12px;font-weight:700;margin-bottom:10px;line-height:1.7}
+.range-row{display:flex;gap:6px;align-items:center;margin-bottom:4px}
+.range-row .input{padding:8px;text-align:center}
+.range-row span{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap}
 
-/* بطاقة التقدم */
-.progress-mini {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
-}
-.progress-mini-label {
-  display: flex; justify-content: space-between;
-  font-size: 11px; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;
-}
-.progress-bar-bg {
-  background: var(--border);
-  border-radius: 8px; height: 8px; overflow: hidden;
-}
-.progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(to left, var(--water), var(--sky));
-  border-radius: 8px;
-  transition: width 0.5s ease;
-}
+@media (max-width:360px){.athar-grid{grid-template-columns:repeat(5,1fr)}.now-name{font-size:19px}}
 
-/* ===== قسم البحث ===== */
-.search-page { padding: 16px; }
-.page-title {
-  text-align: center;
-  font-size: 18px; font-weight: 800;
-  color: var(--sky-dark);
-  margin-bottom: 14px;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-}
-
-.search-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 16px;
-  box-shadow: var(--shadow-md);
-  border: 1.5px solid var(--border);
-  margin-bottom: 14px;
-}
-.form-field { margin-bottom: 12px; }
-.form-field label {
-  display: block; font-size: 12px; font-weight: 700;
-  color: var(--text-muted); margin-bottom: 6px;
-}
-.form-select, .form-input {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  font-family: 'Cairo', sans-serif;
-  font-size: 14px; font-weight: 600;
-  color: var(--text);
-  background: var(--surface2);
-  outline: none;
-  transition: all 0.2s ease;
-  appearance: none; -webkit-appearance: none;
-}
-.form-select:focus, .form-input:focus {
-  border-color: var(--sky); background: white;
-  box-shadow: 0 0 0 3px rgba(46,134,171,0.12);
-}
-.btn-primary {
-  width: 100%; padding: 13px;
-  background: linear-gradient(135deg, var(--sky-dark), var(--sky));
-  color: white; border: none; border-radius: 12px;
-  font-family: 'Cairo', sans-serif; font-size: 15px; font-weight: 800;
-  cursor: pointer; letter-spacing: 0.3px;
-  box-shadow: 0 4px 14px rgba(46,134,171,0.3);
-  transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px;
-}
-.btn-primary:active { transform: scale(0.97); opacity: 0.9; }
-
-/* بطاقات نتائج البحث */
-.results-container { margin-top: 4px; }
-.results-header { font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 10px; padding: 0 2px; }
-.result-card {
-  background: var(--surface);
-  border-radius: 14px;
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  box-shadow: var(--shadow-sm);
-  border: 1.5px solid var(--border);
-  border-right: 4px solid var(--sky);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.result-card.today { border-right-color: var(--leaf); background: linear-gradient(to left, var(--leaf-pale), white); }
-.result-card:active { transform: scale(0.98); }
-.rc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.rc-bada { font-size: 15px; font-weight: 800; color: var(--sky-dark); }
-.rc-badge {
-  font-size: 11px; font-weight: 700; padding: 3px 8px;
-  border-radius: 20px; background: var(--water-pale); color: var(--sky-dark);
-}
-.rc-badge.today-badge { background: var(--leaf-pale); color: var(--leaf); }
-.rc-date { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
-.rc-time { font-size: 16px; font-weight: 800; color: var(--sky); margin-bottom: 4px; display: flex; align-items: center; gap: 5px; }
-.rc-athar { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-.empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
-.empty-state i { font-size: 48px; opacity: 0.3; margin-bottom: 12px; display: block; }
-.empty-state p { font-size: 14px; font-weight: 600; }
-
-/* ===== التقويم ===== */
-.calendar-page { padding: 16px; }
-.calendar-wrapper {
-  background: var(--surface);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  border: 1.5px solid var(--border);
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
-}
-.calendar-table { width: 100%; border-collapse: collapse; }
-.calendar-table thead th {
-  background: linear-gradient(135deg, var(--sky-dark), var(--sky));
-  color: white; padding: 13px 10px;
-  font-size: 13px; font-weight: 800;
-  position: sticky; top: 0; z-index: 2;
-}
-.calendar-table tbody tr { transition: background 0.1s; }
-.calendar-table tbody tr:nth-child(even) td { background: var(--surface2); }
-.calendar-table tbody tr:active td { background: var(--water-pale); }
-.calendar-table td {
-  padding: 11px 8px;
-  font-size: 12px; font-weight: 600;
-  text-align: center;
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
-}
-.qaad-row td { background: var(--warning-light) !important; color: #b84c00; font-weight: 700; }
-.current-bada td { background: linear-gradient(to right, #fff9e6, #fffdf0) !important; font-weight: 800; color: var(--text); }
-.current-bada td:first-child { border-right: 4px solid var(--sand); }
-.current-bada-pulse td:first-child {
-  animation: rowPulse 2s infinite;
-}
-@keyframes rowPulse {
-  0%,100% { border-right-color: var(--sand); }
-  50% { border-right-color: var(--sky); }
-}
-
-/* ===== الإدارة ===== */
-.admin-page { padding: 16px; }
-.admin-login-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 32px 24px;
-  box-shadow: var(--shadow-md);
-  border: 1.5px solid var(--border);
-  text-align: center;
-}
-.admin-lock-icon {
-  width: 64px; height: 64px;
-  background: linear-gradient(135deg, var(--sky-dark), var(--sky));
-  border-radius: 20px;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 16px;
-  box-shadow: 0 6px 16px rgba(46,134,171,0.3);
-}
-.admin-lock-icon i { font-size: 28px; color: white; }
-.admin-login-title { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
-.admin-login-sub { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 24px; }
-
-.password-field {
-  position: relative; margin-bottom: 12px;
-}
-.password-field input {
-  width: 100%; padding: 13px 48px 13px 16px;
-  border: 1.5px solid var(--border);
-  border-radius: 12px; font-family: 'Cairo', sans-serif;
-  font-size: 15px; font-weight: 600; text-align: center;
-  letter-spacing: 4px; outline: none; background: var(--surface2);
-  transition: all 0.2s ease;
-}
-.password-field input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(46,134,171,0.12); background: white; }
-.pass-toggle {
-  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-  background: none; border: none; cursor: pointer;
-  color: var(--text-muted); font-size: 16px; padding: 4px;
-}
-.login-error { color: var(--danger); font-size: 13px; font-weight: 700; margin-top: 8px; display: none; }
-
-/* لوحة الإدارة */
-.admin-panel { display: none; }
-.admin-section-title {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 15px; font-weight: 800; color: var(--sky-dark);
-  margin-bottom: 12px; margin-top: 20px;
-  padding-bottom: 8px; border-bottom: 2px solid var(--border);
-}
-.admin-section-title i { color: var(--sky); }
-
-.admin-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 16px;
-  box-shadow: var(--shadow-sm);
-  border: 1.5px solid var(--border);
-  margin-bottom: 12px;
-}
-.badas-scroll {
-  display: flex; gap: 8px; overflow-x: auto;
-  padding-bottom: 8px; margin-bottom: 14px;
-  scrollbar-width: none;
-}
-.badas-scroll::-webkit-scrollbar { display: none; }
-.bada-chip {
-  background: var(--surface2); border: 1.5px solid var(--border);
-  border-radius: 20px; padding: 7px 14px;
-  font-family: 'Cairo', sans-serif; font-size: 13px; font-weight: 700;
-  color: var(--text-muted); cursor: pointer; white-space: nowrap;
-  transition: all 0.2s ease; flex-shrink: 0;
-}
-.bada-chip.selected { background: var(--sky); border-color: var(--sky); color: white; }
-.bada-chip:active { transform: scale(0.95); }
-
-.athar-grid {
-  display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-bottom: 14px;
-}
-.athar-chip {
-  background: var(--surface2); border: 1.5px solid var(--border);
-  border-radius: 8px; padding: 8px 4px;
-  font-family: 'Cairo', sans-serif; font-size: 12px; font-weight: 700;
-  cursor: pointer; text-align: center; color: var(--text-muted);
-  transition: all 0.2s ease;
-}
-.athar-chip.has-owner { background: var(--water-pale); border-color: var(--sky-light); color: var(--sky-dark); }
-.athar-chip.selected { background: var(--sky); border-color: var(--sky); color: white; }
-.athar-chip:active { transform: scale(0.95); }
-
-.current-owner-display {
-  background: var(--surface2); border-radius: 10px; padding: 12px;
-  margin-bottom: 12px; border: 1.5px solid var(--border);
-  font-size: 13px; color: var(--text-muted); font-weight: 600; text-align: center;
-}
-.current-owner-display span { color: var(--text); font-size: 15px; font-weight: 800; }
-
-.btn-success {
-  width: 100%; padding: 12px;
-  background: linear-gradient(135deg, var(--leaf), var(--leaf-light));
-  color: white; border: none; border-radius: 12px;
-  font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 800;
-  cursor: pointer; box-shadow: 0 4px 12px rgba(45,106,79,0.25);
-  transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px;
-}
-.btn-success:active { transform: scale(0.97); }
-.btn-warning {
-  width: 100%; padding: 12px;
-  background: linear-gradient(135deg, #f4a261, #e76f51);
-  color: white; border: none; border-radius: 12px;
-  font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 800;
-  cursor: pointer; box-shadow: 0 4px 12px rgba(244,162,97,0.25);
-  transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px;
-}
-.btn-warning:active { transform: scale(0.97); }
-.btn-danger {
-  width: 100%; padding: 12px;
-  background: linear-gradient(135deg, var(--danger), #c1121f);
-  color: white; border: none; border-radius: 12px;
-  font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 800;
-  cursor: pointer; box-shadow: 0 4px 12px rgba(230,57,70,0.25);
-  transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px;
-  margin-top: 16px;
-}
-.btn-danger:active { transform: scale(0.97); }
-
-/* التوست */
-.toast-container { position: fixed; top: 76px; left: 16px; right: 16px; z-index: 999; pointer-events: none; }
-.toast {
-  padding: 14px 18px; border-radius: 14px;
-  font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 700;
-  box-shadow: var(--shadow-lg); text-align: center;
-  animation: toastIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  margin-bottom: 8px;
-}
-.toast.success { background: white; color: var(--leaf); border: 2px solid var(--leaf-light); }
-.toast.error { background: white; color: var(--danger); border: 2px solid #fca5a5; }
-@keyframes toastIn {
-  from { opacity: 0; transform: translateY(-20px) scale(0.9); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* مودال معلومات التطبيق */
-.modal-overlay {
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(26,58,74,0.6); backdrop-filter: blur(4px);
-  display: none; align-items: flex-end; justify-content: center;
-}
-.modal-overlay.open { display: flex; }
-.modal-sheet {
-  background: var(--surface);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  padding: 28px 24px calc(28px + env(safe-area-inset-bottom));
-  width: 100%; max-width: 480px;
-  animation: sheetUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-@keyframes sheetUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-.modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
-.modal-app-icon {
-  width: 72px; height: 72px; border-radius: 18px;
-  border: 2px solid var(--border); margin: 0 auto 12px;
-  display: block; object-fit: cover;
-  box-shadow: var(--shadow-md);
-}
-.modal-app-name { font-size: 20px; font-weight: 800; color: var(--text); text-align: center; margin-bottom: 4px; }
-.modal-app-ver { font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 16px; font-weight: 600; }
-.modal-divider { height: 1px; background: var(--border); margin: 16px 0; }
-.modal-info-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
-.modal-info-row i { color: var(--sky); font-size: 16px; margin-top: 3px; flex-shrink: 0; }
-.modal-info-text { font-size: 13px; font-weight: 600; color: var(--text-muted); line-height: 1.6; }
-.modal-close {
-  width: 100%; margin-top: 16px; padding: 13px;
-  background: var(--sky); color: white; border: none; border-radius: 12px;
-  font-family: 'Cairo', sans-serif; font-size: 15px; font-weight: 800; cursor: pointer;
-  box-shadow: 0 4px 14px rgba(46,134,171,0.3); transition: all 0.2s ease;
-}
-.modal-close:active { transform: scale(0.97); }
-
-/* تأثير موجة الماء */
-.water-wave {
-  display: flex; align-items: center; justify-content: center;
-  gap: 3px; margin: 4px 0;
-}
-.wave-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--water-light);
-  animation: waveDot 1.4s ease-in-out infinite;
-}
-.wave-dot:nth-child(2) { animation-delay: 0.2s; }
-.wave-dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes waveDot { 0%,80%,100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1.2); opacity: 1; } }
-
-/* loading */
-.loading-spinner {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 40px; gap: 12px; color: var(--text-muted);
-}
-.spinner {
-  width: 32px; height: 32px;
-  border: 3px solid var(--border);
-  border-top-color: var(--sky);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* تحسين للهواتف الصغيرة */
-@media (max-width: 360px) {
-  .athar-grid { grid-template-columns: repeat(5, 1fr); }
-  .timer-num { font-size: 20px; }
-  .dt-time { font-size: 18px; }
+/* الطباعة / PDF */
+#print-area{display:none}
+@media print{
+  body>*:not(#print-area){display:none!important}
+  body{background:#fff}
+  #print-area{display:block;color:#000}
+  @page{size:A4;margin:12mm}
+  #print-area h2{text-align:center;font-size:18px;margin-bottom:2px}
+  #print-area p{text-align:center;font-size:11px;margin-bottom:10px}
+  #print-area table{width:100%;border-collapse:collapse;font-size:11px}
+  #print-area th,#print-area td{border:1px solid #999;padding:4px 5px;text-align:center}
+  #print-area th{background:#e3f1f6}
+  #print-area td:nth-child(1),#print-area td:nth-child(3){white-space:nowrap}
+  #print-area tr.dayrow td{background:#f4f4f4;font-weight:800;text-align:right}
 }
 </style>
 </head>
 <body>
 
-<!-- شريط العنوان -->
-<header class="app-header">
-  <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCADAAMADASIAAhEBAxEB/8QAHQAAAQQDAQEAAAAAAAAAAAAAAAUGBwgBAgQDCf/EAEsQAAEDAwEEBgUHCQUHBQAAAAECAwQABREGBxIhMQgTQVFhcRQigZHRFzJCUlOToRUjYnJ1sbLBwhYkZXPhJSY3VGOCkjM0NnTw/8QAGwEAAQUBAQAAAAAAAAAAAAAAAAEDBAUGBwL/xAA7EQABAwICBgUKBgIDAAAAAAABAAIDBBEFEgYhMUFhcRMVU8HRFDM0QlFygaGx4QcWIiMykheRUmLx/9oADAMBAAIRAxEAPwCmVFFFCEUUUUIRRWyUKVyBrJbI5qSPbQhaUVsQPrCse2hCxRRRQhFFFFCEUUUUIRRRRQhFFZ9tZAB+kKELWit+rJ5EH21hSFJ5g0IWtFFFCEUUUUIRRRRQhZAJOBzr1whoet6yu7uoGG0Z+kfwryJJOTQkWynFK7eFaUUUJUUUUUIRTitWiNT3OKmVDtTrjKhlK8gA03acej9ZXnTUlKokhTkYn146zlKh4dxpqXpMv7dr8U1N0mX9u1+K47xpq/Wgb1xtclhH1yjKfeKSKsvpvVVr1Tay4zuk4w9HcAJT5jtFRltV0ZGgpVebO3uMZ/PsjkjxHhUSCtLn9HKLFQaevLn9HKLFRrSxZtL3+8JCrdapL6D9MIwn3mn7sk0LGlsovl6a6xonMdhXJX6R8KkrVOqbVpW1B1/dBxhmO3gFR8B2CvM9eWv6OIXKSoxEtf0cTblQFd9FantUVUqbanW2UjKl5BApu05NZayvOppKlS31NxgfUjoOEpHj3mm3U2LpMv7lr8FPh6TL+5a/BFFFFOp1FbpcUnka0ooQvXCXOXqq/A15kEHB50A4ORXofziM/SH40JF5UUUUJUVs0N5YFa1u0cZPhQhDqt5ZNZYb615De+hveON5ZwB515nnRQhSPadlUu5QUyY1+tzoUMjqyVD303tV6JvunAXZbAdj/bNHeSPPurj0vcNQWyUJNl9KyD6yW0FSVeBFTDp3VrOoIa4VyimPM3cOx3U4Cx3jNV0klRC69w4KsmlqIHZiQ5vzUK6es82+3Vq3QG991w8+xI7SfCpeOgdH6UsS7jqFa5riE+tvK3UqV9VIFKOgrBC09MuUtkpw+sdXnmhHMj300dYM6l17eym1Q1qtcVW62tZ3W1kc1ZPOmpJ3TyZQ7K0bSmZKl1RJla7KwbTsSdp/REnWdwcuUWI3ZrQVYb5kkeGeZ8afUfZHpdpndeemvLxxV1gT+ApHnwNqcWChuI7FbYZRupZiFIIA7ONMz+2WuIs/0R2dK9ICt3qXGwTnuxii083m3gAbgUEVE/m5AANwP1T9Xs7/ACJMTcNNXV1p5HNp/ilY7iRSs+8ZMQx57G4XU7rrauPPnXDYrnq8R0u3+3NIaUM7yeCx5iu+etEyL1zRypHEd/lUc5yf1m/FQJXSE2ebkb0pJfVFgpYgxy4pCAhppPAeHkKby9nBvc1Vy1PdnXXl8mWOCGx9UE0vxZLUKGHXVYUoZPf5UgalvmsOpW5Y7c0WQM7yuK/YKbjEgP6DbivMJkDrMNid69JWyTTDjJSw/MZXjgrfCvwxTDvejn9GXRudPhN3i0b2FkZGB445GuFOstbzZ3orM6UZBVgNNtgHPlinfFtO1GZb1tzHY7jDycLZlKSSQf3VMAmh848WPtKsgJ4POyAg+0/RdruhdH6msqLhYFrhqcTlJSreSD3KBqJdQ2eZY7o5Amo3XEclDkodhFPrSrOotDXbqrpEWm2yVbrikHeQk9isjlTt1DYIWpbnb3pJG5HXvOY5rR9X30sczoH2LszdyGVDqeSznZmHYdqi/Sehb/qNAeiRwzG+2eO6k+XfS7d9lcq2QlSZV+tzQSM/nCUg+2pA1brGNp2GiBbIvpEzcw1HaTkIHYTioU1RcL/dJZlXn0rJPqpWgpSnwAr3DLUTuzXDWpyGWpqHZrhrfmkh9AaeW2FpcCTjeSeB8qw2d1QNa0VZK0Wzgws4rWtnOOPKtaEIrZB4mtaKEINPfZtp21TCu8ahktMW9lWEoWvd61XwFMititZSEFSikchngKblYXtyg2TcrHPblBsrBt680Vb2xGiy2G208AGmjj8BXom9ad1DgxnWJC0HKTu4Uk+BqGdnmnTqTUCIjhKYzY6x9Q57o7PbUvame0tpm2Ibdabj4Thptoeur/8Ad5qnmp4onhjblyoqimjieGMuXFdkJr+9rjOZUysZ8x3V6Xm/m1xeotduVMcQMBlrACabGnNQrutofkRmyndUpCN85Vy4UgWbaK1HeMefb+rwohTjRzx8QaTyZzibi9ty9Ow6doD3N1c1z3bajqdMlbSY0eGUnBQpslQ8808dmyn7/H/tNe2YzklCi3HcDQSQBzJprbSI9uvNjTf7etta2yAtafpJPf4ikp7V6oegoVjtrhQ+sK9IWOaRk8B51JdC2SMCNtjexT5hbLEBE2xJseCems9o0C3PLiQUCbITwUc+ok+fbSFobUVzvV5khxDSGg3vbjaOGc1GR4nJqUuj2yFXO5ukZ3WUj3mnJKeOCEkDWrShw2DpGsIvzXnrrUtzs94jBpLS0FvO44nhnNKmldoMG5OIjTUCHIPBJJ9RR8+yk/pBMJRcbY6lIG80sH3iotHA5FLFBHNCCQiuw6ESFgFuSmTW0qVp1Bv9kZjNvuqCJC1NBRI7CKQLVtS1S7JQwYseatZwEJbIUfdSO3qYy9FS7RPWVvI3Sws81DPL2U79lMO12HTTmprotptx4kNrXzSkd3iaadGyKM9I25vYcVWGJkUR6Rtzew4pzwr09cIvV3S2rhOqGFNO4IVXra2/7+tpPqNJSOXYKY+otpLE2R6Pbrd1oKsJcdOD7AKVdQX9yyWpp91oqLqkoXunB5ccUx5O8C1rXTDcOne0ua2w5p0Tr3pnTqiX3WGXVnKlbu8tR8TSVI13pC4IVHkSW1oVwIdZOD+Fcdpk6e1BblBtCH8j84h0eumou1pZRZLyphsksODfaJ7u72V6hpY3uyuvdJTUscjsr7hyU9fWS2RlJulikNOwnVYUhCs9Wr4U0ayFKCSkKIB5jNYq2jaWtsTdXcbCxuUm62XzrWg0V7TiKKKKEIooooQn9snvUWxQ71OkEbyGUlCe1RycD30z77dZd5uTs6a4VuOHIGeCR2AVxBSgCASAeY76xTTYWteX7ymWwtbIZN5UybBkRXrFPS+lCih8Y3vEVGWs4qYeqrlHSAEpkK3cdxORUidH9DTrF1Q72KQRx8DSFtSsU2VtBdj2mC/LckIQpKGGysk4x2VEjeG1LwSriVmakY4JlRp0qPHfjtOkMvp3XEdhrmqT1bBNqSbJ+VTpl0t7u91IcT12P1M5phpsN3/K6bS7AkMTCrdLbrZSU+JzUqKeKUkRuB5FV7onM1uFkmDicCpe2BoMRq5vSUqaCygJKxje58q99MaOttoaS4+2mVLx6y1jIB8BS6/LhxRuuvsteBUBUiSl6Vha42ukhqTC8PAvZNvb22Zce2vRkl4NqWFFAzu5xzqITwODVgGpcSSCGn2nfAKBpB1Fo+2XYFbaREkZ/wDUQngfMUR0vRMytN0TVJmkLyLXUO13TJtwlQY7DynDFjp3Wk4O6P8AWrk7Hej7s4btMS9zHXNRurAV+e9VpKu0bg7vGpnk6S0u/alWp3T9tMJSNws+jpCce6s1VaRQxSZAwm3wU+PDXSAOJHBfNnRcVMzVdtjrAKVSE72e4HJqSdvLcVmzwAwlAKnznd8BUu652Dac0lfmtWWSa4zEDhSYDg3gFKB+aruHcahrb+hppu1obHNSyePlUqGtjrJWPjOpPeTugpn5tqjG03CTbJzcuKspWg8R2KHcace0C5MXSNa5TWMrbUVD6pzypo1kkkAEnA5VbGMFwdvCpHRNLw/eFiiiivadRRRRQhFFFODQ2jNR62uirbpu2rnSEJ31hJACE5xkk8hXl72saXONglAJNgm/RVltH9EzUEood1PfI1vbPFTMZJdX5ZOBUzaP6OmzXT+449anbtITx6yasqGf1RwqnqMfpItQOY8FMjoJn7RZUXsWnr7fZCWLPaJs9xRwAwypX4ipb0b0ZtoV63Hbo3GskdXEmQvecx+qmrv2y12+1x0x7bb48NpIwEMtBA/AV0qCu4+6qSo0lmdqiaB8ypseGMH8zdVed2NW7ZpCYU1dZNwkzSQ8pSQhA3eWB7alLYSzFRBngMN9ch1J6wpG9gjlnnjhXvtqiyZEe3dRHedKVrzuIJxwHdXJsXYmRp1wbfjPtJW2kjfbIyQf9aizVElRRl8hufurNkbGNytClIKqvO3y7R5+rxCZYZHoKN1ToQN5SzxPHnwqweFDsPuqputHVPaturiySoy3M5/WNTNFIGyVTpD6o1fFVeLPLYg0bymLq29rh/3OKrDyhlavqj40ynFrWoqWoqUeZJyaW27dKv2q3ITBHWOOqyo8kpHbT5Rspj9QHF3CQRyKg2MZrplPQz1IzRjUsXW4vS0TgyZ1ieF1Fba1trC0KKVDkQcGnjpW9LmZiSlZeSMpV9YfGnC7sqY6guIuMgdgUpsYzTGct0qw6qbhPkdY26BvDkpJ7aKihnpgHSDUiixalrXFsLrkcLKxXR71K7A1GqxPOExpoJbBPBLg7vMVYEqqomhXls6ztDjZIUJbeMeJxVtvW+qfdXMdKoGx1TXt9Ya+YW1wl5dEWncVHe3VYXZYMYk4W+VcPAf601tm+i9Naqtl1g6gtbM9n1NzrB6yOfFKuYpwbZ2ZkmTb2mIz7qUoWo7jZOMkd1e2xeLKjIuPXxnmt4oxvoIzz76gseY6G7TY/dWpa1wsVD20XoqcXZeiLt3kQ5h/BKx/Oq+ax0Hq7SMhTN/scuIAcB0o3m1eShwr6Une+qfdXjMiszI6mJcVuQ0oYUhxsKSfYaepNI6mHVIMw+f+1Alw2J+tupfLair6636PmzzUpW81a3LTKVx62Ed0Z8U8qhPWPRV1RB33tN3SNdGxxDTyS058DWiptIKObU45Tx8VWy4fMzYL8lXailvWGlNQaRuYt2orY9AkqTvJS4PnJzjIPaKRKuWPa8Zmm4UIgg2KKsn0BP8A5/ff2cP4xVbKsl0BTjX99/Zw/jFV+L+hScu9P0vnmq6WaM1jNGa54r6yzWK5LrcoNqt71wuUpqLEYSVOOuq3UpHnVaNpnSxgwpLsHRFqTPKCU+myiUtk96UjiR51KpaKaqNom3+iaklZELuKtFgUcB3VQGd0k9rMt8utXePHTn5jUVOB780s6V6VO0C2yEC9R4F3Yz6wU31S8eBHwqzdo/VgXFj8VHFdFdXkJqsuqNnWsZGorjIj2Zxxp2StaFBacEFRIPOpN2RbaNI7RmgxBfMG6hOVwZBAX5pPJQ8qkdVRqSuqMKkcMus+1OywR1TRr1cFT3S+zjWOntVO3e82dyLCO+nrCtJ4q5cjUnRWs6fkJI5K4VJW00A6ZV/mpqO4y2xZpDZUAsq4DtNdg0QxCSuw7pHgA5iNXwXHNNadsGJ5Wn1R3rlmtYscdIHBSsmo01Rs41hqHVLN3s1mclQgEJLqVpHEc+ZqVpyR+RYvnUhbMB/uyn/NVS6X4hJRYd0jACcwGv4o0Kp2z4nld/xPcoS0ls51lF1RbJUizONssykLWsrTwSDknnVnt6vFOBUWbYdumktnZVBWs3S8Y4Q46h6n66vo/vrj9VW1OLStGXWPYuxxQR0jTr1cVLOQeyjlyAqimpelJtGuUhX5LEC0sE+qhtnrFAeKlUkwOkhtYhvBxy9MyE5yUPRUkH3AVIbo9VkXJA+KaNfFfevoCTRnhVXdmXSugzpTUDW9rTAKyE+mxslsHvUk8R7Ksva7hCucBmfb5TUqK8kLbdaVvJUD3GquqopqV1pW2+ilRSslF2ldeazmtM0ZqLdOWVLunx/xEsv7N/rNVwqx3T2/4iWX9m/1mq410TCPQo+SoKvzzkVZHoEHGvr5+zh/GKrdVjugcca9vh/w8fxijGPQpOXelo9czVdHeFYUtKUlSlBKUjJJ5AV49ZUf9IfUbmm9j9+uEdZQ+tjqGlDmFLO7n8TXPoWGWRrBtJstA/8AQ0uO5VY6UO1qdrvVTmnLK+4LFCdLSENk/wB6cBwVHHMZ4AU8NiXRzZlRGLxrNtbrjgC0QAd1KB2b57T4UweidpJrUu0f06Y2HWLYgPbqhkKcJwnPlxPsq9sdtDDSW0DAH41osVrTRNFHTarDWd6gUcAmvNJrvsTVtmzrS9vjJYi2a2soAxuoip/mKa+utiGjNRxHA7aI7D5B3X4qA04k9/DgalUq8a1UrgazjKmVjszXEHmrMxtcLECy+dG0jS1z2W67TGh3ZK3mSHoshheHEjPDeA+afCp12H7fNaax2iWfT9xahCF6OpMkob9dxSU/Pz2HwpL2zdHq9zr7Pv8AYLkZjsp1Ty48pWFZJzhK+R9tJXRc0NqSy7V3ZF7s0qEiJGUnfdRhJUogDB5Ht5VrZ6mkqqEve4Oe1vI35KojhmiqA0AhpKtTtJVnTSv81NReakvaKrOnFD/qpphR2Gl2d95SQVpVwPdW4/D51sKPvn6Bcr/EFt8WA/6D6leUiWHILMbcwWzzzzqR9mSsaaT/AJqqiwmpN2brxpxP+aql/EEBuEj3x9Ck/D67sWPuHuTR6Tm1M7PdJCNbHE/ly4gojf8AST9Jz2dnjVS9lGzq/bUdQvyn5DqIYc3pk5zKlKUeOBnmo129Ja/yNWbabk02suNRXUwYyc8Bu8DjzUTVwtjOk4ek9F262MtJCmmgXDjitwjKlH21z10vVNC3J5x+/wBn/i6y2Pyuc5v4tSVofYpozTsRtLFljOugDeflIDrij38eApwXbZvpW5RVR5dktryCMYVGSPxFPDfrG/WadUyvdnc435q0EbWiwAsqi7b+juLbFfvWjW3N1sFbsAneyO0tn+VN7otbW5ui9TNaZvUhxVinOhvdcP8A7VwnAUM8hngRV1ZSW3WVIcxu44k9lUN6T2mYem9pLku1OM+i3BPpCQ0oEIcz63Llx4+2tJhdYa9jqOp13Go71WVkAgImj1e0L6ApdStIUlQKSMgjtrYK8ajLo+6tTqbZjZpMiQhUxLAacSVjeJT6pOPZUiBzxrNysMTyx20GysW2c0OG9U66eZztDsv7O/rNVyqxPTtVvbQrN+zv6zVdq6Hg/oUfLvWcrPPuRViegqrd13e/2eP4xVdqsL0HVbuub1/9Afxikxn0GTl3r1Q+kNVyN/xqHumE269sTnFvJDclla/Le/1qV+spt7TLGjVOhbtYl4zKjqSg9yuaT7657RziKdjzsBC0k0RfG5o3hV26C0llF6v0ZRAdU20tI8Bkfzq22/4188tlWppmzHae3InNLQhl1Uac1jju5wT7OdX1s93hXe2MXG3yUSIr6AttxByCDVtpDA5lT0vquAsVDw14dFk3hK5X41jfFchd8a163xqgzKxyre4vtMQn33ikNtNqWonkABmqpbIdtWrrttTi2KYY863Spa0JJb3VoRxIII54Ap/9KbaVG01pF/TkCQlV3ubZbKUniy0fnKPdnkKifoe6VenarkaneaIjwkFplRHBTiuePIfvrQ0NJGyglqJ27f43+o+KrZ5nOqWRRnmrUbQXAdPHjzcTimbEP+wJP63wpY2i3BJTHgIVxB31+HdSItXo+nADwU8rIrqegtM+HB2F3ruJHLZ3LjenVQybGHhvqtAPPb3pLJpYv6NRPbG7mNKTnIl2aKnGltgbygk5KR4kUhFdO3ZzckFUq2rIzwcQD2jkaf06iecKMjBfI5rjy2d68aBSsZi4Y82zNcBz29yoRJlzlXVyc+876d1xcW4r5/WZyT55q6vRVkazf0gu4aruUiW3LUFw0P8AFSGx258aautNg9qn7Sk6hTKbjWhxfXzIuMbyhxODyAPbUoM690FZIiY69TWhhLaQncS+k7oHIACuWYticdbCyOBtzv1bOC7LR0joHudIbDdr28VIXWCsdYKQ7DfrZfbY3crRNamRHM7jrZyDjnXf11Zc3abFWoFxcLN7it3S0S7c6taG5LKmlKQcKAUMZBr56bWNG3fRGrJFnuanXWwoqjPqJIdR2EePfV/7rdYdrt78+fIbjxmEFbjizgJAqDp2rtl22yWjTsxEhqa06TFLg6tTmPqK8R2GrzBKyWlc54aTHvtu4qvr6dkoDb2duTG6IGjbnK1ANXPrfagxMoio3iA64eBOO4D8auGHOHGm3pWzwbBaY9ugR0R47CAhttPJI+NLHW1AxGuNZOZDqG7kpNNTCCMMCqR05Fb20Czn/Dv6zVe6n/puK3te2g/4f/WagCt7gvoMfLvWcrvSHIqd+hZLSztEuLCjgvQDu+xQNQRTz2K6mVpTaLbLpkdWVFl3J4bq+HwqTX0zqqnfCzaRq5pmCdsEgldsG1fQPrfGsF3xpijWMggERmiDxHrGsf2wkf8AKt+81mfyJjfZj+w8V7/PmCdof6nwUb9I7Y8vUTq9S6caSLkE/nmBwEgDu/S/fUK7ONqGsdmc1duCVuREr/O2+UCAk9u72pNWwXq59SSlURojzNMnXFo0/qpBN1sMV53seSShwf8AcP51f0OjmMti8nqoA9nvNuPmq2o0twVz+khmLXe6fBcFu6UOm3I4M+x3Fh7HFLakrTnwPCm1rbpOzJMVyNpW0GItQwJMpQUpPiEjhnzpEn7H7Gt3ejSZzCc/NJCvxxSxpzZnpO2vpek2125LScgSXSEe4YqUNB+jOcQEn2Zh4rydNaVwyma3HKfBRjovR+rNqGply3lvuIdc3pdwfyUpHbg9p7gKt9pyDZdn+lo9qgoADSMIR9Jau1SvM03Yt4XChIiW6LGgsoGEoZRgJ8q50iTNfK1KUtR+ctRqZDodV18rXYgQyJuxjTcnmdg+Cqq7TimpYnMw8F0h9YiwHIbT8V2IW/drmp11WVLO8s9wovkxLr6WWj+aaG6Md9aPy24ccxopytXz10lFddHhhawBrBZoFgFy+WR0ji55uTrJXfCZMpa20rCVBOQD21wpmSbZcmZzB3XGlYI7x3Gto8hTD6XUc0n3103VhExr0qOM7w9dNe5YmStMcgu1wsV6p5XQyNkYbEG6ekybE1Zo+4RI7u65IiuNKTn1kKKSKoBOjuRJr8V4EOMuKQoHsIODVrmH5UCQHorq2lp7Un99IVm09ZIupbpeplsYuLlyB32n0gtoJOVEDxrnY0MqMMkkNH+tjtYBNiOFzqI4rqUGmdPWxMFZ+l42kC4PGw1jkkPZJt9iaT03E09cdPZjRk4S7FXhSu8qB7aety6T2mm45MCy3F97HBLhSgZ8+NM3UGzjSk91TsS3vW5SjnDDxKR7DSVB2V2Jp3elPzZCM/MCgn8QKr5NB3TOMr4SCdozDxVkzTOlY3I2XV7p8E3do21HWG0mUi3FKmoal/moEUEhR7N7tUal7o77InrDJa1LqFsC5buYzB4+jg/SV+l+6urR8ex6YSPyPp2Iw5jBeUSpw/8AceNO9vXMppO6iCz/AORpit0Yxt0Pk9JAGM95tz805BpXgzZOlnmLne6fBSeHcADNHXeNRkdfzf8AkWf/ACNYO0GYkZMFjh+kaz/+Psd7If2b4qy/PWC9of6nwUJdMyUl7aLAZBBLMBOfaomoNp37YNTL1Zr64XZQCUbwabAOQEpGOFNCtFQUzqWnZC/a0WPNNTzNnkMjdhRWQSCCDgisUVLTKsbsb1o3frIi2y3QLjESEkE8XEDkofzp/wC/VPbXcJdrnNTYL62X2jlKkmpz0LtStt1bbiXlSYM3GN88G3D59lbDCcWZI0RTGzhv9v3XOse0dkikM9M27TrIG0fb6KUGgt1W6gAnnzr3TFIG8+4GxSW0+laQ404FJPEKScg1sp1Sj6yifM1ospOxZC1tqUFREOJzHeSs9xrjeQppZQsYIrx3yOR41qVknJOTXoNIQuhlxCF5cRvjuzXq9NdWncRhtHcmuEqrG9S5AUL2TvLVupBJNdCIwCd+QsIHd20nhZByCQe+sLcUr5yifM0padyAF3uR0rTvR3N/vBNeKHn4jn1c8we2uTrFJOUkg+FaqWSckknxpQw7ClslB1cOXxWOqcPbXgqAebbiFCuMqrG+ociaUMI2FKukwnv0ffWphvfo++ucuK+sffWpcV9Y++vVnJbLoVFdSCTu8PGuYmsFajw3j768nXUNoK3FpQkcSVHAFehq2pQCvQmmRtV1UizWpdviuAzpKd0YPFtJ5mubWe0eBbm1xbQpMuXy3x8xHt7ahy4TJNwmOS5bynXnDlSlGs1jGNsjYYYDdx2n2fda7AtH5JXieoFmjWAd/wBl4EknJ51iiisQuhIooooQiiiihCV7Pqa+2jAt9zkMpH0N7Kfcac0bavqppAS4uK94qa4/hTCoqVFW1EQsx5HxUKfDqSc3kjBPJSF8rmpvsoX3Z+NHyt6m+yhfdn41HtFPda1naFMdSYf2QUg/K3qX7KH92fjR8rWpfs4f3Z+NR9RR1rWdoUdSYf2QUgfKzqX7KH92fjR8rGpPsof3Z+NR/RR1rWdoUdSYf2QT/wDlX1J9nD+7PxrHyrak+zh/dn40waKOtaztCjqTD+yH+k/vlW1H9nD+7/1rHyq6j+yh/dn40wqKOtq3tCjqSg7IJ+/KpqP7KH92fjWPlT1F9lD+7Pxph0UvW1b2hR1LQdkE9pO07Uzqd1C4zPilrj+NN27agvN1J9OuL7qT9Hewn3CkuimJa6pmFnvJHNSIcPpYDeOMA8kUUUVFUxFFFFCF/9k=" alt="شعار" class="header-logo" id="headerLogo">
-  <div class="header-title">فلج بطين - دوران البود</div>
-  <button class="header-info-btn" id="infoBtn"><i class="fas fa-info"></i></button>
-</header>
-
-<!-- المحتوى الرئيسي -->
-<main class="app-main">
-
-  <!-- شاشة الحالة -->
-  <div id="status-section" class="section active">
-    <div class="status-page">
-
-      <!-- بطاقة التاريخ والوقت -->
-      <div class="datetime-card">
-        <div class="datetime-top">
-          <div class="dt-day" id="ui-day">—</div>
-          <div class="dt-date" id="ui-date">—</div>
-        </div>
-        <div class="dt-time" id="ui-clock">00:00:00</div>
-        <div class="dt-hijri" id="ui-hijri">—</div>
-      </div>
-
-      <!-- بطاقة الحالة -->
-      <div class="main-status-card">
-        <div class="status-badge" id="status-badge">
-          <i class="fas fa-water"></i>
-          <span id="ui-status">جارٍ التحميل...</span>
-        </div>
-        <div class="info-grid">
-          <div class="info-item bada">
-            <div class="lbl"><i class="fas fa-tint" style="color:var(--sky)"></i> البادة</div>
-            <div class="val" id="ui-bada">—</div>
-          </div>
-          <div class="info-item athar">
-            <div class="lbl"><i class="fas fa-hashtag" style="color:#9b2335"></i> الأثر</div>
-            <div class="val" id="ui-athar">—</div>
-          </div>
-          <div class="info-item owner full-width">
-            <div class="lbl"><i class="fas fa-user" style="color:var(--leaf)"></i> المستفيد / المالك</div>
-            <div class="val" id="ui-owner">—</div>
-          </div>
-          <!-- وقت الأثر الحالي -->
-          <div class="info-item full-width" id="athar-time-row" style="display:none">
-            <div class="lbl"><i class="fas fa-clock" style="color:var(--sky)"></i> وقت الأثر الحالي</div>
-            <div class="athar-time-card">
-              <i class="fas fa-play-circle"></i>
-              <span id="ui-athar-start">—</span>
-              <span class="athar-time-sep">←</span>
-              <i class="fas fa-stop-circle" style="color:var(--sand)"></i>
-              <span id="ui-athar-end">—</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- بطاقة السابق والقادم -->
-      <div class="neighbor-card" id="neighbor-card">
-        <div class="neighbor-row prev-row">
-          <div class="neighbor-icon"><i class="fas fa-chevron-up"></i></div>
-          <div class="neighbor-info">
-            <div class="neighbor-label">المستفيد السابق</div>
-            <div class="neighbor-name" id="ui-prev-owner">—</div>
-          </div>
-          <div class="neighbor-time" id="ui-prev-time"></div>
-        </div>
-        <div class="neighbor-row next-row">
-          <div class="neighbor-icon"><i class="fas fa-chevron-down"></i></div>
-          <div class="neighbor-info">
-            <div class="neighbor-label">المستفيد القادم</div>
-            <div class="neighbor-name" id="ui-next-owner">—</div>
-          </div>
-          <div class="neighbor-time" id="ui-next-time"></div>
-        </div>
-      </div>
-
-      <!-- العداد -->
-      <div class="timer-card" id="timer-card">
-        <div class="timer-label">⏳ الوقت المتبقي لانتهاء البادة</div>
-        <div class="timer-boxes">
-          <div class="timer-box">
-            <div class="timer-num" id="timer-h">00</div>
-            <div class="timer-unit">ساعة</div>
-          </div>
-          <div class="timer-sep">:</div>
-          <div class="timer-box mins">
-            <div class="timer-num" id="timer-m">00</div>
-            <div class="timer-unit">دقيقة</div>
-          </div>
-        </div>
-        <div class="progress-mini" id="progress-mini" style="display:none">
-          <div class="progress-mini-label">
-            <span>بداية البادة</span>
-            <span id="progress-pct">0%</span>
-          </div>
-          <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+<!-- ===== شاشة رمز الدخول ===== -->
+<div id="gate" class="gate">
+  <img src="icon-512.png" class="gate-logo" alt="">
+  <h1>فلج بطين</h1>
+  <div class="sub">دوران البود</div>
+  <div id="gateLoading" class="gate-spinner"></div>
+  <div id="gateForm" class="gate-box hidden">
+    <p>هذا التطبيق خاص بأهل الفلج. أدخل رمز الدخول.</p>
+    <input id="gateCode" type="password" autocomplete="off" placeholder="رمز الدخول">
+    <button class="btn-gold" id="gateBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
+    <div class="gate-msg" id="gateMsg"></div>
+    <div class="gate-hint">اطلب الرمز من وكيل الفلج</div>
   </div>
-
-  <!-- شاشة البحث -->
-  <div id="search-section" class="section">
-    <div class="search-page">
-      <div class="page-title"><i class="fas fa-search"></i> البحث عن موعد</div>
-      <div class="search-card">
-        <div class="form-field">
-          <label>👤 اختر المستفيد أو المالك</label>
-          <select class="form-select" id="searchOwner">
-            <option value="">— اختر الاسم —</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label>📅 نطاق البحث</label>
-          <select class="form-select" id="searchRange">
-            <option value="1">اليوم فقط</option>
-            <option value="3">3 أيام</option>
-            <option value="7">أسبوع</option>
-            <option value="14">أسبوعان</option>
-            <option value="30" selected>شهر كامل</option>
-          </select>
-        </div>
-        <button class="btn-primary" id="searchBtn"><i class="fas fa-search"></i> بحث الآن</button>
-      </div>
-      <div id="searchResult"></div>
-    </div>
-  </div>
-
-  <!-- شاشة التقويم -->
-  <div id="calendar-section" class="section">
-    <div class="calendar-page">
-      <div class="page-title"><i class="fas fa-calendar-alt"></i> تقويم البود</div>
-      <div style="display:flex;gap:8px;margin-bottom:12px;font-size:12px;font-weight:600;">
-        <span style="display:flex;align-items:center;gap:4px;"><span style="width:12px;height:12px;background:#fff9e6;border:2px solid var(--sand);border-radius:3px;display:inline-block"></span> البادة الحالية</span>
-        <span style="display:flex;align-items:center;gap:4px;"><span style="width:12px;height:12px;background:var(--warning-light);border-radius:3px;display:inline-block"></span> قعد الفلج</span>
-      </div>
-      <div class="calendar-wrapper">
-        <table class="calendar-table">
-          <thead><tr><th>البادة / الحالة</th><th>البداية</th><th>النهاية</th></tr></thead>
-          <tbody id="calendar-body"><tr><td colspan="3"><div class="loading-spinner"><div class="spinner"></div><span>جارٍ التحميل...</span></div></td></tr></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- شاشة الإدارة -->
-  <div id="admin-section" class="section">
-    <div class="admin-page">
-      <!-- شاشة تسجيل الدخول -->
-      <div id="admin-login" class="admin-login-card">
-        <div class="admin-lock-icon"><i class="fas fa-lock"></i></div>
-        <div class="admin-login-title">لوحة الإدارة</div>
-        <div class="admin-login-sub">أدخل رمز الدخول للمشرف</div>
-        <div class="password-field">
-          <input type="password" id="admin-password" placeholder="● ● ● ● ●" maxlength="20">
-          <button class="pass-toggle" id="passToggle" type="button"><i class="fas fa-eye"></i></button>
-        </div>
-        <div class="login-error" id="login-msg"><i class="fas fa-exclamation-circle"></i> الرمز غير صحيح</div>
-        <button class="btn-primary" id="loginBtn" style="margin-top:14px;"><i class="fas fa-sign-in-alt"></i> دخول</button>
-      </div>
-
-      <!-- لوحة الإدارة -->
-      <div id="admin-panel" class="admin-panel">
-        <div class="admin-section-title"><i class="fas fa-users"></i> تعديل بيانات المستفيدين والملاك</div>
-
-        <div class="admin-card">
-          <!-- اختيار البادة -->
-          <div class="form-field">
-            <label>💧 اختر البادة</label>
-            <div class="badas-scroll" id="admin-badas-chips"></div>
-          </div>
-          <!-- عرض الآثار -->
-          <div class="form-field">
-            <label>🔢 اختر رقم الأثر</label>
-            <div class="athar-grid" id="admin-athar-grid"><p style="color:var(--text-muted);font-size:12px;grid-column:1/-1;">اختر بادة أولاً</p></div>
-          </div>
-          <!-- الاسم الحالي -->
-          <div class="current-owner-display" id="current-owner-display">الاسم الحالي: <span>—</span></div>
-          <!-- الاسم الجديد -->
-          <div class="form-field">
-            <label>✏️ الاسم الجديد</label>
-            <input class="form-input" type="text" id="admin-owner" placeholder="أدخل اسم المستفيد أو المالك">
-          </div>
-          <button class="btn-success" id="saveOwnerBtn"><i class="fas fa-save"></i> حفظ التعديل</button>
-        </div>
-
-        <!-- تغيير رمز الدخول -->
-        <div class="admin-section-title"><i class="fas fa-key"></i> تغيير رمز دخول المشرف</div>
-        <div class="admin-card">
-          <div class="form-field">
-            <label>🔐 رمز الدخول الجديد</label>
-            <div class="password-field">
-              <input class="form-input" type="password" id="new-password-input" placeholder="أدخل الرمز الجديد" style="padding:12px 48px 12px 14px;letter-spacing:3px;">
-              <button class="pass-toggle" id="passToggle2" type="button"><i class="fas fa-eye"></i></button>
-            </div>
-          </div>
-          <button class="btn-warning" id="updatePassBtn"><i class="fas fa-sync-alt"></i> تحديث رمز الدخول</button>
-        </div>
-
-        <!-- بداية الدورة -->
-        <div class="admin-section-title"><i class="fas fa-calendar-plus"></i> تحديد بداية دورة جديدة</div>
-        <div class="admin-card">
-          <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
-            البداية الحالية للدورة: <strong id="current-ref-display">—</strong>
-          </div>
-          <div class="form-field">
-            <label>📅 تاريخ ووقت بداية الدورة الجديدة</label>
-            <input class="form-input" type="datetime-local" id="new-reference-input">
-          </div>
-          <button class="btn-success" id="saveReferenceBtn"><i class="fas fa-play-circle"></i> تفعيل بداية الدورة الجديدة</button>
-        </div>
-
-        <!-- خروج -->
-        <button class="btn-danger" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج من الإدارة</button>
-        <div style="height:16px;"></div>
-      </div>
-    </div>
-  </div>
-
-</main>
-
-<!-- شريط التنقل -->
-<nav class="bottom-nav">
-  <button class="nav-btn active" data-target="status-section">
-    <i class="fas fa-home"></i><span>الحالة</span>
-  </button>
-  <button class="nav-btn" data-target="search-section">
-    <i class="fas fa-search"></i><span>بحث</span>
-  </button>
-  <button class="nav-btn" data-target="calendar-section">
-    <i class="fas fa-calendar-alt"></i><span>تقويم</span>
-  </button>
-  <button class="nav-btn" data-target="admin-section">
-    <i class="fas fa-cog"></i><span>إدارة</span>
-  </button>
-</nav>
-
-<!-- توست الإشعارات -->
-<div class="toast-container" id="toast-container"></div>
-
-<!-- مودال معلومات التطبيق -->
-<div class="modal-overlay" id="infoModal">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <img src="data:image/jpeg;base64,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" class="modal-app-icon" alt="أيقونة">
-    <div class="modal-app-name">دوران بود فلج بطين</div>
-    <div class="modal-app-ver">الإصدار 1.0</div>
-    <div class="modal-divider"></div>
-<div class="modal-info-row">
-  <i class="fas fa-info-circle"></i>
-  <div class="modal-info-text">
-  تم إطلاق تطبيق دوران البود لفلج بطين بهدف تسهيل متابعة توزيع مياه الفلج وتنظيم معرفة أوقات البود والآثار بطريقة إلكترونية حديثة.
-  </div>
+  <button class="link-btn hidden" id="gateAdmin">دخول المشرف</button>
 </div>
-<div class="modal-info-row">
-  <i class="fas fa-clock"></i>
-  <div class="modal-info-text">
-  يوفّر التطبيق عرضًا مباشرًا للحالة الحالية للدوران، ويُظهر اسم المستفيد أو المالك مع الوقت المتبقي لكل بادة  ويمكن البحث عن مواعيد المياه لأي مستفيد خلال الأيام القادمة بسهولة، بالإضافة إلى عرض تقويم كامل لتسلسل البود.
-  </div>
+
+<!-- ===== التطبيق ===== -->
+<div id="app" class="hidden">
+  <header class="app-header">
+    <button class="hdr-btn right" id="infoBtn" aria-label="عن التطبيق"><i class="fas fa-info"></i></button>
+    <button class="hdr-btn left" id="adminBtn" aria-label="الإدارة"><i class="fas fa-cog"></i></button>
+    <img src="icon-192.png" class="hdr-logo" alt="">
+    <div class="hdr-title">فلج بطين</div>
+    <div class="hdr-sub">دوران البود</div>
+    <div class="hdr-chip"><span id="hdrDate">—</span><span class="clock" id="hdrClock">—</span></div>
+  </header>
+
+  <main class="app-main">
+    <div id="updateBar" class="update-bar hidden">
+      <i class="fas fa-arrow-alt-circle-down"></i>
+      <div class="txt">يوجد تحديث جديد للتطبيق<small>اضغط لتحميل آخر نسخة</small></div>
+      <button class="small-btn" id="updateBtn">تحديث الآن</button>
+    </div>
+
+    <!-- الرئيسية -->
+    <section id="sec-home" class="section active">
+      <div class="card now-card" id="nowCard"></div>
+      <div class="card" id="myCard"></div>
+      <div class="card" id="badaCard"></div>
+      <div class="card" id="nextBadasCard"></div>
+      <div class="card action-card install-card hidden" id="installCard">
+        <div class="ic"><i class="fas fa-mobile-alt"></i></div>
+        <div class="tx"><b>ثبّت التطبيق على هاتفك</b><small>أيقونة على الشاشة الرئيسية، ويفتح مثل أي تطبيق</small></div>
+        <button class="small-btn" id="installBtn">طريقة التثبيت</button>
+        <button class="x-btn" id="installHide" aria-label="إخفاء"><i class="fas fa-times"></i></button>
+      </div>
+    </section>
+
+    <!-- مواعيد -->
+    <section id="sec-sched" class="section">
+      <div class="card">
+        <div class="card-title"><i class="fas fa-user-clock"></i> مواعيد شخص</div>
+        <div class="card-sub">اختر الاسم لتظهر مواعيده القادمة.</div>
+        <div class="field">
+          <label>الاسم</label>
+          <select class="select" id="schedName"></select>
+        </div>
+        <div class="chips" id="schedChips">
+          <button class="chip" data-r="d7">أسبوع</button>
+          <button class="chip on" data-r="c1">دورة كاملة</button>
+          <button class="chip" data-r="c2">دورتان</button>
+        </div>
+        <div class="btn-row" id="schedActions">
+          <button class="btn wa" id="schedWa"><i class="fab fa-whatsapp"></i> واتساب</button>
+          <button class="btn light" id="schedCopy"><i class="far fa-copy"></i> نسخ</button>
+        </div>
+        <button class="btn light hidden" id="schedCal" style="margin-top:8px"><i class="far fa-calendar-plus"></i> ربط المواعيد بتقويم الهاتف</button>
+      </div>
+      <div id="schedList"></div>
+    </section>
+
+    <!-- الجدول -->
+    <section id="sec-table" class="section">
+      <div class="card">
+        <div class="card-title"><i class="fas fa-table"></i> لمن الماء؟ — الجدول</div>
+        <div class="card-sub">اختر المدة، وإن شئت اسماً محدداً، ثم اعرض الجدول أو حمّله.</div>
+        <div class="chips" id="tableChips">
+          <button class="chip" data-r="h6">الآن + ٦ ساعات</button>
+          <button class="chip on" data-r="today">اليوم</button>
+          <button class="chip" data-r="tomorrow">غداً</button>
+          <button class="chip" data-r="d3">٣ أيام</button>
+          <button class="chip" data-r="d7">أسبوع</button>
+          <button class="chip" data-r="c1">دورة كاملة</button>
+        </div>
+        <div class="two">
+          <div class="field"><label>من يوم</label><input class="input" type="date" id="tblFrom"></div>
+          <div class="field"><label>إلى يوم</label><input class="input" type="date" id="tblTo"></div>
+        </div>
+        <div class="field">
+          <label>الاسم</label>
+          <select class="select" id="tblName"></select>
+        </div>
+        <div class="btn-row">
+          <button class="btn" id="tblPdf"><i class="far fa-file-pdf"></i> PDF</button>
+          <button class="btn green" id="tblXls"><i class="far fa-file-excel"></i> Excel</button>
+        </div>
+        <div class="btn-row">
+          <button class="btn wa" id="tblWa"><i class="fab fa-whatsapp"></i> واتساب</button>
+          <button class="btn light" id="tblCopy"><i class="far fa-copy"></i> نسخ</button>
+        </div>
+      </div>
+      <div id="tblList"></div>
+    </section>
+
+    <!-- تواصل -->
+    <section id="sec-about" class="section">
+      <div class="card" style="text-align:center">
+        <img src="icon-192.png" alt="" style="width:84px;height:84px;border-radius:50%;box-shadow:var(--shadow)">
+        <div style="font-size:20px;font-weight:800;margin-top:6px">فلج بطين</div>
+        <div class="card-sub" style="margin:0">دوران البود</div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="fas fa-chart-pie"></i> الفلج بالأرقام</div>
+        <div class="stats" id="aboutStats"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="fas fa-sync-alt"></i> الدورة</div>
+        <div id="aboutCycle"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="fas fa-pause-circle"></i> أوقات القعد</div>
+        <div class="card-sub" style="margin:6px 0 0">يتوقف الدوران مرتين كل أسبوع، ويُستأنف من حيث توقف:</div>
+        <div class="info-line"><i class="fas fa-circle" style="font-size:7px"></i> من الاثنين ٦ مساءً إلى الثلاثاء ٦ مساءً</div>
+        <div class="info-line"><i class="fas fa-circle" style="font-size:7px"></i> من الخميس ٦ مساءً إلى الجمعة ٦ مساءً</div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="fas fa-list-ol"></i> ترتيب البادات</div>
+        <div class="card-sub" style="margin:4px 0 6px">مع بداية كل بادة في الدورة الحالية</div>
+        <div id="aboutOrder"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="fas fa-landmark"></i> نبذة عن الفلج</div>
+        <div class="about-text" id="aboutText"></div>
+      </div>
+      <div class="card action-card" id="aboutInstall">
+        <div class="ic"><i class="fas fa-mobile-alt"></i></div>
+        <div class="tx"><b>طريقة تثبيت التطبيق على الهاتف</b><small>أندرويد وآيفون — خطوات بسيطة</small></div>
+        <i class="fas fa-chevron-left chev"></i>
+      </div>
+    </section>
+
+    <section id="sec-contact" class="section">
+      <div class="card" id="agentCard"></div>
+      <div class="card">
+        <div class="card-title"><i class="far fa-bell"></i> متى تتواصل مع الوكيل؟</div>
+        <ul class="bullets" style="margin-top:10px">
+          <li>عند تغيّر صاحب حصة، أو انتقالها بالبيع أو الإيجار أو الإرث.</li>
+          <li>عند ملاحظة خطأ في اسم أو وقت في الجدول.</li>
+          <li>إذا لم تحتج الماء في حصتك وأردت عرضها.</li>
+          <li>عند انقطاع الماء أو انخفاضه، أو حاجة الفلج للصيانة.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="fas fa-info-circle"></i> تنبيه</div>
+        <div class="card-sub" style="margin:8px 0 0">التطبيق وسيلة مساعدة لمعرفة المواعيد، ولا يُعتدّ به في إثبات التملك. المرجع في جميع الحالات العرف المحلي ووكلاء الفلج.</div>
+      </div>
+    </section>
+
+    <!-- الإدارة -->
+    <section id="sec-admin" class="section">
+      <div class="card">
+        <div class="row-between">
+          <div class="admin-title" style="margin:0"><i class="fas fa-user-shield"></i> لوحة الإدارة</div>
+          <button class="small-btn" id="adminClose">رجوع</button>
+        </div>
+        <div class="note" id="adminWho" style="margin:6px 0 0"></div>
+      </div>
+
+      <div class="card">
+        <div class="admin-title"><i class="fas fa-users"></i> أسماء المستفيدين</div>
+        <div class="note">اختر البادة، ثم اضغط على أثر أو أكثر لتحديدها، واكتب الاسم واحفظ. يمكنك تحديد مدى كامل مرة واحدة.</div>
+        <div class="hscroll" id="admBadas"></div>
+        <div class="athar-grid" id="admGrid"><p class="note" style="grid-column:1/-1;margin:0">اختر بادة أولاً</p></div>
+        <div class="range-row">
+          <span>من أثر</span><input class="input" type="number" min="1" id="admFrom">
+          <span>إلى</span><input class="input" type="number" min="1" id="admTo">
+          <button class="small-btn" id="admRangeBtn">تحديد</button>
+        </div>
+        <div class="btn-row" style="margin:6px 0 12px">
+          <button class="btn light" id="admSelAll">تحديد الكل</button>
+          <button class="btn light" id="admSelNone">إلغاء التحديد</button>
+        </div>
+        <div class="sel-info" id="admSelInfo">لم يتم تحديد أي أثر</div>
+        <div class="field">
+          <label>الاسم</label>
+          <input class="input" id="admName" list="namesList" placeholder="اكتب الاسم أو اختر من القائمة">
+          <datalist id="namesList"></datalist>
+        </div>
+        <div class="btn-row">
+          <button class="btn green" id="admSave"><i class="fas fa-save"></i> حفظ للمحدد</button>
+          <button class="btn light" id="admClear"><i class="fas fa-eraser"></i> مسح الاسم</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="admin-title"><i class="fas fa-key"></i> رمز دخول الأهالي</div>
+        <div class="note">الرمز الحالي: <b id="admCurCode">—</b></div>
+        <div class="warn">عند تغيير الرمز يُطلب من الجميع إدخال الرمز الجديد. استخدم ٦ أحرف أو أرقام على الأقل.</div>
+        <div class="field"><input class="input" id="admNewCode" placeholder="الرمز الجديد" autocomplete="off"></div>
+        <button class="btn gold" id="admSaveCode"><i class="fas fa-sync-alt"></i> حفظ الرمز</button>
+      </div>
+
+      <div class="card">
+        <div class="admin-title"><i class="fas fa-calendar-plus"></i> بداية الدورة</div>
+        <div class="note">البداية الحالية: <b id="admCurRef">—</b><br>الوقت بتوقيت عُمان.</div>
+        <div class="field"><input class="input" type="datetime-local" id="admRef"></div>
+        <button class="btn green" id="admSaveRef"><i class="fas fa-play-circle"></i> حفظ بداية الدورة</button>
+      </div>
+
+      <div class="card">
+        <div class="admin-title"><i class="fas fa-address-card"></i> بيانات الوكيل</div>
+        <div class="field"><label>اسم الوكيل</label><input class="input" id="admAgentName"></div>
+        <div class="field"><label>رقم الهاتف</label><input class="input" id="admAgentPhone" inputmode="tel" placeholder="مثال: 9xxxxxxx" style="direction:ltr;text-align:right"></div>
+        <button class="btn green" id="admSaveAgent"><i class="fas fa-save"></i> حفظ</button>
+      </div>
+
+      <div class="card">
+        <div class="admin-title"><i class="fas fa-landmark"></i> نبذة عن الفلج</div>
+        <div class="note">تظهر في تبويب "عن الفلج". اكتبها كما تريد، والأسطر الفارغة تُحفظ كما هي.</div>
+        <div class="field"><textarea class="input" id="admAbout" placeholder="تاريخ الفلج، ومنبعه، وأهميته للبلدة..."></textarea></div>
+        <button class="btn green" id="admSaveAbout"><i class="fas fa-save"></i> حفظ النبذة</button>
+      </div>
+
+      <div class="card">
+        <div class="admin-title"><i class="fas fa-lock"></i> كلمة مرور المشرف</div>
+        <div class="field"><input class="input" type="password" id="admNewPass" placeholder="كلمة المرور الجديدة" autocomplete="new-password"></div>
+        <button class="btn light" id="admSavePass">تغيير كلمة المرور</button>
+      </div>
+
+      <button class="btn danger" id="admLogout"><i class="fas fa-sign-out-alt"></i> خروج المشرف</button>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-sec="home"><i class="fas fa-home"></i><span>الرئيسية</span></button>
+    <button class="nav-btn" data-sec="sched"><i class="fas fa-user-clock"></i><span>مواعيد</span></button>
+    <button class="nav-btn" data-sec="table"><i class="fas fa-table"></i><span>الجدول</span></button>
+    <button class="nav-btn" data-sec="about"><i class="fas fa-info-circle"></i><span>عن الفلج</span></button>
+    <button class="nav-btn" data-sec="contact"><i class="fas fa-phone-alt"></i><span>تواصل</span></button>
+  </nav>
 </div>
-<div class="modal-info-row">
-  <i class="fas fa-database"></i>
-  <div class="modal-info-text">
-  التطبيق وسيلة مساعدة لخدمة الأهالي وتسهيل الوصول للمعلومات، ولا يعتد به من ناحية التملك وإنما هو وسيلة لمعرفة موعد حصة المتملك أو من ينوب عنه وكذلك المستفيد والمستأجر  من مياه الفلج ويبقى المرجع الأساسي في جميع الحالات للعرف المحلي ووكلاء الفلج وفي حالة إبداء أية ملاحظات يرجى التواصل مع وكلاء الفلج.
-  </div>
-</div>
-  <button class="modal-close" id="closeModal">إغلاق</button>
+
+<!-- ===== نافذة تفاصيل الحصة ===== -->
+<div class="sheet-bg" id="turnSheet">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head"><h3 id="tsName">—</h3><button class="x-btn" data-close><i class="fas fa-times"></i></button></div>
+    <div id="tsBody"></div>
+    <div class="btn-row">
+      <button class="btn" id="tsAll"><i class="fas fa-list"></i> كل مواعيده</button>
+      <button class="btn light" id="tsMe"><i class="fas fa-user-check"></i> هذا اسمي</button>
+    </div>
+    <button class="btn light" id="tsCal" style="margin-top:8px"><i class="far fa-calendar-plus"></i> أضف للتقويم</button>
   </div>
 </div>
 
-<!-- Firebase -->
+<!-- ===== عرض الحصة على الوكيل ===== -->
+<div class="sheet-bg" id="offerSheet">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head"><h3>عرض حصتي على الوكيل</h3><button class="x-btn" data-close><i class="fas fa-times"></i></button></div>
+    <div class="modal-text" style="margin-bottom:10px">إذا لم تحتج الماء في حصتك، اختر الموعد وأرسل رسالة واتساب جاهزة إلى وكيل الفلج ليعرضها على من يحتاجها.</div>
+    <div class="field"><label>الموعد</label><select class="select" id="offTurn"></select></div>
+    <div class="field"><label>ملاحظة (اختياري)</label><input class="input" id="offNote" placeholder="مثال: أتنازل عنها مجاناً، أو للبيع"></div>
+    <div class="warn hidden" id="offNoAgent">لم يُضف رقم وكيل الفلج بعد. اطلب من المشرف إضافته.</div>
+    <button class="btn wa" id="offSend"><i class="fab fa-whatsapp"></i> إرسال إلى الوكيل</button>
+  </div>
+</div>
+
+<!-- ===== ربط التقويم ===== -->
+<div class="sheet-bg" id="calSheet">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head"><h3 id="calTitle">ربط التقويم</h3><button class="x-btn" data-close><i class="fas fa-times"></i></button></div>
+    <div class="modal-text" id="calHint" style="margin-bottom:10px"></div>
+    <button class="btn" id="calAll" style="margin-bottom:12px"><i class="far fa-calendar-plus"></i> إضافة كل المواعيد مرة واحدة</button>
+    <div id="calList"></div>
+  </div>
+</div>
+
+<!-- ===== طريقة التثبيت ===== -->
+<div class="sheet-bg" id="installSheet">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head"><h3>طريقة تثبيت التطبيق</h3><button class="x-btn" data-close><i class="fas fa-times"></i></button></div>
+    <div class="seg" id="instSeg"><button data-os="android" class="on">أندرويد</button><button data-os="ios">آيفون</button></div>
+    <ol class="steps" id="instAndroid">
+      <li><div>افتح رابط التطبيق في متصفح Chrome<small>إذا فتحته من واتساب، اضغط النقاط الثلاث واختر «فتح في Chrome»</small></div></li>
+      <li><div>اضغط النقاط الثلاث ⋮<small>أعلى الشاشة بجانب شريط العنوان</small></div></li>
+      <li><div>اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية»</div></li>
+      <li><div>اضغط «تثبيت»<small>تظهر أيقونة الفلج مع تطبيقاتك</small></div></li>
+    </ol>
+    <ol class="steps hidden" id="instIos">
+      <li><div>افتح رابط التطبيق في متصفح Safari<small>إذا فتحته من واتساب، اضغط زر المشاركة واختر «فتح في Safari»</small></div></li>
+      <li><div>اضغط زر المشاركة <i class="fas fa-arrow-up-from-bracket"></i><small>أسفل الشاشة</small></div></li>
+      <li><div>اختر «إضافة إلى الشاشة الرئيسية» <i class="far fa-plus-square"></i><small>مرّر القائمة للأسفل إن لم يظهر</small></div></li>
+      <li><div>اضغط «إضافة»<small>تظهر أيقونة الفلج مع تطبيقاتك</small></div></li>
+    </ol>
+    <div class="modal-text" style="margin:4px 0 0">بعد التثبيت تصلك التحديثات تلقائياً، ويُطلب رمز الدخول مرة واحدة فقط.</div>
+  </div>
+</div>
+
+<!-- ===== دخول المشرف ===== -->
+<div class="sheet-bg" id="adminSheet">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head"><h3>دخول المشرف</h3><button class="x-btn" data-close><i class="fas fa-times"></i></button></div>
+    <div class="field"><label>البريد الإلكتروني</label><input class="input" type="email" id="admEmail" autocomplete="username" style="direction:ltr;text-align:right"></div>
+    <div class="field"><label>كلمة المرور</label><input class="input" type="password" id="admPass" autocomplete="current-password"></div>
+    <div class="gate-msg" id="admLoginMsg" style="color:var(--danger);margin:0 0 8px"></div>
+    <button class="btn" id="admLoginBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
+  </div>
+</div>
+
+<!-- ===== عن التطبيق ===== -->
+<div class="sheet-bg" id="infoSheet">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div style="text-align:center;margin-bottom:12px">
+      <img src="icon-192.png" alt="" style="width:72px;height:72px;border-radius:18px;box-shadow:var(--shadow)">
+      <div style="font-size:19px;font-weight:800;margin-top:6px">دوران بود فلج بطين</div>
+      <div style="font-size:12px;color:var(--muted);font-weight:600">الإصدار 2.1</div>
+    </div>
+    <div class="modal-text">تطبيق دوران البود لفلج بطين يسهّل متابعة توزيع مياه الفلج ومعرفة أوقات البود والآثار.</div>
+    <div class="modal-text">يعرض لمن الماء الآن، وموعدك القادم، والبادة الحالية، وجدول المواعيد لأي فترة مع إمكانية تحميله ومشاركته.</div>
+    <div class="modal-text">التطبيق وسيلة مساعدة لخدمة الأهالي، ولا يُعتدّ به من ناحية التملك، وإنما هو وسيلة لمعرفة موعد حصة المتملك أو من ينوب عنه وكذلك المستفيد والمستأجر. ويبقى المرجع الأساسي في جميع الحالات العرف المحلي ووكلاء الفلج، ولأي ملاحظات يرجى التواصل مع وكلاء الفلج.</div>
+    <button class="btn" data-close>إغلاق</button>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+<div id="print-area"></div>
+
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <script>
-// ===== إعداد Firebase =====
-const firebaseConfig = {
-  apiKey: "AIzaSyBMWggfqpBia6Jgvij97sotfpVR3Heom44",
-  authDomain: "falaj-app-6ef1f.firebaseapp.com",
-  databaseURL: "https://falaj-app-6ef1f-default-rtdb.firebaseio.com",
-  projectId: "falaj-app-6ef1f",
-  storageBucket: "falaj-app-6ef1f.firebasestorage.app",
-  messagingSenderId: "432553626932",
-  appId: "1:432553626932:web:2e7886df91909f05fb2961"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+/*CORE-START*/
+// ================== منطق الدوران ==================
+// كل الحسابات بتوقيت عُمان (UTC+4، بدون توقيت صيفي) مهما كان توقيت الجهاز.
+const H = 3600e3, MIN = 60e3, SLOT = 30 * MIN, DAY = 24 * H, WEEK = 7 * DAY, OMAN = 4 * H;
+// القعد أسبوعياً: الاثنين 6م ← الثلاثاء 6م، والخميس 6م ← الجمعة 6م
+// الموضع داخل الأسبوع يُقاس بالساعات من الأحد 00:00
+const Q1S = 42 * H, Q1E = 66 * H, Q2S = 114 * H, Q2E = 138 * H;
+const FLOW_WEEK = WEEK - (Q1E - Q1S) - (Q2E - Q2S);           // 120 ساعة جريان في الأسبوع
+const EPOCH = Date.UTC(2024, 0, 7);                            // أحد، 00:00 بتوقيت عُمان (مرجع حسابي فقط)
 
-// ===== البيانات الثابتة =====
 const BADAS = [
   { name: "سيف",    hours: 24, athars: 48 },
   { name: "سعيد",   hours: 24, athars: 48 },
@@ -980,615 +620,857 @@ const BADAS = [
   { name: "الزايده",hours: 24, athars: 48 },
   { name: "القلبة", hours: 6,  athars: 12 }
 ];
-const DEFAULT_REFERENCE = new Date("2026-04-22T18:00:00");
-let REFERENCE_START = new Date("2026-04-22T18:00:00");
-const TOTAL_CYCLE_HOURS = BADAS.reduce((s, b) => s + b.hours, 0);
+const SLOTS = [];
+BADAS.forEach((b, i) => { for (let a = 1; a <= b.athars; a++) SLOTS.push({ b: i, a }); });
+const CYCLE = SLOTS.length; // عدد الآثار في الدورة
 
-let currentCloudPass = "1234";
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+const mod = (n, m) => ((n % m) + m) % m;
+
+function weekPos(t) { const x = t + OMAN - EPOCH; const w = Math.floor(x / WEEK); return { w, p: x - w * WEEK }; }
+function isQaadAt(t) { const { p } = weekPos(t); return (p >= Q1S && p < Q1E) || (p >= Q2S && p < Q2E); }
+// زمن الجريان الفعلي (بدون القعد) منذ المرجع الحسابي
+function flowAt(t) {
+  const { w, p } = weekPos(t);
+  return w * FLOW_WEEK + Math.min(p, Q1S) + clamp(p - Q1E, 0, Q2S - Q1E) + clamp(p - Q2E, 0, WEEK - Q2E);
+}
+// العكس: الوقت الحقيقي الذي يبلغ فيه الجريان القيمة f.
+// left=false: أول لحظة يجري فيها الماء (بعد القعد) — لبداية الأثر
+// left=true : لحظة التوقف (قبل القعد) — لنهاية الأثر
+function timeAtFlow(f, left) {
+  const w = Math.floor(f / FLOW_WEEK), r = f - w * FLOW_WEEK;
+  const s1 = Q1S, s2 = s1 + (Q2S - Q1E);
+  let p = r < s1 ? r : r < s2 ? Q1E + (r - s1) : Q2E + (r - s2);
+  if (left) { if (p === Q1E) p = Q1S; else if (p === Q2E) p = Q2S; }
+  return EPOCH + w * WEEK + p - OMAN;
+}
+
+const DEFAULT_REF = Date.parse("2026-04-22T18:00:00+04:00");
+let REF = DEFAULT_REF, F0 = flowAt(REF);
+function setReference(ms) { if (!isFinite(ms)) ms = DEFAULT_REF; REF = ms; F0 = flowAt(ms); }
+
 let OWNERS = {};
-let selectedAdminBada = null;
-let selectedAdminAthar = null;
+function ownerAtC(c) {
+  const s = SLOTS[c], o = OWNERS[BADAS[s.b].name];
+  const n = o ? o[s.a] : "";
+  return typeof n === "string" ? n.trim() : "";
+}
+// k = رقم الأثر منذ بداية الدورة المرجعية (يزيد بلا حد)
+function slotIndexAt(t) { return Math.floor((flowAt(t) - F0) / SLOT); }
+function slotStart(k) { return timeAtFlow(F0 + k * SLOT, false); }
+function slotEnd(k) { return timeAtFlow(F0 + (k + 1) * SLOT, true); }
 
-// ===== منطق القعد =====
-function isQaadAt(date) {
-  const d = date.getDay(), h = date.getHours();
-  // الاثنين 6م (18) حتى الثلاثاء 6م (18)
-  // الخميس 6م (18) حتى الجمعة 6م (18)
-  return (d === 1 && h >= 18) || (d === 2 && h < 18) ||
-         (d === 4 && h >= 18) || (d === 5 && h < 18);
+function mkTurn(k1, k2) {
+  const c = mod(k1, CYCLE), s = SLOTS[c];
+  const start = slotStart(k1), end = slotEnd(k2), count = k2 - k1 + 1;
+  return { k1, k2, owner: ownerAtC(c), bada: BADAS[s.b].name, badaIdx: s.b,
+           a1: s.a, a2: s.a + count - 1, count, start, end,
+           hasQaad: end - start > count * SLOT + 1000 };
+}
+// الحصة (آثار متتالية لنفس الاسم داخل نفس البادة) التي تحتوي الأثر k
+function turnAt(k) {
+  const c = mod(k, CYCLE), s = SLOTS[c], own = ownerAtC(c);
+  const bStart = k - (s.a - 1), bEnd = bStart + BADAS[s.b].athars - 1;
+  let k1 = k, k2 = k;
+  while (k1 > bStart && ownerAtC(mod(k1 - 1, CYCLE)) === own) k1--;
+  while (k2 < bEnd && ownerAtC(mod(k2 + 1, CYCLE)) === own) k2++;
+  return mkTurn(k1, k2);
+}
+function turnsBetween(kFrom, kTo) {
+  const out = []; let t = turnAt(kFrom);
+  while (t.k1 <= kTo) { out.push(t); t = turnAt(t.k2 + 1); }
+  return out;
+}
+function badaBounds(k) {
+  const c = mod(k, CYCLE), s = SLOTS[c], k1 = k - (s.a - 1);
+  return { k1, k2: k1 + BADAS[s.b].athars - 1, idx: s.b, name: BADAS[s.b].name };
+}
+function nextTurnOf(name, fromK, maxSlots = CYCLE * 2) {
+  let t = turnAt(fromK); const lim = fromK + maxSlots;
+  while (t.k1 <= lim) { if (t.owner === name) return t; t = turnAt(t.k2 + 1); }
+  return null;
+}
+function slotsForRange(from, to) {
+  return [Math.floor((flowAt(from) - F0) / SLOT), Math.ceil((flowAt(to) - F0) / SLOT) - 1];
+}
+/*CORE-END*/
+
+// ================== Firebase ==================
+const firebaseConfig = {
+  apiKey: "AIzaSyBMWggfqpBia6Jgvij97sotfpVR3Heom44",
+  authDomain: "falaj-app-6ef1f.firebaseapp.com",
+  projectId: "falaj-app-6ef1f",
+  storageBucket: "falaj-app-6ef1f.firebasestorage.app",
+  messagingSenderId: "432553626932",
+  appId: "1:432553626932:web:2e7886df91909f05fb2961"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+db.enablePersistence({ synchronizeTabs: true }).catch(() => {});   // عرض آخر بيانات بدون إنترنت
+const auth = firebase.auth();
+const FV = firebase.firestore.FieldValue;
+
+// ================== أدوات ==================
+const $ = id => document.getElementById(id);
+const TZ = "Asia/Muscat";
+const fTime = new Intl.DateTimeFormat("ar-EG", { timeZone: TZ, hour: "numeric", minute: "2-digit", hour12: true });
+const fClock = new Intl.DateTimeFormat("ar-EG", { timeZone: TZ, hour: "numeric", minute: "2-digit", second: "2-digit", hour12: true });
+const fDay = new Intl.DateTimeFormat("ar-EG", { timeZone: TZ, weekday: "long", day: "numeric", month: "long" });
+const fDayShort = new Intl.DateTimeFormat("ar-EG", { timeZone: TZ, weekday: "long", day: "numeric", month: "numeric" });
+const fDateFull = new Intl.DateTimeFormat("ar-EG", { timeZone: TZ, weekday: "long", day: "numeric", month: "long", year: "numeric" });
+const fRef = new Intl.DateTimeFormat("ar-EG", { timeZone: TZ, weekday: "long", day: "numeric", month: "long", year: "numeric", hour: "numeric", minute: "2-digit", hour12: true });
+let fHijri; try { fHijri = new Intl.DateTimeFormat("ar-SA-u-ca-islamic", { timeZone: TZ, day: "numeric", month: "long", year: "numeric" }); } catch (e) {}
+const fWeekdayEn = new Intl.DateTimeFormat("ar", { timeZone: TZ, weekday: "long" });
+const fWeekday = new Intl.DateTimeFormat("ar-EG", { timeZone: TZ, weekday: "long" });
+const num = n => Number(n).toLocaleString("ar-EG");
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const omanDate = ms => new Date(ms + OMAN);
+const dayKey = ms => omanDate(ms).toISOString().slice(0, 10);
+const dayStart = ms => Math.floor((ms + OMAN) / DAY) * DAY - OMAN;
+const dayFromKey = key => Date.parse(key + "T00:00:00Z") - OMAN;
+const isDayTime = ms => { const h = omanDate(ms).getUTCHours(); return h >= 6 && h < 18; };
+const hhmm = ms => omanDate(ms).toISOString().slice(11, 16);
+const initial = n => (n || "؟").trim().charAt(0);
+// وقت النهاية، مع اسم اليوم إذا كانت النهاية في يوم آخر (بسبب القعد أو منتصف الليل)
+const endText = t => (dayKey(t.start) === dayKey(t.end - 1) ? "" : fWeekday.format(t.end) + " ") + fTime.format(t.end);
+const athText = t => t.a1 === t.a2 ? `الأثر ${num(t.a1)}` : `الآثار ${num(t.a1)}–${num(t.a2)}`;
+function splitDur(ms) { const m = Math.max(0, Math.ceil(ms / MIN)); return { d: Math.floor(m / 1440), h: Math.floor(m % 1440 / 60), m: m % 60 }; }
+function durText(ms) {
+  const { d, h, m } = splitDur(ms), p = [];
+  if (d) p.push(num(d) + " يوم"); if (h) p.push(num(h) + " س"); if (m || !p.length) p.push(num(m) + " د");
+  return p.join(" ");
+}
+function toast(msg, err = false) {
+  const el = document.createElement("div"); el.className = "toast" + (err ? " err" : ""); el.textContent = msg;
+  $("toasts").appendChild(el); setTimeout(() => el.remove(), 3200);
+}
+const store = {
+  get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} },
+  del: k => { try { localStorage.removeItem(k); } catch (e) {} }
+};
+const K_CODE = "falaj_view_code", K_ME = "falaj_me";
+
+let CONFIG = {};
+function allNames() {
+  const s = new Set();
+  Object.values(OWNERS).forEach(b => Object.values(b || {}).forEach(n => { if (typeof n === "string" && n.trim()) s.add(n.trim()); }));
+  return [...s].sort((a, b) => a.localeCompare(b, "ar"));
 }
 
-function countQaadHours(start, end) {
-  // حساب دقيق بالمرور على كل ساعة
-  let count = 0;
-  let cursor = new Date(start);
-  cursor.setMinutes(0, 0, 0);
-  const endHour = new Date(end);
-  endHour.setMinutes(0, 0, 0);
-  while (cursor < endHour) {
-    if (isQaadAt(cursor)) count++;
-    cursor.setHours(cursor.getHours() + 1);
+// ================== عرض الحصص ==================
+function turnRow(t, { now = Date.now(), showOwner = true } = {}) {
+  const cur = now >= t.start && now < t.end, past = t.end <= now, day = isDayTime(t.start);
+  const me = store.get(K_ME);
+  const cls = ["turn"]; if (cur) cls.push("current"); if (past) cls.push("past");
+  if (!t.owner) cls.push("unreg"); if (me && t.owner === me) cls.push("mine");
+  const title = showOwner ? (t.owner || "غير مسجل") : "بادة " + t.bada;
+  const sub = athText(t) + (t.hasQaad ? " · يتخللها قعد" : "");
+  return `<div class="${cls.join(" ")}" data-k1="${t.k1}" data-k2="${t.k2}">
+    <div class="t-badge ${day ? "day" : "night"}" title="عدد الآثار"><i class="fas fa-${day ? "sun" : "moon"}"></i> ${num(t.count)}</div>
+    <div class="t-name"><b>${esc(title)}${cur ? '<span class="live-dot"></span>' : ""}</b><small>${sub}</small></div>
+    <div class="t-time">${fTime.format(t.start)}<small>إلى ${endText(t)}</small></div>
+  </div>`;
+}
+function groupedHTML(turns, opts) {
+  let html = "", last = "";
+  for (const t of turns) {
+    const key = dayKey(t.start);
+    if (key !== last) { last = key; html += `<div class="day-head"><i class="far fa-calendar"></i> ${fDay.format(t.start)}</div>`; }
+    html += turnRow(t, opts);
   }
-  return count;
+  return html;
+}
+function turnText(t, withOwner = true) {
+  return `• ${fTime.format(t.start)} – ${endText(t)} | بادة ${t.bada} (${athText(t)})` + (withOwner ? ` | ${t.owner || "غير مسجل"}` : "");
+}
+function turnsText(title, turns, withOwner = true) {
+  let out = title + "\n", last = "";
+  for (const t of turns) {
+    const key = dayKey(t.start);
+    if (key !== last) { last = key; out += `\n📅 ${fDay.format(t.start)}\n`; }
+    out += turnText(t, withOwner) + "\n";
+  }
+  return out.trim();
 }
 
-// ===== حساب الحالة في لحظة معينة =====
-function getStatusAt(targetDate) {
-  if (isQaadAt(targetDate)) {
-    return { isQaad: true };
-  }
-  const elapsedMs = targetDate - REFERENCE_START;
-  const elapsedHours = elapsedMs / 3.6e6;
-  const qaadHours = countQaadHours(REFERENCE_START, targetDate);
-  const netHours = elapsedHours - qaadHours;
-  let rem = ((netHours % TOTAL_CYCLE_HOURS) + TOTAL_CYCLE_HOURS) % TOTAL_CYCLE_HOURS;
-  
-  let badaIndex = 0;
-  let temp = rem;
-  for (let i = 0; i < BADAS.length; i++) {
-    if (temp < BADAS[i].hours) { badaIndex = i; break; }
-    temp -= BADAS[i].hours;
-  }
-  const bada = BADAS[badaIndex];
-  const remInBada = temp; // الساعات المنقضية داخل البادة
-  // الأثر: كل ساعة = أثران (30 دقيقة لكل أثر)
-  const athar = Math.min(Math.floor(remInBada * 2) + 1, bada.athars);
-  const hoursLeft = bada.hours - remInBada;
-  const progressPct = Math.round((remInBada / bada.hours) * 100);
-  
-  return {
-    isQaad: false,
-    bada,
-    remInBada,
-    athar,
-    hoursLeft,
-    progressPct,
-    badaIndex
-  };
+// ================== الرئيسية ==================
+function renderHeader() {
+  const now = Date.now();
+  $("hdrClock").textContent = fClock.format(now);
+  $("hdrDate").textContent = fDateFull.format(now);
 }
+function renderNow(now, k) {
+  const card = $("nowCard"), qaad = isQaadAt(now), cur = turnAt(k);
+  const nexts = []; let t = turnAt(cur.k2 + 1);
+  while (nexts.length < 3) { nexts.push(t); t = turnAt(t.k2 + 1); }
+  const nextHTML = list => list.map(n => `
+    <div class="next-row" data-k1="${n.k1}" data-k2="${n.k2}">
+      <div class="avatar">${esc(initial(n.owner))}</div>
+      <div class="next-name">${esc(n.owner || "غير مسجل")}<small>بادة ${esc(n.bada)} · ${athText(n)}</small></div>
+      <div class="next-time">${fTime.format(n.start)}</div>
+    </div>`).join("");
 
-// ===== تحديث شاشة الحالة =====
-// ===== المستفيد السابق والقادم =====
-function getNeighborOwners(now) {
-  const atharDurMs = 30 * 60 * 1000;
-  const fmtT = (ms) => new Date(ms).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit",hour12:true});
-  const currentState = getStatusAt(now);
-  const currentOwner = (!currentState.isQaad && OWNERS[currentState.bada.name])
-    ? (OWNERS[currentState.bada.name][currentState.athar] || null) : null;
-
-  // بداية الأثر الحالي
-  const remInBadaMs = currentState.isQaad ? 0 : currentState.remInBada * 3600000;
-  const atharStartMs = now.getTime() - (remInBadaMs % atharDurMs);
-
-  // القادم: نمشي للأمام حتى نجد اسماً مختلفاً
-  let nextOwner = null, nextTime = null;
-  let cursor = new Date(atharStartMs + atharDurMs);
-  for (let i = 0; i < 200; i++) {
-    const st = getStatusAt(cursor);
-    if (!st.isQaad) {
-      const ow = OWNERS[st.bada.name] ? (OWNERS[st.bada.name][st.athar] || null) : null;
-      if (ow !== currentOwner) { nextOwner = ow; nextTime = cursor.getTime(); break; }
-    }
-    cursor = new Date(cursor.getTime() + atharDurMs);
-  }
-
-  // السابق: نمشي للخلف حتى نجد اسماً مختلفاً
-  let prevOwner = null, prevEndTime = null;
-  let back = new Date(atharStartMs - atharDurMs);
-  for (let i = 0; i < 200; i++) {
-    const st = getStatusAt(back);
-    if (!st.isQaad) {
-      const ow = OWNERS[st.bada.name] ? (OWNERS[st.bada.name][st.athar] || null) : null;
-      if (ow !== currentOwner) { prevOwner = ow; prevEndTime = back.getTime() + atharDurMs; break; }
-    }
-    back = new Date(back.getTime() - atharDurMs);
-  }
-
-  return { prevOwner, prevEndTime, nextOwner, nextTime };
-}
-
-// ===== تحديث الساعة كل ثانية =====
-function updateClock() {
-  const now = new Date();
-  document.getElementById("ui-clock").textContent = now.toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});
-  document.getElementById("ui-hijri").textContent = now.toLocaleDateString("ar-SA-u-ca-islamic",{year:"numeric",month:"long",day:"numeric"});
-}
-
-function updateStatusCard() {
-  const now = new Date();
-  const days = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
-  document.getElementById("ui-day").textContent = days[now.getDay()];
-  document.getElementById("ui-date").textContent = now.toLocaleDateString("ar-EG", {year:"numeric",month:"long",day:"numeric"});
-  
-  const s = getStatusAt(now);
-  const badge = document.getElementById("status-badge");
-  
-  if (s.isQaad) {
-    badge.className = "status-badge qaad";
-    badge.innerHTML = '<i class="fas fa-pause-circle"></i> <span>⚠️ قعد الفلج — الدوران متوقف</span>';
-    document.getElementById("ui-status").textContent = "";
-    document.getElementById("ui-bada").textContent = "متوقف";
-    document.getElementById("ui-athar").textContent = "—";
-    document.getElementById("ui-owner").textContent = "وقت القعد";
-    document.getElementById("timer-h").textContent = "—";
-    document.getElementById("timer-m").textContent = "—";
-    document.getElementById("progress-mini").style.display = "none";
-    document.getElementById("athar-time-row").style.display = "none";
-    document.getElementById("neighbor-card").classList.remove("visible");
-  } else {
-    badge.className = "status-badge active-flow";
-    badge.innerHTML = '<i class="fas fa-water"></i> <span>💧 الدوران جارٍ</span>';
-    document.getElementById("ui-bada").textContent = "بادة " + s.bada.name;
-    document.getElementById("ui-athar").textContent = "الأثر " + s.athar + " / " + s.bada.athars;
-    const ownerName = OWNERS[s.bada.name] && OWNERS[s.bada.name][s.athar] ? OWNERS[s.bada.name][s.athar] : "—";
-    document.getElementById("ui-owner").textContent = ownerName;
-
-    // وقت بداية ونهاية الأثر الحالي
-    const atharDurMs = 30 * 60 * 1000;
-    const remInBadaMs = s.remInBada * 3600000;
-    const atharStartMs = now.getTime() - (remInBadaMs % atharDurMs);
-    const atharEndMs = atharStartMs + atharDurMs;
-    const fmtT = (ms) => new Date(ms).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit",hour12:true});
-    document.getElementById("ui-athar-start").textContent = fmtT(atharStartMs);
-    document.getElementById("ui-athar-end").textContent = fmtT(atharEndMs - 60000);
-    document.getElementById("athar-time-row").style.display = "";
-    
-    // العداد
-    const totalMins = Math.round(s.hoursLeft * 60);
-    const h = Math.floor(totalMins / 60);
-    const m = totalMins % 60;
-    document.getElementById("timer-h").textContent = String(h).padStart(2,"0");
-    document.getElementById("timer-m").textContent = String(m).padStart(2,"0");
-    
-    // شريط التقدم
-    const pm = document.getElementById("progress-mini");
-    pm.style.display = "block";
-    document.getElementById("progress-pct").textContent = s.progressPct + "%";
-    document.getElementById("progress-fill").style.width = s.progressPct + "%";
-
-    // السابق والقادم
-    const nb = getNeighborOwners(now);
-    const fmtN = (ms) => new Date(ms).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit",hour12:true});
-    const neighborCard = document.getElementById("neighbor-card");
-    neighborCard.classList.add("visible");
-    const prevEl = document.getElementById("ui-prev-owner");
-    if (nb.prevOwner) {
-      prevEl.textContent = nb.prevOwner;
-      prevEl.className = "neighbor-name";
-      document.getElementById("ui-prev-time").textContent = "انتهى " + fmtN(nb.prevEndTime);
-    } else {
-      prevEl.textContent = "غير مسجل";
-      prevEl.className = "neighbor-name no-owner";
-      document.getElementById("ui-prev-time").textContent = "";
-    }
-    const nextEl = document.getElementById("ui-next-owner");
-    if (nb.nextOwner) {
-      nextEl.textContent = nb.nextOwner;
-      nextEl.className = "neighbor-name";
-      document.getElementById("ui-next-time").textContent = "يبدأ " + fmtN(nb.nextTime);
-    } else {
-      nextEl.textContent = "غير مسجل";
-      nextEl.className = "neighbor-name no-owner";
-      document.getElementById("ui-next-time").textContent = "";
-    }
-  }
-}
-
-// ===== البحث عن المواعيد =====
-function searchOwnerSchedule(ownerName, days) {
-  const results = [];
-  const now = new Date();
-  const limit = new Date();
-  limit.setDate(limit.getDate() + days);
-  limit.setHours(23, 59, 59);
-  
-  // نبدأ من بداية نصف الساعة الحالي
-  let cursor = new Date(now);
-  const startMin = now.getMinutes() < 30 ? 0 : 30;
-  cursor.setMinutes(startMin, 0, 0);
-
-  while (cursor <= limit) {
-    const state = getStatusAt(cursor);
-    const cursorTime = cursor.getTime();
-
-    // تجاوز وقت القعد
-    if (state.isQaad) {
-      cursor.setMinutes(cursor.getMinutes() + 30);
-      continue;
-    }
-
-    const owner = OWNERS[state.bada.name] && OWNERS[state.bada.name][state.athar]
-      ? OWNERS[state.bada.name][state.athar] : null;
-
-    if (owner === ownerName) {
-      const last = results[results.length - 1];
-      // دمج الآثار المتتالية — يعتمد على رقم الأثر فقط (يتجاهل فجوات القعد)
-      if (last && last.bada === state.bada.name && last.endAthar === state.athar - 1) {
-        last.endAthar = state.athar;
-        last.endTime = new Date(cursorTime + 1800000);
-        last._lastCursor = cursorTime;
-      } else {
-        const isToday = cursor.toDateString() === now.toDateString();
-        results.push({
-          bada: state.bada.name,
-          dateStr: cursor.toLocaleDateString("ar-EG", {weekday:'long',day:'numeric',month:'long'}),
-          startTime: new Date(cursorTime),
-          endTime: new Date(cursorTime + 1800000),
-          startAthar: state.athar,
-          endAthar: state.athar,
-          isToday,
-          _lastCursor: cursorTime
-        });
-      }
-    }
-    cursor.setMinutes(cursor.getMinutes() + 30);
-  }
-  return results;
-}
-
-function renderSearchResults(results, ownerName) {
-  const container = document.getElementById("searchResult");
-  if (!results.length) {
-    container.innerHTML = `<div class="empty-state"><i class="fas fa-calendar-times"></i><p>لا توجد مواعيد لـ <strong>${ownerName}</strong><br>في النطاق الزمني المحدد</p></div>`;
+  if (qaad) {
+    const resume = timeAtFlow(flowAt(now), false);
+    card.className = "card now-card qaad";
+    card.innerHTML = `
+      <div class="now-top"><span class="pill"><i class="fas fa-pause-circle"></i> قعد الفلج</span><span class="pill">الدوران متوقف</span></div>
+      <div class="now-name">الدوران متوقف الآن</div>
+      <div class="now-remain"><span>يعود الدوران بعد ${durText(resume - now)}</span><span>${fTime.format(resume)}</span></div>
+      <div class="next-label">أول من يبدأ بعد القعد</div>
+      ${nextHTML([cur, ...nexts.slice(0, 2)])}`;
     return;
   }
-  
-  const todayResults = results.filter(r => r.isToday);
-  const futureResults = results.filter(r => !r.isToday);
-  
-  let html = `<div class="results-header">🎯 وُجد ${results.length} موعد لـ <strong>${ownerName}</strong></div>`;
-  
-  if (todayResults.length) {
-    html += '<div style="font-size:13px;font-weight:800;color:var(--leaf);margin-bottom:8px;">📌 اليوم</div>';
-    todayResults.forEach(r => { html += buildResultCard(r, true); });
+  const pct = clamp(Math.round((now - cur.start) / (cur.end - cur.start) * 100), 0, 100);
+  card.className = "card now-card";
+  card.innerHTML = `
+    <div class="now-top"><span class="pill"><i class="fas fa-tint"></i> الماء الآن عند</span><span class="pill">بادة ${esc(cur.bada)}</span></div>
+    <div class="now-name ${cur.owner ? "" : "muted"}" data-k1="${cur.k1}" data-k2="${cur.k2}" style="cursor:pointer">${esc(cur.owner || "غير مسجل")}</div>
+    <div class="now-meta">
+      <span class="pill"><i class="far fa-clock"></i> ${fTime.format(cur.start)} ← ${endText(cur)}</span>
+      <span class="pill"><i class="fas fa-hashtag"></i> ${athText(cur)}</span>
+    </div>
+    <div class="now-remain"><span>المتبقي ${durText(cur.end - now)}</span><span>${num(pct)}٪</span></div>
+    <div class="bar"><div style="width:${pct}%"></div></div>
+    <div class="next-label">بعده</div>
+    ${nextHTML(nexts)}`;
+}
+function renderMy(now, k) {
+  const card = $("myCard"), names = allNames(), me = store.get(K_ME);
+  if (!me || !names.includes(me)) {
+    card.innerHTML = `
+      <div class="card-title"><i class="fas fa-user"></i> موعدي القادم</div>
+      <div class="card-sub">${me ? "الاسم المحفوظ لم يعد موجوداً في الجدول. " : ""}اختر اسمك مرة واحدة، وسيظهر موعدك القادم هنا دائماً.</div>
+      <select class="select" id="mySelect"><option value="">— اختر اسمك —</option>${names.map(n => `<option>${esc(n)}</option>`).join("")}</select>`;
+    $("mySelect").onchange = e => { if (e.target.value) { store.set(K_ME, e.target.value); renderAll(); } };
+    return;
   }
-  if (futureResults.length) {
-    if (todayResults.length) html += '<div style="font-size:13px;font-weight:800;color:var(--sky-dark);margin:12px 0 8px;">📅 الأيام القادمة</div>';
-    futureResults.forEach(r => { html += buildResultCard(r, false); });
-  }
-  container.innerHTML = html;
-}
-
-function buildResultCard(r, isToday) {
-  const fmtTime = (d) => d.toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit",hour12:true});
-  const endDisplay = new Date(r.endTime.getTime() - 60000);
-  const atharTxt = r.startAthar === r.endAthar ? `الأثر ${r.startAthar}` : `الآثار ${r.startAthar} – ${r.endAthar}`;
-  return `
-    <div class="result-card ${isToday ? 'today' : ''}">
-      <div class="rc-top">
-        <div class="rc-bada">💧 بادة ${r.bada}</div>
-        <div class="rc-badge ${isToday ? 'today-badge' : ''}">
-          ${isToday ? '📌 اليوم' : r.dateStr.split(' ')[0]}
-        </div>
-      </div>
-      <div class="rc-date"><i class="fas fa-calendar" style="color:var(--sky)"></i> ${r.dateStr}</div>
-      <div class="rc-time"><i class="fas fa-clock" style="color:var(--sky)"></i> ${fmtTime(r.startTime)} ← ${fmtTime(endDisplay)}</div>
-      <div class="rc-athar"><i class="fas fa-hashtag" style="color:#9b2335"></i> ${atharTxt}</div>
-    </div>`;
-}
-
-// ===== التقويم =====
-function renderCalendar() {
-  const tbody = document.getElementById("calendar-body");
-  tbody.innerHTML = `<tr><td colspan="3"><div class="loading-spinner"><div class="spinner"></div><span>جارٍ الحساب...</span></div></td></tr>`;
-  
-  // نستخدم setTimeout لإعطاء فرصة لعرض loading
-  setTimeout(() => {
-    const rows = [];
-    const now = new Date();
-    let cursor = new Date();
-    cursor.setDate(cursor.getDate() - 3);
-    cursor.setHours(cursor.getHours(), 0, 0, 0);
-    const limit = new Date();
-    limit.setDate(limit.getDate() + 14);
-    
-    while (cursor <= limit) {
-      const startRange = new Date(cursor);
-      const state = getStatusAt(cursor);
-      const isCurrentQaad = state.isQaad;
-      const currentBadaName = state.isQaad ? null : state.bada.name;
-      
-      // تقدم حتى تتغير الحالة
-      while (cursor <= limit) {
-        cursor.setHours(cursor.getHours() + 1);
-        const nextState = getStatusAt(cursor);
-        if (nextState.isQaad !== isCurrentQaad ||
-           (!isCurrentQaad && nextState.bada.name !== currentBadaName)) break;
-      }
-      const endRange = new Date(cursor);
-      
-      const label = isCurrentQaad ? "⚠️ قعد الفلج" : "💧 بادة " + currentBadaName;
-      const isCurrent = now >= startRange && now < endRange;
-      const fmtOpts = {day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'};
-      const startStr = startRange.toLocaleString("ar-EG", fmtOpts);
-      const endStr = new Date(endRange.getTime() - 60000).toLocaleString("ar-EG", fmtOpts);
-      
-      rows.push({label, startStr, endStr, isQaad: isCurrentQaad, isCurrent});
-    }
-    
-    tbody.innerHTML = rows.map(r => `
-      <tr class="${r.isQaad ? 'qaad-row' : ''} ${r.isCurrent ? 'current-bada current-bada-pulse' : ''}">
-        <td>${r.label}</td>
-        <td>${r.startStr}</td>
-        <td>${r.endStr}</td>
-      </tr>`).join("");
-    
-    // التمرير للحالة الحالية
-    setTimeout(() => {
-      document.querySelector(".current-bada")?.scrollIntoView({behavior:"smooth", block:"center"});
-    }, 200);
-  }, 50);
-}
-
-// ===== الإدارة =====
-function renderAdminBadas() {
-  const container = document.getElementById("admin-badas-chips");
-  container.innerHTML = BADAS.map(b => `
-    <button class="bada-chip" data-bada="${b.name}" onclick="selectAdminBada(\'${b.name}\')">
-      ${b.name}
-    </button>`).join("");
-}
-
-function selectAdminBada(badaName) {
-  selectedAdminBada = badaName;
-  selectedAdminAthar = null;
-  document.querySelectorAll(".bada-chip").forEach(c => c.classList.toggle("selected", c.dataset.bada === badaName));
-  
-  const bada = BADAS.find(b => b.name === badaName);
-  const grid = document.getElementById("admin-athar-grid");
-  grid.innerHTML = "";
-  for (let i = 1; i <= bada.athars; i++) {
-    const hasOwner = OWNERS[badaName] && OWNERS[badaName][i];
-    const chip = document.createElement("button");
-    chip.className = "athar-chip" + (hasOwner ? " has-owner" : "");
-    chip.textContent = i;
-    chip.onclick = () => selectAdminAthar(i, badaName);
-    grid.appendChild(chip);
-  }
-  updateCurrentOwnerDisplay();
-}
-
-function selectAdminAthar(athar, badaName) {
-  selectedAdminAthar = athar;
-  document.querySelectorAll(".athar-chip").forEach((c,i) => c.classList.toggle("selected", i+1 === athar));
-  const owner = OWNERS[badaName] && OWNERS[badaName][athar] ? OWNERS[badaName][athar] : "";
-  document.getElementById("admin-owner").value = owner;
-  updateCurrentOwnerDisplay();
-}
-
-function updateCurrentOwnerDisplay() {
-  const el = document.getElementById("current-owner-display");
-  if (selectedAdminBada && selectedAdminAthar) {
-    const owner = OWNERS[selectedAdminBada] && OWNERS[selectedAdminBada][selectedAdminAthar]
-      ? OWNERS[selectedAdminBada][selectedAdminAthar] : "(غير مسجل)";
-    el.innerHTML = `بادة <strong>${selectedAdminBada}</strong> • الأثر <strong>${selectedAdminAthar}</strong> • الاسم الحالي: <span>${owner}</span>`;
+  const head = `<div class="row-between"><div class="card-title"><i class="fas fa-user"></i> موعدي — ${esc(me)}</div><button class="small-btn" id="myChange">تغيير</button></div>`;
+  const cur = turnAt(k);
+  let html = head;
+  if (cur.owner === me && !isQaadAt(now)) {
+    html += `<div class="flow-now"><i class="fas fa-tint"></i> الماء عندك الآن حتى ${endText(cur)}<br><small>المتبقي ${durText(cur.end - now)} · بادة ${esc(cur.bada)} · ${athText(cur)}</small></div>`;
+    const nx = nextTurnOf(me, cur.k2 + 1);
+    if (nx) html += `<div class="info-line"><i class="fas fa-forward"></i> الموعد التالي: ${fDay.format(nx.start)} — ${fTime.format(nx.start)}</div>`;
   } else {
-    el.innerHTML = 'الاسم الحالي: <span>—</span>';
+    const t = nextTurnOf(me, k);
+    if (!t) html += `<div class="empty"><i class="far fa-calendar-times"></i>لا يوجد موعد خلال الدورتين القادمتين</div>`;
+    else {
+      const { d, h, m } = splitDur(t.start - now);
+      html += `
+        <div class="countdown">
+          <div class="cd-box"><div class="cd-num">${num(d)}</div><div class="cd-unit">يوم</div></div>
+          <div class="cd-box"><div class="cd-num">${num(h)}</div><div class="cd-unit">ساعة</div></div>
+          <div class="cd-box"><div class="cd-num">${num(m)}</div><div class="cd-unit">دقيقة</div></div>
+        </div>
+        <div class="info-line"><i class="far fa-calendar"></i> ${fDay.format(t.start)}</div>
+        <div class="info-line"><i class="far fa-clock"></i> ${fTime.format(t.start)} ← ${endText(t)}${t.hasQaad ? " (يتخللها قعد)" : ""}</div>
+        <div class="info-line"><i class="fas fa-tint"></i> بادة ${esc(t.bada)} · ${athText(t)}</div>`;
+    }
+  }
+  html += `<div class="btn-row" style="margin-top:12px"><button class="btn light" id="myAll"><i class="fas fa-list"></i> كل مواعيدي</button><button class="btn light" id="myCalBtn"><i class="far fa-calendar-plus"></i> التقويم</button></div>
+    <div class="action-card dashed card" id="myOffer" style="margin:10px 0 0;padding:12px">
+      <div class="ic"><i class="fas fa-hand-holding-water"></i></div>
+      <div class="tx"><b>لا تحتاج الماء في حصتك؟</b><small>اعرضها على وكيل الفلج ليعطيها من يحتاجها</small></div>
+      <i class="fas fa-chevron-left chev"></i>
+    </div>`;
+  card.innerHTML = html;
+  $("myChange").onclick = () => { store.del(K_ME); renderAll(); };
+  $("myAll").onclick = () => openSchedFor(me);
+  $("myCalBtn").onclick = () => openCalFor(me);
+  $("myOffer").onclick = () => openOffer(me);
+}
+function renderBada(now, k) {
+  const bb = badaBounds(k), turns = turnsBetween(bb.k1, bb.k2);
+  const start = slotStart(bb.k1), end = slotEnd(bb.k2);
+  const hr = omanDate(start).getUTCHours();
+  const when = hr < 5 ? "ليلاً" : hr < 12 ? "صباحاً" : hr < 17 ? "ظهراً" : "مساءً";
+  $("badaCard").innerHTML = `
+    <div class="row-between">
+      <div class="card-title"><i class="fas fa-water"></i> بادة ${esc(bb.name)}</div>
+      <span class="small-btn" style="cursor:default"><i class="fas fa-${isDayTime(start) ? "sun" : "moon"}"></i> تبدأ ${when}</span>
+    </div>
+    <div class="card-sub">${fDayShort.format(start)} ${fTime.format(start)} ← ${fDayShort.format(end)} ${fTime.format(end)}<br>اضغط على أي اسم لعرض تفاصيل حصته. ☀️ نهاراً · 🌙 ليلاً</div>
+    ${turns.map(t => turnRow(t, { now })).join("")}`;
+}
+function renderNextBadas(k) {
+  const bb = badaBounds(k); let ks = bb.k2 + 1, tiles = "";
+  for (let i = 0; i < 6; i++) {
+    const b = badaBounds(ks), st = slotStart(b.k1), day = isDayTime(st);
+    tiles += `<div class="bada-tile"><i class="fas fa-${day ? "sun" : "moon"}"></i><b>${esc(b.name)}</b><span>${fDayShort.format(st)}</span><span>${fTime.format(st)}</span></div>`;
+    ks = b.k2 + 1;
+  }
+  $("nextBadasCard").innerHTML = `<div class="card-title" style="margin-bottom:10px"><i class="fas fa-forward"></i> البادات القادمة</div><div class="hscroll">${tiles}</div>`;
+}
+function renderHome() {
+  const now = Date.now(), k = slotIndexAt(now);
+  renderNow(now, k); renderMy(now, k); renderBada(now, k); renderNextBadas(k);
+}
+
+// ================== تفاصيل الحصة ==================
+let sheetTurn = null;
+function openTurn(k1, k2) {
+  const t = mkTurn(k1, k2); sheetTurn = t;
+  $("tsName").textContent = t.owner || "غير مسجل";
+  $("tsBody").innerHTML = `
+    <div class="info-line"><i class="fas fa-tint"></i> بادة ${esc(t.bada)} · ${athText(t)} (${num(t.count)} أثر)</div>
+    <div class="info-line"><i class="far fa-calendar"></i> ${fDay.format(t.start)}</div>
+    <div class="info-line"><i class="far fa-clock"></i> ${fTime.format(t.start)} ← ${endText(t)}</div>
+    ${t.hasQaad ? '<div class="info-line"><i class="fas fa-pause-circle"></i> يتخللها وقت قعد</div>' : ""}
+    <div style="height:6px"></div>`;
+  $("tsAll").classList.toggle("hidden", !t.owner);
+  $("tsMe").classList.toggle("hidden", !t.owner || store.get(K_ME) === t.owner);
+  openSheet("turnSheet");
+}
+$("tsAll").onclick = () => { closeSheets(); openSchedFor(sheetTurn.owner); };
+$("tsCal").onclick = () => addTurnsToCalendar([sheetTurn]);
+$("tsMe").onclick = () => { store.set(K_ME, sheetTurn.owner); closeSheets(); toast("✅ تم حفظ اسمك"); renderAll(); };
+
+// ================== مواعيد ==================
+let schedRange = "c1";
+function fillNameSelect(sel, first, keep) {
+  const names = allNames(), v = keep ?? sel.value;
+  sel.innerHTML = `<option value="">${first}</option>` + names.map(n => `<option>${esc(n)}</option>`).join("");
+  if (names.includes(v)) sel.value = v;
+}
+function schedTurns() {
+  const name = $("schedName").value; if (!name) return { name, turns: [] };
+  const now = Date.now(), k0 = slotIndexAt(now);
+  let k1;
+  if (schedRange[0] === "c") k1 = k0 + CYCLE * +schedRange.slice(1);
+  else k1 = slotsForRange(now, now + +schedRange.slice(1) * DAY)[1];
+  const turns = turnsBetween(k0, k1).filter(t => t.owner === name && t.end > now);
+  return { name, turns };
+}
+function renderSched() {
+  const { name, turns } = schedTurns(), box = $("schedList");
+  $("schedActions").classList.toggle("hidden", !turns.length);
+  $("schedCal").classList.toggle("hidden", !turns.length);
+  if (!name) { box.innerHTML = `<div class="card empty"><i class="fas fa-user-clock"></i>اختر اسماً لعرض مواعيده</div>`; return; }
+  if (!turns.length) { box.innerHTML = `<div class="card empty"><i class="far fa-calendar-times"></i>لا توجد مواعيد لـ ${esc(name)} في المدة المحددة</div>`; return; }
+  box.innerHTML = `<div class="card"><div class="summary">عدد المواعيد: ${num(turns.length)} — ${esc(name)}</div>${groupedHTML(turns, { showOwner: false })}</div>`;
+}
+function openSchedFor(name) {
+  fillNameSelect($("schedName"), "— اختر الاسم —", name);
+  showSection("sched"); renderSched();
+}
+$("schedName").onchange = renderSched;
+$("schedChips").onclick = e => {
+  const c = e.target.closest(".chip"); if (!c) return;
+  schedRange = c.dataset.r;
+  document.querySelectorAll("#schedChips .chip").forEach(x => x.classList.toggle("on", x === c));
+  renderSched();
+};
+$("schedWa").onclick = () => { const { name, turns } = schedTurns(); shareWa(turnsText(`💧 مواعيد ${name} — فلج بطين`, turns, false)); };
+$("schedCopy").onclick = () => { const { name, turns } = schedTurns(); copyText(turnsText(`💧 مواعيد ${name} — فلج بطين`, turns, false)); };
+
+// ================== الجدول ==================
+let tblRange = "today";
+function setTblDates(fromMs, toMs) { $("tblFrom").value = dayKey(fromMs); $("tblTo").value = dayKey(toMs); }
+function tblPeriod() {
+  const now = Date.now(), today = dayStart(now);
+  switch (tblRange) {
+    case "h6": return { from: now, to: now + 6 * H, label: "الساعات الست القادمة" };
+    case "today": return { from: today, to: today + DAY };
+    case "tomorrow": return { from: today + DAY, to: today + 2 * DAY };
+    case "d3": return { from: today, to: today + 3 * DAY };
+    case "d7": return { from: today, to: today + 7 * DAY };
+    case "c1": { const k = slotIndexAt(now); return { from: now, to: slotEnd(k + CYCLE - 1), label: "دورة كاملة" }; }
+    default: {
+      const f = $("tblFrom").value, t = $("tblTo").value;
+      if (!f || !t) return null;
+      const a = dayFromKey(f), b = dayFromKey(t) + DAY;
+      return b > a ? { from: a, to: b } : null;
+    }
+  }
+}
+function tblData() {
+  const p = tblPeriod(); if (!p) return null;
+  const [k0, k1] = slotsForRange(p.from, p.to);
+  const name = $("tblName").value;
+  let turns = k1 >= k0 ? turnsBetween(k0, k1) : [];
+  if (name) turns = turns.filter(t => t.owner === name);
+  const label = p.label || (dayKey(p.from) === dayKey(p.to - 1) ? fDateFull.format(p.from) : `من ${fDateFull.format(p.from)} إلى ${fDateFull.format(p.to - 1)}`);
+  return { ...p, turns, name, label };
+}
+function renderTable() {
+  const d = tblData(), box = $("tblList");
+  if (!d) { box.innerHTML = `<div class="card empty"><i class="far fa-calendar"></i>حدد المدة</div>`; return; }
+  if (!d.turns.length) { box.innerHTML = `<div class="card empty"><i class="far fa-calendar-times"></i>لا توجد حصص في هذه المدة</div>`; return; }
+  box.innerHTML = `<div class="card"><div class="summary">${esc(d.label)}${d.name ? " — " + esc(d.name) : ""} · ${num(d.turns.length)} حصة</div>${groupedHTML(d.turns)}</div>`;
+}
+$("tableChips").onclick = e => {
+  const c = e.target.closest(".chip"); if (!c) return;
+  tblRange = c.dataset.r;
+  document.querySelectorAll("#tableChips .chip").forEach(x => x.classList.toggle("on", x === c));
+  const p = tblPeriod(); if (p) setTblDates(p.from, p.to - 1);
+  renderTable();
+};
+["tblFrom", "tblTo"].forEach(id => $(id).onchange = () => {
+  tblRange = "custom"; document.querySelectorAll("#tableChips .chip").forEach(x => x.classList.remove("on")); renderTable();
+});
+$("tblName").onchange = renderTable;
+function tblTitle(d) { return `💧 جدول البود — فلج بطين\n${d.label}${d.name ? "\n" + d.name : ""}`; }
+$("tblWa").onclick = () => { const d = tblData(); if (d && d.turns.length) shareWa(turnsText(tblTitle(d), d.turns, !d.name)); };
+$("tblCopy").onclick = () => { const d = tblData(); if (d && d.turns.length) copyText(turnsText(tblTitle(d), d.turns, !d.name)); };
+$("tblXls").onclick = () => {
+  const d = tblData(); if (!d || !d.turns.length) return toast("لا توجد بيانات للتحميل", true);
+  const q = v => `"${String(v).replace(/"/g, '""')}"`;
+  const rows = [["التاريخ", "اليوم", "البادة", "من أثر", "إلى أثر", "عدد الآثار", "البداية", "النهاية", "الاسم", "ملاحظة"]];
+  d.turns.forEach(t => rows.push([dayKey(t.start), fWeekdayEn.format(t.start), t.bada, t.a1, t.a2, t.count, hhmm(t.start), hhmm(t.end), t.owner || "غير مسجل", t.hasQaad ? "يتخللها قعد" : ""]));
+  const csv = "﻿" + rows.map(r => r.map(q).join(",")).join("\r\n");
+  saveFile(new Blob([csv], { type: "text/csv;charset=utf-8" }), `falaj-batin-${dayKey(d.from)}.csv`);
+};
+$("tblPdf").onclick = () => {
+  const d = tblData(); if (!d || !d.turns.length) return toast("لا توجد بيانات", true);
+  let rows = "", last = "";
+  d.turns.forEach(t => {
+    const key = dayKey(t.start);
+    if (key !== last) { last = key; rows += `<tr class="dayrow"><td colspan="4">${fDay.format(t.start)}</td></tr>`; }
+    rows += `<tr><td>${fTime.format(t.start)} – ${endText(t)}</td><td>${esc(t.bada)}</td><td>${athText(t)}</td><td>${esc(t.owner || "غير مسجل")}${t.hasQaad ? " (يتخللها قعد)" : ""}</td></tr>`;
+  });
+  $("print-area").innerHTML = `<h2>جدول البود — فلج بطين</h2><p>${esc(d.label)}${d.name ? " — " + esc(d.name) : ""}</p>
+    <table dir="rtl"><thead><tr><th>الوقت</th><th>البادة</th><th>الآثار</th><th>الاسم</th></tr></thead><tbody>${rows}</tbody></table>`;
+  setTimeout(() => window.print(), 50);
+};
+async function saveFile(blob, filename) {
+  try {
+    const file = new File([blob], filename, { type: blob.type });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: filename }); return; }
+  } catch (e) { if (e && e.name === "AbortError") return; }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = filename;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+function shareWa(text) {
+  if (text.length > 3500) { copyText(text); toast("القائمة طويلة، تم نسخها — الصقها في واتساب أو حمّل PDF"); return; }
+  window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
+}
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); toast("✅ تم النسخ"); }
+  catch (e) {
+    const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); toast("✅ تم النسخ"); } catch (_) { toast("تعذر النسخ", true); } ta.remove();
   }
 }
 
-// ===== بداية الدورة =====
-function updateRefDisplay() {
-  const el = document.getElementById("current-ref-display");
-  if (!el) return;
-  el.textContent = REFERENCE_START.toLocaleString("ar-EG", {
-    weekday:"long", year:"numeric", month:"long", day:"numeric",
-    hour:"2-digit", minute:"2-digit", hour12:true
-  });
+// ================== تواصل ==================
+function phoneDigits(p) {
+  let d = String(p || "").replace(/[^\d]/g, "");
+  if (d.startsWith("00")) d = d.slice(2);
+  if (d.length === 8) d = "968" + d;
+  return d;
+}
+function renderContact() {
+  const name = CONFIG.agentName || "", phone = CONFIG.agentPhone || "", d = phoneDigits(phone);
+  if (!name && !phone) {
+    $("agentCard").innerHTML = `<div class="empty"><i class="fas fa-address-card"></i>لم تُضف بيانات وكيل الفلج بعد</div>`; return;
+  }
+  $("agentCard").innerHTML = `
+    <div class="agent"><div class="avatar">${esc(initial(name))}</div><div><div class="agent-role">وكيل فلج بطين</div><div class="agent-name">${esc(name || "—")}</div></div></div>
+    ${phone ? `<div class="phone-box"><button class="icon-btn" id="copyPhone" aria-label="نسخ"><i class="far fa-copy"></i></button><span>${esc(phone)}</span></div>
+    <div class="btn-row">
+      <a class="btn" href="tel:+${d}"><i class="fas fa-phone-alt"></i> اتصال</a>
+      <a class="btn wa" href="https://wa.me/${d}" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> واتساب</a>
+    </div>` : ""}`;
+  if (phone) $("copyPhone").onclick = () => copyText(phone);
 }
 
-// ===== Toast =====
-function showToast(msg, isError = false) {
-  const container = document.getElementById("toast-container");
-  const toast = document.createElement("div");
-  toast.className = "toast " + (isError ? "error" : "success");
-  toast.textContent = msg;
-  container.appendChild(toast);
-  setTimeout(() => toast.remove(), 3200);
+// ================== التنقل ==================
+let currentSec = "home";
+function showSection(sec) {
+  currentSec = sec;
+  document.querySelectorAll(".section").forEach(s => s.classList.toggle("active", s.id === "sec-" + sec));
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.sec === sec));
+  if (sec === "sched") renderSched();
+  if (sec === "table") renderTable();
+  if (sec === "admin") renderAdmin();
+  if (sec === "about") renderAbout();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+document.querySelectorAll(".nav-btn").forEach(b => b.onclick = () => showSection(b.dataset.sec));
+function openSheet(id) { $(id).classList.add("open"); }
+function closeSheets() { document.querySelectorAll(".sheet-bg").forEach(s => s.classList.remove("open")); }
+document.querySelectorAll(".sheet-bg").forEach(bg => bg.addEventListener("click", e => {
+  if (e.target === bg || e.target.closest("[data-close]")) closeSheets();
+}));
+document.addEventListener("click", e => {
+  const r = e.target.closest("[data-k1]");
+  if (r && !e.target.closest(".sheet")) openTurn(+r.dataset.k1, +r.dataset.k2);
+});
+$("infoBtn").onclick = () => openSheet("infoSheet");
+$("adminBtn").onclick = () => isAdmin ? showSection("admin") : openAdminLogin();
+
+function renderAll() {
+  if ($("app").classList.contains("hidden")) return;
+  renderHeader(); renderHome(); renderContact(); renderInstall();
+  if (currentSec === "about") renderAbout();
+  fillNameSelect($("schedName"), "— اختر الاسم —");
+  fillNameSelect($("tblName"), "كل الأسماء");
+  if (currentSec === "sched") renderSched();
+  if (currentSec === "table") renderTable();
+  if (currentSec === "admin") renderAdmin();
 }
 
-// ===== بناء قائمة الأسماء للبحث =====
-function buildSearchOwners() {
-  const sel = document.getElementById("searchOwner");
-  const names = new Set();
-  Object.values(OWNERS).forEach(bada => {
-    Object.values(bada).forEach(name => { if (name) names.add(name); });
-  });
-  sel.innerHTML = '<option value="">— اختر الاسم —</option>';
-  [...names].sort().forEach(n => sel.add(new Option(n, n)));
+// ================== الدخول والبيانات ==================
+let unsubs = [], dataReady = false, joining = false, isAdmin = false, triedSaved = false;
+function stopData() { unsubs.forEach(u => u()); unsubs = []; }
+function showGate(msg) {
+  $("gate").classList.remove("hidden"); $("app").classList.add("hidden");
+  $("gateLoading").classList.add("hidden"); $("gateForm").classList.remove("hidden"); $("gateAdmin").classList.remove("hidden");
+  $("gateMsg").textContent = msg || "";
 }
-
-// ===== الحدث الرئيسي =====
-window.onload = () => {
-  // Firebase Listeners
-  db.collection("settings").doc("auth").onSnapshot(doc => {
-    if (doc.exists) {
-      currentCloudPass = doc.data().pass;
-      // قراءة بداية الدورة إن وُجدت
-      if (doc.data().referenceStart) {
-        REFERENCE_START = new Date(doc.data().referenceStart);
-      } else {
-        REFERENCE_START = new Date(DEFAULT_REFERENCE);
-      }
-      updateRefDisplay();
-      updateStatusCard();
-    }
-  });
-  
-  db.collection("owners").onSnapshot(snap => {
-    OWNERS = {};
-    snap.forEach(doc => { OWNERS[doc.id] = doc.data(); });
-    updateStatusCard();
-    buildSearchOwners();
-    // تحديث شبكة الآثار إن كانت بادة مختارة
-    if (selectedAdminBada) selectAdminBada(selectedAdminBada);
-  });
-  
-  // التحديث الدوري للحالة
-  updateStatusCard();
-  updateClock();
-  setInterval(updateClock, 1000);
-  setInterval(updateStatusCard, 30000);
-  
-  // تهيئة الإدارة
-  renderAdminBadas();
-
-  // زر حفظ بداية الدورة
-  document.getElementById("saveReferenceBtn").onclick = () => {
-    const val = document.getElementById("new-reference-input").value;
-    if (!val) { showToast("يرجى تحديد التاريخ والوقت", true); return; }
-    const newRef = new Date(val);
-    if (isNaN(newRef.getTime())) { showToast("تاريخ غير صحيح", true); return; }
-    db.collection("settings").doc("auth").set(
-      { referenceStart: newRef.toISOString() },
-      { merge: true }
-    ).then(() => {
-      showToast("✅ تم تفعيل بداية الدورة الجديدة");
-      document.getElementById("new-reference-input").value = "";
-    }).catch(err => showToast("❌ فشل الحفظ: " + err.message, true));
-  };
-  
-  // ===== أحداث التنقل =====
-  document.querySelectorAll(".nav-btn").forEach(btn => {
-    btn.onclick = () => {
-      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-      document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-      btn.classList.add("active");
-      document.getElementById(btn.dataset.target).classList.add("active");
-      if (btn.dataset.target === "calendar-section") renderCalendar();
-    };
-  });
-  
-  // ===== البحث =====
-  document.getElementById("searchBtn").onclick = () => {
-    const name = document.getElementById("searchOwner").value;
-    if (!name) { showToast("⚠️ اختر اسماً أولاً", true); return; }
-    const days = parseInt(document.getElementById("searchRange").value);
-    document.getElementById("searchResult").innerHTML = `<div class="loading-spinner"><div class="spinner"></div><span>جارٍ البحث...</span></div>`;
-    setTimeout(() => {
-      const results = searchOwnerSchedule(name, days);
-      renderSearchResults(results, name);
-    }, 100);
-  };
-  
-  // ===== دخول الإدارة =====
-  document.getElementById("loginBtn").onclick = () => {
-    const pass = document.getElementById("admin-password").value;
-    if (pass === currentCloudPass) {
-      document.getElementById("admin-login").style.display = "none";
-      document.getElementById("admin-panel").style.display = "block";
-    } else {
-      document.getElementById("login-msg").style.display = "block";
-      document.getElementById("admin-password").style.borderColor = "var(--danger)";
-      setTimeout(() => {
-        document.getElementById("login-msg").style.display = "none";
-        document.getElementById("admin-password").style.borderColor = "var(--border)";
-      }, 2500);
-    }
-  };
-  
-  // Enter للدخول
-  document.getElementById("admin-password").onkeydown = (e) => {
-    if (e.key === "Enter") document.getElementById("loginBtn").click();
-  };
-  
-  // إظهار/إخفاء كلمة المرور
-  document.getElementById("passToggle").onclick = () => {
-    const inp = document.getElementById("admin-password");
-    const icon = document.querySelector("#passToggle i");
-    if (inp.type === "password") { inp.type = "text"; icon.className = "fas fa-eye-slash"; }
-    else { inp.type = "password"; icon.className = "fas fa-eye"; }
-  };
-  document.getElementById("passToggle2").onclick = () => {
-    const inp = document.getElementById("new-password-input");
-    const icon = document.querySelector("#passToggle2 i");
-    if (inp.type === "password") { inp.type = "text"; icon.className = "fas fa-eye-slash"; }
-    else { inp.type = "password"; icon.className = "fas fa-eye"; }
-  };
-  
-  // ===== حفظ التعديل =====
-  document.getElementById("saveOwnerBtn").onclick = () => {
-    if (!selectedAdminBada) return showToast("اختر البادة أولاً", true);
-    if (!selectedAdminAthar) return showToast("اختر رقم الأثر أولاً", true);
-    const owner = document.getElementById("admin-owner").value.trim();
-    if (!owner) return showToast("أدخل اسم المستفيد", true);
-    
-    db.collection("owners").doc(selectedAdminBada)
-      .set({ [selectedAdminAthar]: owner }, { merge: true })
-      .then(() => {
-        showToast("✅ تم حفظ التعديل بنجاح");
-        document.getElementById("admin-owner").value = "";
-        updateCurrentOwnerDisplay();
-      })
-      .catch(() => showToast("❌ خطأ في الحفظ", true));
-  };
-  
-  // ===== تحديث كلمة المرور =====
-  document.getElementById("updatePassBtn").onclick = () => {
-    const newPass = document.getElementById("new-password-input").value.trim();
-    if (newPass.length < 4) return showToast("الرمز يجب أن يكون 4 أحرف على الأقل", true);
-    db.collection("settings").doc("auth").set({ pass: newPass })
-      .then(() => {
-        showToast("✅ تم تحديث رمز الدخول");
-        document.getElementById("new-password-input").value = "";
-        currentCloudPass = newPass;
-      })
-      .catch(() => showToast("❌ خطأ في التحديث", true));
-  };
-  
-  // ===== الخروج =====
-  document.getElementById("logoutBtn").onclick = () => {
-    document.getElementById("admin-panel").style.display = "none";
-    document.getElementById("admin-login").style.display = "block";
-    document.getElementById("admin-password").value = "";
-    selectedAdminBada = null;
-    selectedAdminAthar = null;
-  };
-  
-  // ===== مودال المعلومات =====
-  document.getElementById("infoBtn").onclick = () => {
-    document.getElementById("infoModal").classList.add("open");
-  };
-  document.getElementById("closeModal").onclick = () => {
-    document.getElementById("infoModal").classList.remove("open");
-  };
-  document.getElementById("infoModal").onclick = (e) => {
-    if (e.target === e.currentTarget) e.currentTarget.classList.remove("open");
-  };
+function showApp() {
+  $("gate").classList.add("hidden"); $("app").classList.remove("hidden");
+  $("adminBtn").classList.toggle("admin-on", isAdmin);
+  renderAll();
+}
+function startData() {
+  stopData(); dataReady = false;
+  unsubs.push(db.collection("settings").doc("config").onSnapshot(doc => {
+    CONFIG = doc.exists ? doc.data() : {};
+    setReference(CONFIG.referenceStart ? Date.parse(CONFIG.referenceStart) : DEFAULT_REF);
+    if (!dataReady) { dataReady = true; triedSaved = false; showApp(); } else renderAll();
+  }, onDataError));
+  unsubs.push(db.collection("owners").onSnapshot(snap => {
+    OWNERS = {}; snap.forEach(d => { OWNERS[d.id] = d.data(); });
+    renderAll();
+  }, onDataError));
+}
+function onDataError(err) {
+  if (err.code !== "permission-denied") { console.error(err); return; }
+  const wasReady = dataReady; stopData(); dataReady = false;
+  if (joining) return;
+  const u = auth.currentUser, saved = store.get(K_CODE);
+  if (u && u.isAnonymous && saved && !triedSaved) { triedSaved = true; joinWithCode(saved, true); return; }
+  showGate(wasReady || saved ? "تم تغيير رمز الدخول، اطلبه من وكيل الفلج" : "");
+}
+async function joinWithCode(code, silent) {
+  joining = true; $("gateBtn").disabled = true;
+  try {
+    if (!auth.currentUser) await auth.signInAnonymously();
+    await db.collection("members").doc(auth.currentUser.uid).set({ code, at: FV.serverTimestamp() });
+    store.set(K_CODE, code); joining = false; startData();
+  } catch (e) {
+    joining = false;
+    if (e.code === "permission-denied") { store.del(K_CODE); showGate(silent ? "تم تغيير رمز الدخول، اطلبه من وكيل الفلج" : "الرمز غير صحيح"); }
+    else if (e.code === "auth/operation-not-allowed" || e.code === "auth/admin-restricted-operation") showGate("الدخول غير مفعّل بعد في إعدادات Firebase");
+    else showGate("تعذر الاتصال، تحقق من الإنترنت ثم أعد المحاولة");
+  } finally { $("gateBtn").disabled = false; }
+}
+$("gateBtn").onclick = () => {
+  const code = $("gateCode").value.trim();
+  if (!code) { $("gateMsg").textContent = "أدخل رمز الدخول"; return; }
+  $("gateMsg").textContent = ""; joinWithCode(code, false);
 };
-</script>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("sw.js")
-      .then(() => console.log("✅ Service Worker Registered"))
-      .catch((err) => console.log("❌ SW Error:", err));
-  });
-}
+$("gateCode").onkeydown = e => { if (e.key === "Enter") $("gateBtn").click(); };
+$("gateAdmin").onclick = openAdminLogin;
 
-</script>
-<script>
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-
-  // ممكن تضيف زر في التطبيق وتربطه هنا
-  console.log("✅ التطبيق جاهز للتثبيت");
+auth.onAuthStateChanged(user => {
+  isAdmin = false;
+  if (!user) {
+    stopData();
+    const saved = store.get(K_CODE);
+    if (saved && !joining) joinWithCode(saved, true); else if (!joining) showGate("");
+    return;
+  }
+  if (!user.isAnonymous) {
+    db.collection("secrets").doc("view").get()
+      .then(s => { isAdmin = true; adminCode = s.exists ? s.data().code : ""; $("adminBtn").classList.add("admin-on"); })
+      .catch(() => {});
+  }
+  if (!joining) startData();
 });
 
-function installApp() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(choice => {
-      if (choice.outcome === 'accepted') {
-        console.log("تم التثبيت ✅");
-      }
-      deferredPrompt = null;
-    });
+// ================== الإدارة ==================
+let adminCode = "", admBada = null, admSel = new Set();
+function openAdminLogin() { $("admLoginMsg").textContent = ""; openSheet("adminSheet"); }
+$("admLoginBtn").onclick = async () => {
+  const email = $("admEmail").value.trim(), pass = $("admPass").value;
+  if (!email || !pass) { $("admLoginMsg").textContent = "أدخل البريد وكلمة المرور"; return; }
+  $("admLoginBtn").disabled = true; $("admLoginMsg").textContent = "";
+  try { await auth.signInWithEmailAndPassword(email, pass); }
+  catch (e) { $("admLoginBtn").disabled = false; $("admLoginMsg").textContent = "البريد أو كلمة المرور غير صحيحة"; return; }
+  try {
+    const s = await db.collection("secrets").doc("view").get();
+    isAdmin = true; adminCode = s.exists ? s.data().code : "";
+  } catch (e) {
+    $("admLoginBtn").disabled = false; $("admLoginMsg").textContent = "هذا الحساب ليس حساب مشرف"; await auth.signOut(); return;
   }
+  await migrateOld();
+  $("admLoginBtn").disabled = false; $("admPass").value = ""; closeSheets();
+  const wait = setInterval(() => { if (dataReady) { clearInterval(wait); showSection("admin"); } }, 100);
+  setTimeout(() => clearInterval(wait), 8000);
+};
+// نقل بداية الدورة من المستند القديم settings/auth (مرة واحدة)
+async function migrateOld() {
+  try {
+    const cfg = await db.collection("settings").doc("config").get();
+    if (cfg.exists && cfg.data().referenceStart) return;
+    const old = await db.collection("settings").doc("auth").get();
+    if (old.exists && old.data().referenceStart) {
+      await db.collection("settings").doc("config").set({ referenceStart: old.data().referenceStart }, { merge: true });
+      toast("تم نقل بداية الدورة من الإعدادات القديمة");
+    }
+  } catch (e) { console.warn(e); }
+}
+function omanInputValue(ms) { return omanDate(ms).toISOString().slice(0, 16); }
+function renderAdmin() {
+  if (!isAdmin) { showSection("home"); return; }
+  $("adminWho").textContent = "مسجل كمشرف: " + (auth.currentUser?.email || "");
+  $("admCurCode").textContent = adminCode || "لم يُحدد بعد — حدده ليتمكن الأهالي من الدخول";
+  $("admCurRef").textContent = fRef.format(REF);
+  if (!$("admRef").value) $("admRef").value = omanInputValue(REF);
+  if (document.activeElement !== $("admAgentName")) $("admAgentName").value = CONFIG.agentName || "";
+  if (document.activeElement !== $("admAgentPhone")) $("admAgentPhone").value = CONFIG.agentPhone || "";
+  if (document.activeElement !== $("admAbout")) $("admAbout").value = CONFIG.about || "";
+  $("namesList").innerHTML = allNames().map(n => `<option value="${esc(n)}">`).join("");
+  $("admBadas").innerHTML = BADAS.map(b => `<button class="bada-chip ${b.name === admBada ? "on" : ""}" data-bada="${esc(b.name)}">${esc(b.name)}</button>`).join("");
+  renderAdmGrid();
+}
+function admOwners() { return OWNERS[admBada] || {}; }
+function renderAdmGrid() {
+  const grid = $("admGrid");
+  if (!admBada) { grid.innerHTML = `<p class="note" style="grid-column:1/-1;margin:0">اختر بادة أولاً</p>`; renderSelInfo(); return; }
+  const b = BADAS.find(x => x.name === admBada), o = admOwners();
+  let h = "";
+  for (let a = 1; a <= b.athars; a++) {
+    const n = typeof o[a] === "string" ? o[a].trim() : "";
+    h += `<button class="athar-chip ${n ? "has" : ""} ${admSel.has(a) ? "sel" : ""}" data-a="${a}" title="${esc(n)}">${a}</button>`;
+  }
+  grid.innerHTML = h; renderSelInfo();
+}
+function renderSelInfo() {
+  const el = $("admSelInfo");
+  if (!admBada || !admSel.size) { el.textContent = "لم يتم تحديد أي أثر"; return; }
+  const o = admOwners(), list = [...admSel].sort((a, b) => a - b);
+  const names = [...new Set(list.map(a => (o[a] || "").trim() || "غير مسجل"))];
+  el.innerHTML = list.length === 1
+    ? `بادة <b>${esc(admBada)}</b> · الأثر <b>${list[0]}</b><br>الاسم الحالي: <b>${esc(names[0])}</b>`
+    : `بادة <b>${esc(admBada)}</b> · تم تحديد <b>${list.length}</b> أثر (${list[0]}–${list[list.length - 1]})<br>الأسماء الحالية: <b>${names.map(esc).join("، ")}</b>`;
+  if (list.length === 1 && o[list[0]]) $("admName").value = o[list[0]];
+}
+$("admBadas").onclick = e => {
+  const c = e.target.closest(".bada-chip"); if (!c) return;
+  admBada = c.dataset.bada; admSel.clear();
+  document.querySelectorAll("#admBadas .bada-chip").forEach(x => x.classList.toggle("on", x === c));
+  renderAdmGrid();
+};
+$("admGrid").onclick = e => {
+  const c = e.target.closest(".athar-chip"); if (!c) return;
+  const a = +c.dataset.a; admSel.has(a) ? admSel.delete(a) : admSel.add(a);
+  c.classList.toggle("sel", admSel.has(a)); renderSelInfo();
+};
+$("admRangeBtn").onclick = () => {
+  if (!admBada) return toast("اختر البادة أولاً", true);
+  const max = BADAS.find(x => x.name === admBada).athars;
+  const f = +$("admFrom").value, t = +$("admTo").value;
+  if (!f || !t || f > t || f < 1 || t > max) return toast(`أدخل مدى صحيحاً بين ١ و ${num(max)}`, true);
+  for (let a = f; a <= t; a++) admSel.add(a);
+  renderAdmGrid();
+};
+$("admSelAll").onclick = () => { if (!admBada) return; const max = BADAS.find(x => x.name === admBada).athars; for (let a = 1; a <= max; a++) admSel.add(a); renderAdmGrid(); };
+$("admSelNone").onclick = () => { admSel.clear(); renderAdmGrid(); };
+$("admSave").onclick = () => {
+  if (!admBada) return toast("اختر البادة أولاً", true);
+  if (!admSel.size) return toast("حدد أثراً واحداً على الأقل", true);
+  const name = $("admName").value.trim().replace(/\s+/g, " ");
+  if (!name) return toast("اكتب الاسم", true);
+  const upd = {}; admSel.forEach(a => { upd[a] = name; });
+  db.collection("owners").doc(admBada).set(upd, { merge: true })
+    .then(() => { toast(`✅ تم حفظ الاسم لـ ${num(admSel.size)} أثر`); admSel.clear(); $("admName").value = ""; renderAdmGrid(); })
+    .catch(() => toast("❌ تعذر الحفظ", true));
+};
+$("admClear").onclick = () => {
+  if (!admBada || !admSel.size) return toast("حدد الآثار أولاً", true);
+  if (!confirm(`مسح الاسم من ${admSel.size} أثر في بادة ${admBada}؟`)) return;
+  const upd = {}; admSel.forEach(a => { upd[a] = FV.delete(); });
+  db.collection("owners").doc(admBada).set(upd, { merge: true })
+    .then(() => { toast("✅ تم المسح"); admSel.clear(); renderAdmGrid(); })
+    .catch(() => toast("❌ تعذر المسح", true));
+};
+$("admSaveCode").onclick = () => {
+  const code = $("admNewCode").value.trim();
+  if (code.length < 6) return toast("الرمز يجب أن يكون ٦ أحرف على الأقل", true);
+  db.collection("secrets").doc("view").set({ code })
+    .then(() => { adminCode = code; store.set(K_CODE, code); $("admNewCode").value = ""; toast("✅ تم حفظ الرمز الجديد"); renderAdmin(); })
+    .catch(() => toast("❌ تعذر الحفظ", true));
+};
+$("admSaveRef").onclick = () => {
+  const v = $("admRef").value; if (!v) return toast("حدد التاريخ والوقت", true);
+  const m = v.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/); if (!m) return toast("تاريخ غير صحيح", true);
+  const ms = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]) - OMAN;
+  if (isQaadAt(ms)) return toast("هذا الوقت يقع في القعد — اختر وقت جريان", true);
+  if (!confirm("تغيير بداية الدورة يغيّر كل المواعيد. متابعة؟")) return;
+  db.collection("settings").doc("config").set({ referenceStart: new Date(ms).toISOString() }, { merge: true })
+    .then(() => toast("✅ تم حفظ بداية الدورة"))
+    .catch(() => toast("❌ تعذر الحفظ", true));
+};
+$("admSaveAbout").onclick = () => {
+  db.collection("settings").doc("config").set({ about: $("admAbout").value.trim() }, { merge: true })
+    .then(() => toast("✅ تم حفظ النبذة"))
+    .catch(() => toast("❌ تعذر الحفظ", true));
+};
+$("admSaveAgent").onclick = () => {
+  db.collection("settings").doc("config").set({ agentName: $("admAgentName").value.trim(), agentPhone: $("admAgentPhone").value.trim() }, { merge: true })
+    .then(() => toast("✅ تم حفظ بيانات الوكيل"))
+    .catch(() => toast("❌ تعذر الحفظ", true));
+};
+$("admSavePass").onclick = () => {
+  const p = $("admNewPass").value; if (p.length < 8) return toast("كلمة المرور ٨ أحرف على الأقل", true);
+  auth.currentUser.updatePassword(p)
+    .then(() => { $("admNewPass").value = ""; toast("✅ تم تغيير كلمة المرور"); })
+    .catch(e => toast(e.code === "auth/requires-recent-login" ? "سجّل خروج ثم دخول وأعد المحاولة" : "❌ تعذر التغيير", true));
+};
+$("admLogout").onclick = () => { isAdmin = false; adminCode = ""; $("adminBtn").classList.remove("admin-on"); showSection("home"); auth.signOut(); };
+$("adminClose").onclick = () => showSection("home");
+
+// ================== التحديث الدوري ==================
+setInterval(() => { if (!$("app").classList.contains("hidden")) renderHeader(); }, 1000);
+setInterval(() => { if (!$("app").classList.contains("hidden")) renderHome(); }, 20000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) renderAll(); });
+(() => { const p = { from: dayStart(Date.now()), to: dayStart(Date.now()) + DAY }; setTblDates(p.from, p.to - 1); })();
+
+// ================== عن الفلج ==================
+function renderAbout() {
+  const now = Date.now(), k = slotIndexAt(now), c = mod(k, CYCLE);
+  const flowHours = BADAS.reduce((s, b) => s + b.hours, 0);
+  const cycleDays = Math.round(flowHours / (FLOW_WEEK / H) * 7);
+  $("aboutStats").innerHTML = [
+    ["fa-water", num(BADAS.length), "عدد البادات"],
+    ["fa-hashtag", num(CYCLE), "عدد الآثار في الدورة"],
+    ["fa-hourglass-half", num(30) + " دقيقة", "مدة الأثر"],
+    ["fa-users", num(allNames().length), "عدد المستفيدين"]
+  ].map(([i, v, l]) => `<div class="stat"><i class="fas ${i}"></i><b>${v}</b><span>${l}</span></div>`).join("");
+  const cStart = slotStart(k - c), cEnd = slotEnd(k - c + CYCLE - 1), nStart = slotStart(k - c + CYCLE);
+  $("aboutCycle").innerHTML = `
+    <div class="info-line"><i class="far fa-clock"></i> ${num(flowHours)} ساعة جريان، أي حوالي ${num(cycleDays)} يوماً مع أيام القعد</div>
+    <div class="info-line"><i class="fas fa-play"></i> بدأت الدورة الحالية: ${fDay.format(cStart)} ${fTime.format(cStart)}</div>
+    <div class="info-line"><i class="fas fa-flag-checkered"></i> تنتهي: ${fDay.format(cEnd)} ${fTime.format(cEnd)}</div>
+    <div class="info-line"><i class="fas fa-redo"></i> الدورة القادمة: ${fDay.format(nStart)} ${fTime.format(nStart)}</div>
+    <div class="card-sub" style="margin:8px 0 0">لأن الدورة لا تساوي عدداً كاملاً من الأيام، تتغير أوقات كل بادة من دورة لأخرى؛ فالبادة التي تبدأ صباحاً قد تبدأ مساءً في الدورة التالية. التطبيق يحسب ذلك تلقائياً.</div>`;
+  const curIdx = SLOTS[c].b; let kk = k - c, rows = "";
+  BADAS.forEach((b, i) => {
+    const st = slotStart(kk);
+    rows += `<div class="order-row ${i === curIdx ? "cur" : ""}"><span class="n">${num(i + 1)}</span><span class="nm">بادة ${esc(b.name)}<br><small style="color:var(--muted);font-weight:600">${num(b.hours)} ساعة · ${num(b.athars)} أثر</small></span><span class="tm">${fDayShort.format(st)}<br>${fTime.format(st)}</span></div>`;
+    kk += b.athars;
+  });
+  $("aboutOrder").innerHTML = rows;
+  const about = (CONFIG.about || "").trim();
+  $("aboutText").innerHTML = about ? esc(about) : `<span style="color:var(--muted)">لم تُضف نبذة عن الفلج بعد.</span>`;
+}
+$("aboutInstall").onclick = () => openInstall();
+
+// ================== عرض الحصة على الوكيل ==================
+let offerTurns = [];
+function openOffer(me) {
+  const now = Date.now(); offerTurns = [];
+  let t = turnAt(slotIndexAt(now));
+  const lim = t.k1 + CYCLE * 2;
+  while (offerTurns.length < 6 && t.k1 <= lim) { if (t.owner === me && t.end > now) offerTurns.push(t); t = turnAt(t.k2 + 1); }
+  if (!offerTurns.length) return toast("لا توجد مواعيد قادمة", true);
+  $("offTurn").innerHTML = offerTurns.map((t, i) => `<option value="${i}">${fDay.format(t.start)} — ${fTime.format(t.start)} (بادة ${esc(t.bada)})</option>`).join("");
+  $("offNote").value = "";
+  $("offNoAgent").classList.toggle("hidden", !!phoneDigits(CONFIG.agentPhone));
+  $("offSend").disabled = !phoneDigits(CONFIG.agentPhone);
+  openSheet("offerSheet");
+}
+$("offSend").onclick = () => {
+  const d = phoneDigits(CONFIG.agentPhone); if (!d) return;
+  const t = offerTurns[+$("offTurn").value], me = store.get(K_ME), note = $("offNote").value.trim();
+  const msg = `السلام عليكم ورحمة الله\nأنا: ${me}\nلا أحتاج الماء في حصتي التالية، وأعرضها على من يحتاجها:\n• بادة ${t.bada} — ${athText(t)}\n• ${fDay.format(t.start)} من ${fTime.format(t.start)} إلى ${endText(t)}` + (note ? `\nملاحظة: ${note}` : "") + `\n\n(مرسلة من تطبيق فلج بطين)`;
+  window.open(`https://wa.me/${d}?text=${encodeURIComponent(msg)}`, "_blank");
+  closeSheets();
+};
+
+// ================== ربط التقويم ==================
+const IS_APPLE = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+const icsDate = ms => new Date(ms).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+const icsEsc = s => String(s).replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/,/g, "\\,").replace(/;/g, "\;");
+const calTitle = t => `💧 ماء الفلج — بادة ${t.bada}`;
+const calDetails = t => `${t.owner || ""}\n${athText(t)}${t.hasQaad ? "\nيتخللها وقت قعد" : ""}\nفلج بطين`;
+function buildICS(turns) {
+  const L = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Falaj Batin//AR", "CALSCALE:GREGORIAN", "METHOD:PUBLISH"];
+  turns.forEach(t => L.push("BEGIN:VEVENT", `UID:${t.k1}-${t.k2}-${REF}@falaj-batin`, "DTSTAMP:" + icsDate(Date.now()),
+    "DTSTART:" + icsDate(t.start), "DTEND:" + icsDate(t.end), "SUMMARY:" + icsEsc(calTitle(t)), "DESCRIPTION:" + icsEsc(calDetails(t)),
+    "BEGIN:VALARM", "TRIGGER:-PT30M", "ACTION:DISPLAY", "DESCRIPTION:" + icsEsc("موعد الماء بعد ٣٠ دقيقة"), "END:VALARM", "END:VEVENT"));
+  L.push("END:VCALENDAR");
+  return L.join("\r\n");
+}
+function googleCalUrl(t) {
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(calTitle(t)) +
+    "&dates=" + icsDate(t.start) + "/" + icsDate(t.end) + "&details=" + encodeURIComponent(calDetails(t));
+}
+function downloadICS(turns) {
+  const url = URL.createObjectURL(new Blob([buildICS(turns)], { type: "text/calendar;charset=utf-8" }));
+  const a = document.createElement("a"); a.href = url;
+  if (!IS_APPLE) a.download = "falaj-batin.ics";
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 2000);
+}
+function addTurnsToCalendar(turns) {
+  if (!turns.length) return;
+  if (turns.length === 1 && !IS_APPLE) window.open(googleCalUrl(turns[0]), "_blank");
+  else downloadICS(turns);
+}
+let calTurns = [];
+function openCalFor(name) {
+  const now = Date.now(); calTurns = [];
+  let t = turnAt(slotIndexAt(now)); const lim = t.k1 + CYCLE * 2;
+  while (t.k1 <= lim && calTurns.length < 30) { if (t.owner === name && t.end > now) calTurns.push(t); t = turnAt(t.k2 + 1); }
+  if (!calTurns.length) return toast("لا توجد مواعيد قادمة", true);
+  $("calTitle").textContent = "ربط التقويم — " + name;
+  $("calHint").textContent = IS_APPLE
+    ? "اضغط «أضف» بجانب أي موعد، أو أضف كل المواعيد مرة واحدة. يُضاف تنبيه قبل كل موعد بنصف ساعة."
+    : "اضغط «أضف» بجانب أي موعد فيفتح تقويم جوجل والبيانات جاهزة. في أندرويد يحتاج ذلك تطبيق تقويم جوجل.";
+  $("calAll").innerHTML = IS_APPLE ? '<i class="far fa-calendar-plus"></i> إضافة كل المواعيد مرة واحدة' : '<i class="fas fa-download"></i> تحميل ملف تقويم بكل المواعيد';
+  $("calList").innerHTML = calTurns.map((t, i) => `
+    <div class="cal-row"><div class="tx">${fDay.format(t.start)}<small>${fTime.format(t.start)} ← ${endText(t)} · بادة ${esc(t.bada)} · ${athText(t)}</small></div>
+    <button class="small-btn" data-cal="${i}"><i class="far fa-calendar-plus"></i> أضف</button></div>`).join("");
+  closeSheets(); openSheet("calSheet");
+}
+$("calList").onclick = e => { const b = e.target.closest("[data-cal]"); if (b) addTurnsToCalendar([calTurns[+b.dataset.cal]]); };
+$("calAll").onclick = () => downloadICS(calTurns);
+$("schedCal").onclick = () => { const n = $("schedName").value; if (n) openCalFor(n); };
+
+// ================== تثبيت التطبيق ==================
+let deferredPrompt = null;
+const isStandalone = () => window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredPrompt = e; renderInstall(); });
+window.addEventListener("appinstalled", () => { deferredPrompt = null; store.set("falaj_install_hidden", "1"); renderInstall(); });
+function renderInstall() {
+  const hide = isStandalone() || store.get("falaj_install_hidden") === "1";
+  $("installCard").classList.toggle("hidden", hide);
+  $("aboutInstall").classList.toggle("hidden", isStandalone());
+}
+function setInstallOS(os) {
+  document.querySelectorAll("#instSeg button").forEach(b => b.classList.toggle("on", b.dataset.os === os));
+  $("instAndroid").classList.toggle("hidden", os !== "android"); $("instIos").classList.toggle("hidden", os !== "ios");
+}
+function openInstall() {
+  if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.finally(() => { deferredPrompt = null; }); return; }
+  setInstallOS(/iPhone|iPad|iPod/.test(navigator.userAgent) ? "ios" : "android");
+  openSheet("installSheet");
+}
+$("instSeg").onclick = e => { const b = e.target.closest("button"); if (b) setInstallOS(b.dataset.os); };
+$("installBtn").onclick = e => { e.stopPropagation(); openInstall(); };
+$("installHide").onclick = e => { e.stopPropagation(); store.set("falaj_install_hidden", "1"); renderInstall(); };
+
+// ================== Service Worker + شريط التحديث ==================
+if ("serviceWorker" in navigator) {
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => { if (refreshing) return; refreshing = true; location.reload(); });
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").then(reg => {
+      const offer = w => { $("updateBar").classList.remove("hidden"); $("updateBtn").onclick = () => w.postMessage("skipWaiting"); };
+      if (reg.waiting && navigator.serviceWorker.controller) offer(reg.waiting);
+      reg.addEventListener("updatefound", () => {
+        const w = reg.installing;
+        w && w.addEventListener("statechange", () => { if (w.state === "installed" && navigator.serviceWorker.controller) offer(w); });
+      });
+      setInterval(() => reg.update().catch(() => {}), 60 * 60 * 1000);
+      document.addEventListener("visibilitychange", () => { if (!document.hidden) reg.update().catch(() => {}); });
+    }).catch(err => console.log("SW:", err));
+  });
 }
 </script>
 </body>
