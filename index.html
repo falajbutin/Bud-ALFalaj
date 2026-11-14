@@ -42,6 +42,8 @@ button,input,select{font-family:inherit}
 .btn-gold:disabled{opacity:.6}
 .gate-msg{min-height:22px;margin-top:10px;font-size:13px;font-weight:700;color:#ffe0e3}
 .gate-hint{font-size:12px;opacity:.75;font-weight:600}
+.btn-req{width:100%;margin-top:4px;padding:11px;border-radius:14px;border:1.5px solid rgba(255,255,255,.45);background:rgba(37,163,90,.85);color:#fff;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-req:active{transform:scale(.97)}
 .link-btn{background:none;border:none;color:#fff;opacity:.75;font-size:12px;font-weight:700;text-decoration:underline;margin-top:28px;cursor:pointer}
 .gate-spinner{width:34px;height:34px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -266,7 +268,8 @@ textarea.input{min-height:140px;resize:vertical;line-height:1.8}
     <input id="gateCode" type="password" autocomplete="off" placeholder="رمز الدخول">
     <button class="btn-gold" id="gateBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
     <div class="gate-msg" id="gateMsg"></div>
-    <div class="gate-hint">اطلب الرمز من وكيل الفلج</div>
+    <div class="gate-hint" style="margin-bottom:8px">لا تعرف الرمز؟</div>
+    <button class="btn-req" id="gateReq"><i class="fab fa-whatsapp"></i> اطلب الرمز من وكيل الفلج</button>
   </div>
   <button class="link-btn hidden" id="gateAdmin">دخول المشرف</button>
 </div>
@@ -557,6 +560,19 @@ textarea.input{min-height:140px;resize:vertical;line-height:1.8}
   </div>
 </div>
 
+<!-- ===== طلب الرمز من الوكيل ===== -->
+<div class="sheet-bg" id="reqSheet">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head"><h3>طلب رمز الدخول</h3><button class="x-btn" data-close><i class="fas fa-times"></i></button></div>
+    <div class="modal-text" id="reqHint" style="margin-bottom:10px">اكتب اسمك، وستُفتح رسالة واتساب جاهزة إلى وكيل الفلج تطلب فيها الرمز.</div>
+    <div class="field"><label>الاسم الكامل</label><input class="input" id="reqName" placeholder="مثال: سالم بن ناصر العامري"></div>
+    <div class="field"><label>صلتك بالفلج (اختياري)</label><input class="input" id="reqRel" placeholder="مثال: مالك حصة في بادة سيف، أو مستأجر"></div>
+    <div class="warn hidden" id="reqNoAgent">لم يُضف رقم وكيل الفلج في التطبيق بعد. تواصل معه مباشرة.</div>
+    <button class="btn wa" id="reqSend"><i class="fab fa-whatsapp"></i> إرسال الطلب</button>
+  </div>
+</div>
+
 <!-- ===== دخول المشرف ===== -->
 <div class="sheet-bg" id="adminSheet">
   <div class="sheet">
@@ -576,7 +592,7 @@ textarea.input{min-height:140px;resize:vertical;line-height:1.8}
     <div style="text-align:center;margin-bottom:12px">
       <img src="icon-192.png" alt="" style="width:72px;height:72px;border-radius:18px;box-shadow:var(--shadow)">
       <div style="font-size:19px;font-weight:800;margin-top:6px">دوران بود فلج بطين</div>
-      <div style="font-size:12px;color:var(--muted);font-weight:600">الإصدار 2.1</div>
+      <div style="font-size:12px;color:var(--muted);font-weight:600">الإصدار 2.2</div>
     </div>
     <div class="modal-text">تطبيق دوران البود لفلج بطين يسهّل متابعة توزيع مياه الفلج ومعرفة أوقات البود والآثار.</div>
     <div class="modal-text">يعرض لمن الماء الآن، وموعدك القادم، والبادة الحالية، وجدول المواعيد لأي فترة مع إمكانية تحميله ومشاركته.</div>
@@ -1166,6 +1182,28 @@ $("gateBtn").onclick = () => {
 $("gateCode").onkeydown = e => { if (e.key === "Enter") $("gateBtn").click(); };
 $("gateAdmin").onclick = openAdminLogin;
 
+// طلب الرمز: رقم الوكيل محفوظ في public/contact ويمكن قراءته قبل إدخال الرمز
+let reqPhone = "";
+$("gateReq").onclick = async () => {
+  $("gateReq").disabled = true;
+  reqPhone = "";
+  try {
+    const d = await db.collection("public").doc("contact").get();
+    if (d.exists) reqPhone = phoneDigits(d.data().agentPhone);
+  } catch (e) { console.warn(e); }
+  $("gateReq").disabled = false;
+  $("reqNoAgent").classList.toggle("hidden", !!reqPhone);
+  $("reqSend").disabled = !reqPhone;
+  openSheet("reqSheet");
+};
+$("reqSend").onclick = () => {
+  const name = $("reqName").value.trim().replace(/\s+/g, " "), rel = $("reqRel").value.trim();
+  if (!name) return toast("اكتب اسمك", true);
+  const msg = `السلام عليكم ورحمة الله\nأرجو تزويدي برمز الدخول لتطبيق دوران البود - فلج بطين.\nالاسم: ${name}` + (rel ? `\nصلتي بالفلج: ${rel}` : "") + `\n\nوشكراً لكم`;
+  window.open(`https://wa.me/${reqPhone}?text=${encodeURIComponent(msg)}`, "_blank");
+  closeSheets();
+};
+
 auth.onAuthStateChanged(user => {
   isAdmin = false;
   if (!user) {
@@ -1204,6 +1242,15 @@ $("admLoginBtn").onclick = async () => {
 };
 // نقل بداية الدورة من المستند القديم settings/auth (مرة واحدة)
 async function migrateOld() {
+  try {
+    // نسخ بيانات الوكيل إلى المستند العام (لزر طلب الرمز)
+    const pub = await db.collection("public").doc("contact").get();
+    if (!pub.exists) {
+      const c0 = await db.collection("settings").doc("config").get();
+      const d0 = c0.exists ? c0.data() : {};
+      if (d0.agentPhone) await db.collection("public").doc("contact").set({ agentName: d0.agentName || "", agentPhone: d0.agentPhone });
+    }
+  } catch (e) { console.warn(e); }
   try {
     const cfg = await db.collection("settings").doc("config").get();
     if (cfg.exists && cfg.data().referenceStart) return;
@@ -1312,7 +1359,11 @@ $("admSaveAbout").onclick = () => {
     .catch(() => toast("❌ تعذر الحفظ", true));
 };
 $("admSaveAgent").onclick = () => {
-  db.collection("settings").doc("config").set({ agentName: $("admAgentName").value.trim(), agentPhone: $("admAgentPhone").value.trim() }, { merge: true })
+  const agent = { agentName: $("admAgentName").value.trim(), agentPhone: $("admAgentPhone").value.trim() };
+  const batch = db.batch();
+  batch.set(db.collection("settings").doc("config"), agent, { merge: true });
+  batch.set(db.collection("public").doc("contact"), agent);
+  batch.commit()
     .then(() => toast("✅ تم حفظ بيانات الوكيل"))
     .catch(() => toast("❌ تعذر الحفظ", true));
 };
